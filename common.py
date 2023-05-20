@@ -18,9 +18,15 @@ import subprocess
 from decimal import Decimal
 from enum import Enum
 import time
+import configparser
+CFG_FILE ="login.cfg"
 logger = logging.getLogger()
 logging.basicConfig(format='%(asctime)s,%(msecs)d %(levelname)-8s [%(filename)s:%(lineno)d] %(message)s',
      datefmt='%Y-%m-%d:%H:%M:%S', level=logging.INFO)
+#os.environ['UPBIT_OPEN_API_ACCESS_KEY'] = 'AVkrSuvV2ZvfQLDc67jWxlHRTHAD5zWDRH7JsIAC'
+#os.environ['UPBIT_OPEN_API_SECRET_KEY'] = 'FmYDmMJxIukg7m1Hm0PIZNWd5mM8GILleB2WhxWx'
+#access_key = os.environ['UPBIT_OPEN_API_ACCESS_KEY']
+#secret_key = os.environ['UPBIT_OPEN_API_SECRET_KEY']
 
 tblstyle='''
  QHeaderView::section {
@@ -49,6 +55,25 @@ btnstylestr = '''
      }
  QPushButton:checked {color: white; background-color: red;}
  '''
+lineedstylestr = '''
+ QLineEdit{
+        font: 8pt Arial Black;
+        border-width: 2px;
+        border-radius: 5px;
+        font-weight: bold;
+        border-color: beige;
+        color: darkBlue;}
+        
+  '''
+
+labelstylestr = '''
+ QLabel{
+        font: 8pt Arial Black;
+               
+        color: darkRed;
+        
+         }
+  '''
  
 
 UI_FILE = "main.ui"

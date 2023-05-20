@@ -5,23 +5,24 @@ import os
 import uuid
 import jwt
 import json
-
+from common import *
 #기본 변수 설정
-os.environ['UPBIT_OPEN_API_ACCESS_KEY'] = 'AVkrSuvV2ZvfQLDc67jWxlHRTHAD5zWDRH7JsIAC'
-os.environ['UPBIT_OPEN_API_SECRET_KEY'] = 'FmYDmMJxIukg7m1Hm0PIZNWd5mM8GILleB2WhxWx'
-access_key = os.environ['UPBIT_OPEN_API_ACCESS_KEY']
-secret_key = os.environ['UPBIT_OPEN_API_SECRET_KEY']
 server_url = "https://api.upbit.com"
-payload = {
-        'access_key': access_key,
-        'nonce': str(uuid.uuid4()),
-    }
+
 class upbitApi:
     def __init__(self):
-        self.access_key=access_key
-        self.secret_key=secret_key
+        
+        self.config = configparser.ConfigParser()                               
+        self.config.read(CFG_FILE, encoding='utf-8')                            
+        self.access_key=self.config['KeyInfo']['access']         
+        self.secret_key=self.config['KeyInfo']['security']         
+        self.payload = {
+        'access_key': self.access_key,
+        'nonce': str(uuid.uuid4()),
+    }
+        
         self.coins=self.get_coins()
-        self.jwt_token = jwt.encode(payload, self.secret_key)
+        self.jwt_token = jwt.encode(self.payload, self.secret_key)
         self.authorize_token = 'Bearer {}'.format(self.jwt_token)
         self.headers = {"Authorization": self.authorize_token}
 
@@ -49,7 +50,7 @@ class upbitApi:
         m.update(query_string)
         query_hash = m.hexdigest()
 
-        payload = {
+        self.payload = {
             'access_key': self.access_key,
             'nonce': str(uuid.uuid4()),
             'query_hash': query_hash,

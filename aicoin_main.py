@@ -31,7 +31,10 @@ class LoginDlg(QDialog):
         super().__init__(parent)
         ui_file_name = LOGINUI_FILE
         ui_file = QFile(ui_file_name)
-        
+        self.config = configparser.ConfigParser()                               
+        self.config.read(CFG_FILE, encoding='utf-8')                            
+        self.access_key=self.config['KeyInfo']['access']         
+        self.security_key=self.config['KeyInfo']['security'] 
         if not ui_file.open(QIODevice.ReadOnly):
             logging.error("Cannot open {}: {}".format(ui_file_name, ui_file.errorString()))
             sys.exit(-1)
@@ -44,6 +47,8 @@ class LoginDlg(QDialog):
         
         self.ui=window
         self.connected = False
+        self.ui.lineEdit_aes.setText(self.access_key)
+        self.ui.lineEdit_sec.setText(self.security_key)
         self.ui.show()
         
     def closeEvent(self,event):    
@@ -69,7 +74,12 @@ class LoginDlg(QDialog):
             
     def setStyle(self):     
         self.ui.pushButton_exit.setStyleSheet(btnstylestr)                                                   
-        self.ui.pushButton_ok.setStyleSheet(btnstylestr)                                                   
+        self.ui.pushButton_ok.setStyleSheet(btnstylestr)         
+        self.ui.label_aes.setStyleSheet(labelstylestr)                                                   
+        self.ui.label_sec.setStyleSheet(labelstylestr)                                                   
+        self.ui.lineEdit_aes.setStyleSheet(lineedstylestr)                                                   
+        self.ui.lineEdit_sec.setStyleSheet(lineedstylestr)                                                  
+         
         self.ui.pushButton_ok.clicked.connect(lambda x:self.btn_event(self.ui.pushButton_ok))
         self.ui.pushButton_exit.clicked.connect(lambda x:self.btn_event(self.ui.pushButton_exit))
         self.ui.closeEvent = self.closeEvent                                    
