@@ -156,11 +156,15 @@ class MainWindow(QMainWindow):
         self.ui.pushButton_sellall.setStyleSheet(btnstylestr)
         self.ui.pushButton_selllimit.setStyleSheet(btnstylestr)
 
-        self.ui.tableWidget_status.setColumnWidth(0, 180)
-        self.ui.tableWidget_status.setColumnWidth(1, 280)
-        self.ui.tableWidget_status.setColumnWidth(2, 180)
+        self.ui.tableWidget_status.setColumnWidth(0, 100)
+        self.ui.tableWidget_status.setColumnWidth(1, 100)
+        self.ui.tableWidget_status.setColumnWidth(2, 100)
         self.ui.tableWidget_status.setColumnWidth(3, 100)
-        self.ui.treeWidget_coins.header().setSectionResizeMode(0,QHeaderView.ResizeToContents)
+        self.ui.tableWidget_tot.setColumnWidth(0, 100)
+        self.ui.tableWidget_tot.setColumnWidth(1, 60)
+        self.ui.tableWidget_tot.setColumnWidth(2, 100)
+        self.ui.tableWidget_tot.setColumnWidth(3, 60)
+        self.ui.tableWidget_tot.setColumnWidth(4, 60)
         self.ui.treeWidget_coins.itemClicked.connect(lambda x:
                 self.onItemClicked(self.ui.treeWidget_coins,
                 self.ui.treeWidget_coins.currentItem(),
@@ -171,8 +175,6 @@ class MainWindow(QMainWindow):
 #        self.set_tblBalance()
 #        self.set_tbleData()
         self.set_btnevt()
-        self.ui.tableWidget_status.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeToContents)
-        self.ui.tableWidget_tot.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeToContents)
         self.ui.show()
         self.set_updateAllData()
 
@@ -246,6 +248,9 @@ class MainWindow(QMainWindow):
                 self.reflash_market.stop()
         elif obj.objectName()=="pushButton_start":
             logging.info('TBD')
+            ret = self.upbit.GetOrderbook("KRW-BTC")
+            logging.info(ret)
+
         elif obj.objectName()=="pushButton_reflash":
             self.set_tbleData()
             self.set_tblBalance()
@@ -361,6 +366,12 @@ class MainWindow(QMainWindow):
     def set_updateAllData(self):
         QTimer.singleShot(500, self.set_tblBalance)
         QTimer.singleShot(500, self.set_tbleData)
+        #QTimer.singleShot(3000, self.set_tbleReszie)
+
+    def set_tbleReszie(self):
+        self.ui.tableWidget_status.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeToContents)
+        self.ui.tableWidget_tot.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeToContents)
+        self.ui.treeWidget_coins.header().setSectionResizeMode(0,QHeaderView.ResizeToContents)
 
     def set_tbleData(self):
         self.ui.tableWidget_status.setRowCount(len(self.coins))
