@@ -11,16 +11,16 @@ server_url = "https://api.upbit.com"
 
 class upbitApi:
     def __init__(self):
-        
-        self.config = configparser.ConfigParser()                               
-        self.config.read(CFG_FILE, encoding='utf-8')                            
-        self.access_key=self.config['KeyInfo']['access']         
-        self.secret_key=self.config['KeyInfo']['security']         
+
+        self.config = configparser.ConfigParser()
+        self.config.read(CFG_FILE, encoding='utf-8')
+        self.access_key=self.config['KeyInfo']['access']
+        self.secret_key=self.config['KeyInfo']['security']
         self.payload = {
         'access_key': self.access_key,
         'nonce': str(uuid.uuid4()),
     }
-        
+
         self.coins=self.get_coins()
         self.jwt_token = jwt.encode(self.payload, self.secret_key)
         self.authorize_token = 'Bearer {}'.format(self.jwt_token)
@@ -148,20 +148,15 @@ class upbitApi:
         i =0
         vol=""
         ratio=0
+        mprice=0
+        dprice=0
+        mintval= f'minute{min}'
         while(i<2):
             try:
                 dinfo = pyupbit.get_ohlcv(ticker=coin, interval='day', count=2, to=None, period=0)
                 vol = dinfo['volume'].values[1]
-                dprice = dinfo['close'].values[1]
-                break
-            except Exception as e:
-                logging.info('예외가 발생했습니다. %s' %(coins))
-                time.sleep(0.01)
-                i +=1
-                continue
-            i =0
-            try:
-                minfo = pyupbit.get_ohlcv(ticker=coin, interval='minute1', count=1, to=None, period=0)
+                dprice = dinfo['close'].values[0]
+                minfo = pyupbit.get_ohlcv(ticker=coin, interval=mintval, count=1, to=None, period=0)
                 mprice= minfo['close'].values[0]
                 break
             except Exception as e:
@@ -170,7 +165,8 @@ class upbitApi:
                 i +=1
                 continue
         ratio=round((float(mprice)/float(dprice) *100.0)-100.0,2)
-        info="{vol: %s","ratio:%s}"  %(vol,ratio)
+        logging.info(f'makrket: [coin] Now: [{mprice}]  Before: [{dprice}]  Ratio:[{ratio}]')
+        info='{"volume": %s,"ratio":%s}'  %(vol,ratio)
         return info
 
     def min_candle(self,min, coin="KRW-BTC"):

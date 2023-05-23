@@ -6,24 +6,60 @@ from urllib.parse import urlencode
 import json
 from common import *
 from upbitApi import *
+import ast
 
+class reflash_marketproc(QThread):
+    poped = Signal(str)
 
-def main():
-     logging.info("start upbit auto trade")
-     if hasattr(QtCore.Qt, 'AA_EnableHighDpiScaling'):
-         QApplication.setAttribute(QtCore.Qt.AA_EnableHighDpiScaling, True)
-     if hasattr(QtCore.Qt, 'AA_UseHighDpiPixmaps'):
-         QApplication.setAttribute(QtCore.Qt.AA_UseHighDpiPixmaps, True)
-     QtCore.QCoreApplication.setAttribute(QtCore.Qt.AA_ShareOpenGLContexts)
-     app = QApplication(sys.argv)
-     logging.info(QStyleFactory.keys())
-     if 'qtct-styel' in QStyleFactory.keys():
-         app.setStyle("qt5ct-style");
-     else:
-         app.setStyle("Fusion");
-     app.setWindowIcon(QtGui.QIcon('./appico.svg'))
-     ex = MainWindow()
-     sys.exit(app.exec_())
+    def __init__(self,coins):
+        super().__init__()
+        self.working = True
+        self.coins= coins
+        self.row =0
+
+    def run(self):
+        self.row=0
+        for it in self.coins:
+            time.sleep(0.001)
+            if self.working==False:
+               break
+            param=('%s@%s' %(self.row,it))
+            self.poped.emit(param)
+            self.row +=1
+
+        logging.info('done!')
+
+    def stop(self):
+        self.working = False
+        self.quit()
+        self.wait(5000) #5000ms = 5
+
+class reflash_balanceproc(QThread):
+    poped = Signal(str)
+
+    def __init__(self,balance):
+        super().__init__()
+        self.working = True
+        self.balance= balance
+        self.row =0
+
+    def run(self):
+        self.row=0
+        for it in self.balance:
+            time.sleep(0.001)
+            if self.working==False:
+               break
+            param=('%s@%s' %(self.row,it))
+            self.poped.emit(param)
+            self.row +=1
+
+        logging.info('done!')
+
+    def stop(self):
+        self.working = False
+        self.quit()
+        self.wait(5000) #5000ms = 5
+
 
 class LoginDlg(QDialog):
     """login dialog."""
@@ -31,10 +67,10 @@ class LoginDlg(QDialog):
         super().__init__(parent)
         ui_file_name = LOGINUI_FILE
         ui_file = QFile(ui_file_name)
-        self.config = configparser.ConfigParser()                               
-        self.config.read(CFG_FILE, encoding='utf-8')                            
-        self.access_key=self.config['KeyInfo']['access']         
-        self.security_key=self.config['KeyInfo']['security'] 
+        self.config = configparser.ConfigParser()
+        self.config.read(CFG_FILE, encoding='utf-8')
+        self.access_key=self.config['KeyInfo']['access']
+        self.security_key=self.config['KeyInfo']['security']
         if not ui_file.open(QIODevice.ReadOnly):
             logging.error("Cannot open {}: {}".format(ui_file_name, ui_file.errorString()))
             sys.exit(-1)
@@ -44,50 +80,52 @@ class LoginDlg(QDialog):
         if not window:
             logging.error(loader.errorString())
             sys.exit(-1)
-        
+
         self.ui=window
         self.connected = False
+        self.ui.lineEdit_aes.setEchoMode(QLineEdit.Password)
+        self.ui.lineEdit_sec.setEchoMode(QLineEdit.Password)
         self.ui.lineEdit_aes.setText(self.access_key)
         self.ui.lineEdit_sec.setText(self.security_key)
         self.ui.show()
-        
-    def closeEvent(self,event):    
+
+    def closeEvent(self,event):
         logging.info("close")
         self.connected = False
-        
-    def confirmed(self):    
-        return self.connected
-            
-        
-            
-    def btn_event(self,obj):                                                    
 
-        if obj.objectName()=="pushButton_ok":                                   
-            self.ui.close()                                                          
+    def confirmed(self):
+        return self.connected
+
+
+
+    def btn_event(self,obj):
+
+        if obj.objectName()=="pushButton_ok":
+            self.ui.close()
             self.connected = True
         else:
             self.connected = False
-            QApplication.instance().quit() 
+            QApplication.instance().quit()
             sys.exit(-1)
 
-                                                                                 
-            
-    def setStyle(self):     
-        self.ui.pushButton_exit.setStyleSheet(btnstylestr)                                                   
-        self.ui.pushButton_ok.setStyleSheet(btnstylestr)         
-        self.ui.label_aes.setStyleSheet(labelstylestr)                                                   
-        self.ui.label_sec.setStyleSheet(labelstylestr)                                                   
-        self.ui.lineEdit_aes.setStyleSheet(lineedstylestr)                                                   
-        self.ui.lineEdit_sec.setStyleSheet(lineedstylestr)                                                  
-         
+
+
+    def setStyle(self):
+        self.ui.pushButton_exit.setStyleSheet(btnstylestr)
+        self.ui.pushButton_ok.setStyleSheet(btnstylestr)
+        self.ui.label_aes.setStyleSheet(labelstylestr)
+        self.ui.label_sec.setStyleSheet(labelstylestr)
+        self.ui.lineEdit_aes.setStyleSheet(lineedstylestr)
+        self.ui.lineEdit_sec.setStyleSheet(lineedstylestr)
+
         self.ui.pushButton_ok.clicked.connect(lambda x:self.btn_event(self.ui.pushButton_ok))
         self.ui.pushButton_exit.clicked.connect(lambda x:self.btn_event(self.ui.pushButton_exit))
-        self.ui.closeEvent = self.closeEvent                                    
-            
-    def showDlg(self):                                                        
+        self.ui.closeEvent = self.closeEvent
+
+    def showDlg(self):
         self.setStyle()
-        self.ui.show()                                                          
-        return self.ui.exec_()    
+        self.ui.show()
+        return self.ui.exec_()
 
 class MainWindow(QMainWindow):
 
@@ -95,10 +133,13 @@ class MainWindow(QMainWindow):
         logging.info("start upbit auto trade ")
         self.itemChanged=False
         self.coinitems=[]
+        self.reflash_market= None
+        self.reflash_balance= None
         self.upbit= upbitApi()
         self.coins=self.upbit.get_coins()
         self.balance=self.upbit.Getbalances()
         self.currentAll=self.upbit.GetCurrentAll()
+        self.pjson_data = json.loads(json.dumps(self.currentAll))
         logging.info("start upbit auto trade 1")
         self.ui.tableWidget_status.setStyleSheet(tblstyle)
         self.ui.tableWidget_tot.setStyleSheet(tblstyle)
@@ -240,106 +281,112 @@ class MainWindow(QMainWindow):
             logging.info("check proce for sell for 5 min")
             sellprice == 1000
 
+    @Slot('QString')
+    def setbalance(self,data):
+        tmp=data.split("@")
+        row = int(tmp[0])
+        it=ast.literal_eval(tmp[1])
+        cname = it.get("currency")
+        avg= it.get("avg_buy_price")
+        bal= it.get("balance")
+        if cname != "KRW" and avg !="0":
+            name=self.get_CoinName(cname)
+            row = self.ui.tableWidget_tot.rowCount()
+            self.ui.tableWidget_tot.insertRow(row)
+            col0 =QTableWidgetItem(name)
+            col0.setTextAlignment(Qt.AlignCenter|Qt.AlignVCenter)
+            self.ui.tableWidget_tot.setItem(row,0, col0)
+            col1 =QTableWidgetItem(avg)
+            col1.setTextAlignment(Qt.AlignCenter|Qt.AlignVCenter)
+            self.ui.tableWidget_tot.setItem(row,1, col1)
+            col2 =QTableWidgetItem(bal)
+            col2.setTextAlignment(Qt.AlignRight|Qt.AlignVCenter)
+            self.ui.tableWidget_tot.setItem(row,2, col2)
+            curname="KRW-"+cname
+            cur=self.upbit.GetCurrent(curname)
+            col3 =QTableWidgetItem(str(cur))
+            col3.setTextAlignment(Qt.AlignRight|Qt.AlignVCenter)
+            self.ui.tableWidget_tot.setItem(row,3, col3)
+            ratio=round((float(cur)/float(avg) *100.0)-100.0,2)
+            col4 =QTableWidgetItem(str(ratio))
+            col4.setTextAlignment(Qt.AlignRight|Qt.AlignVCenter)
+            if ratio == 0:
+                col4.setForeground(Qt.black)
+            elif ratio < 0:
+                col4.setForeground(Qt.blue)
+            else:
+                col4.setForeground(Qt.red)
+            self.ui.tableWidget_tot.setItem(row,4, col4)
 
     def set_tblBalance(self):
-
         self.ui.tableWidget_tot.setRowCount(0)
         balance = self.upbit.Getbalances()
-        for it in balance:
-            cname = it.get("currency")
-            avg= it.get("avg_buy_price")
-            bal= it.get("balance")
-            if cname != "KRW" and avg !="0":
-                name=self.get_CoinName(cname)
-                row = self.ui.tableWidget_tot.rowCount()
-                self.ui.tableWidget_tot.insertRow(row)
-                col0 =QTableWidgetItem(name)
-                col0.setTextAlignment(Qt.AlignCenter|Qt.AlignVCenter)
-                self.ui.tableWidget_tot.setItem(row,0, col0)
-                col1 =QTableWidgetItem(avg)
-                col1.setTextAlignment(Qt.AlignCenter|Qt.AlignVCenter)
-                self.ui.tableWidget_tot.setItem(row,1, col1)
-                col2 =QTableWidgetItem(bal)
-                col2.setTextAlignment(Qt.AlignRight|Qt.AlignVCenter)
-                self.ui.tableWidget_tot.setItem(row,2, col2)
-                curname="KRW-"+cname
-                cur=self.upbit.GetCurrent(curname)
-                col3 =QTableWidgetItem(str(cur))
-                col3.setTextAlignment(Qt.AlignRight|Qt.AlignVCenter)
-                self.ui.tableWidget_tot.setItem(row,3, col3)
-                ratio=round((float(cur)/float(avg) *100.0)-100.0,2)
-                col4 =QTableWidgetItem(str(ratio))
-                col4.setTextAlignment(Qt.AlignRight|Qt.AlignVCenter)
-                if ratio == 0:
-                    col4.setForeground(Qt.black)
-                elif ratio < 0:
-                    col4.setForeground(Qt.blue)
-                else:
-                    col4.setForeground(Qt.red)
-                self.ui.tableWidget_tot.setItem(row,4, col4)
+        if self.reflash_balance:
+            self.reflash_balance.stop()
+        self.reflash_balance= reflash_balanceproc(balance)
+        self.reflash_balance.poped.connect(self.setbalance)
+        self.reflash_balance.start()
 
 
         #logging.info(self.coins)
 
     def set_tbleData(self):
         self.ui.tableWidget_status.setRowCount(len(self.coins))
-        self.currentAll=self.upbit.GetCurrentAll()
-        pjson_data = json.loads(json.dumps(self.currentAll))
-        row = 0
-        curinfo=""
+        if self.reflash_market:
+            self.reflash_market.stop()
+        self.reflash_market= reflash_marketproc(self.coins)
+        self.reflash_market.poped.connect(self.setcoinsinfo)
+        self.reflash_market.start()
 
 
-        for it in self.coins:
+    @Slot('QString')
+    def setcoinsinfo(self,data):
+        cname=""
+        cur=0
+        vol=""
+        it=data.split("@")
+        row = int(it[0])
+        coin = it[1]
+        coin=ast.literal_eval(it[1])
+        json_data = json.loads(json.dumps(coin))
+        cname=json_data.get("market")
+        cur=self.pjson_data.get(cname)
 
-            json_data = json.loads(json.dumps(it))
-            cname=json_data.get("market")
-
-
-            cur=0
-            try:
-               #cur=self.upbit.GetCurrent(cname)
-               cur=pjson_data.get(cname)
-            except Exception as e:
-               logging.info('예외가 발생했습니다. %s' %(cname))
-               pass
-            i =0
-            vol=""
-            while(i<2):
-               try:
-                    curinfo=self.upbit.GetCurrentInfo(cname)
-                    logging.info(curinfo)
-                    vol = curinfo['volume'].values[0]
-                    break
-               except Exception as e:
-                    logging.info('예외가 발생했습니다. %s' %(cname))
-                    time.sleep(0.01)
-                    i +=1
-                    continue
+        #try:
+        tmp=self.upbit.GetCurrentInfo(1,cname)
+        cinfo=ast.literal_eval(tmp)
+        cdata = json.loads(json.dumps(cinfo))
+        vol = cdata.get('volume')
+        ratio = cdata.get('ratio')
+        #except Exception as e:
+        #    logging.info('3. 예외가 발생했습니다. %s' %(cname))
+        #    return
 
 
-            pitem =QTableWidgetItem(str(cur))
-            pitem.setTextAlignment(Qt.AlignRight|Qt.AlignVCenter)
-            self.ui.tableWidget_status.setItem(row,2, pitem)
+        pitem =QTableWidgetItem(str(cur))
+        pitem.setTextAlignment(Qt.AlignRight|Qt.AlignVCenter)
+        self.ui.tableWidget_status.setItem(row,2, pitem)
 
-            vitem =QTableWidgetItem(str(vol))
-            vitem.setTextAlignment(Qt.AlignRight|Qt.AlignVCenter)
-            self.ui.tableWidget_status.setItem(row,1, vitem)
+        vitem =QTableWidgetItem(str(vol))
+        vitem.setTextAlignment(Qt.AlignRight|Qt.AlignVCenter)
+        self.ui.tableWidget_status.setItem(row,1, vitem)
 
+        ritem =QTableWidgetItem(str(ratio))
+        ritem.setTextAlignment(Qt.AlignRight|Qt.AlignVCenter)
+        self.ui.tableWidget_status.setItem(row,3, ritem)
 
-            strCname=json_data.get("korean_name")
+        strCname=json_data.get("korean_name")
 
-            citem =QTableWidgetItem(strCname)
-            self.ui.tableWidget_status.setItem(row,0, citem)
-            self.setTreeView(self.ui.treeWidget_coins,strCname)
+        citem =QTableWidgetItem(strCname)
+        self.ui.tableWidget_status.setItem(row,0, citem)
+        self.setTreeView(self.ui.treeWidget_coins,strCname)
 
-
-            row +=1
 
     def __init__(self):
         super(MainWindow, self).__init__()
-        
-        
-        
+
+
+
         ui_file_name = UI_FILE
         ui_file = QFile(ui_file_name)
         if not ui_file.open(QIODevice.ReadOnly):
@@ -356,16 +403,32 @@ class MainWindow(QMainWindow):
         self.logindlg.showDlg()
         while (self.logindlg.confirmed() ==False):
             logging.info("wait loging")
-            QApplication.instance().quit() 
+            QApplication.instance().quit()
             sys.exit(-1)
         self.evtype=1
         self.ui.installEventFilter(self)
         self.ui.eventFilter = self.eventFilter
         self.main__init__()
-        
-        
+
+
         1
 
+def main():
+     logging.info("start upbit auto trade")
+     if hasattr(QtCore.Qt, 'AA_EnableHighDpiScaling'):
+         QApplication.setAttribute(QtCore.Qt.AA_EnableHighDpiScaling, True)
+     if hasattr(QtCore.Qt, 'AA_UseHighDpiPixmaps'):
+         QApplication.setAttribute(QtCore.Qt.AA_UseHighDpiPixmaps, True)
+     QtCore.QCoreApplication.setAttribute(QtCore.Qt.AA_ShareOpenGLContexts)
+     app = QApplication(sys.argv)
+     logging.info(QStyleFactory.keys())
+     if 'qtct-styel' in QStyleFactory.keys():
+         app.setStyle("qt5ct-style");
+     else:
+         app.setStyle("Fusion");
+     app.setWindowIcon(QtGui.QIcon('./appico.svg'))
+     ex = MainWindow()
+     sys.exit(app.exec_())
 
 if __name__ == "__main__":
     freeze_support()
