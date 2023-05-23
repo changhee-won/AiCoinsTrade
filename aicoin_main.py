@@ -164,12 +164,13 @@ class MainWindow(QMainWindow):
                self.ui.tableWidget_status))
         logging.info("start upbit auto trade 2")
         self.ui.tabWidget.setCurrentIndex(0)
-        self.set_tblBalance()
-        self.set_tbleData()
+#        self.set_tblBalance()
+#        self.set_tbleData()
         self.set_btnevt()
         self.ui.tableWidget_status.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeToContents)
         self.ui.tableWidget_tot.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeToContents)
         self.ui.show()
+        self.set_updateAllData()
 
     def findTableItmes(self,key,tblwidget):
         fitems = tblwidget.findItems(key,Qt.MatchExactly)
@@ -353,6 +354,9 @@ class MainWindow(QMainWindow):
 
 
         #logging.info(self.coins)
+    def set_updateAllData(self):
+        QTimer.singleShot(1000, self.set_tblBalance)
+        QTimer.singleShot(2000, self.set_tbleData)
 
     def set_tbleData(self):
         self.ui.tableWidget_status.setRowCount(len(self.coins))
