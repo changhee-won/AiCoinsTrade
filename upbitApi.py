@@ -164,8 +164,13 @@ class upbitApi:
                 time.sleep(0.01)
                 i +=1
                 continue
-        ratio=round((float(mprice)/float(dprice) *100.0)-100.0,2)
-        logging.info(f'makrket: [coin] Now: [{mprice}]  Before: [{dprice}]  Ratio:[{ratio}]')
+        try:
+            ratio=round((float(mprice)/float(dprice) *100.0)-100.0,2)
+        except Exception as e:
+            logging.info('예외가 발생했습니다. %s' %(cname))
+            ratio=0
+            pass
+        logging.info(f'makrket: [{coin}] Now: [{mprice}]  Before: [{dprice}]  Ratio:[{ratio}]')
         info='{"volume": %s,"ratio":%s}'  %(vol,ratio)
         return info
 

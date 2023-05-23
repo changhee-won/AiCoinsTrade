@@ -163,8 +163,8 @@ class MainWindow(QMainWindow):
                self.ui.tableWidget_status))
         logging.info("start upbit auto trade 2")
         self.ui.tabWidget.setCurrentIndex(0)
-        self.set_tbleData()
         self.set_tblBalance()
+        self.set_tbleData()
         self.set_btnevt()
         self.ui.tableWidget_status.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeToContents)
         self.ui.tableWidget_tot.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeToContents)
@@ -307,7 +307,12 @@ class MainWindow(QMainWindow):
             col3 =QTableWidgetItem(str(cur))
             col3.setTextAlignment(Qt.AlignRight|Qt.AlignVCenter)
             self.ui.tableWidget_tot.setItem(row,3, col3)
-            ratio=round((float(cur)/float(avg) *100.0)-100.0,2)
+            try:
+                ratio=round((float(cur)/float(avg) *100.0)-100.0,2)
+            except Exception as e:
+                logging.info('예외가 발생했습니다. %s' %(cname))
+                ratio=0
+                pass
             col4 =QTableWidgetItem(str(ratio))
             col4.setTextAlignment(Qt.AlignRight|Qt.AlignVCenter)
             if ratio == 0:
@@ -352,19 +357,25 @@ class MainWindow(QMainWindow):
         cname=json_data.get("market")
         cur=self.pjson_data.get(cname)
 
-        #try:
-        tmp=self.upbit.GetCurrentInfo(1,cname)
-        cinfo=ast.literal_eval(tmp)
-        cdata = json.loads(json.dumps(cinfo))
-        vol = cdata.get('volume')
-        ratio = cdata.get('ratio')
-        #except Exception as e:
-        #    logging.info('3. 예외가 발생했습니다. %s' %(cname))
-        #    return
+        try:
+            tmp=self.upbit.GetCurrentInfo(1,cname)
+            cinfo=ast.literal_eval(tmp)
+            cdata = json.loads(json.dumps(cinfo))
+            vol = cdata.get('volume')
+            ratio = cdata.get('ratio')
+        except Exception as e:
+            logging.info('3. 예외가 발생했습니다. %s' %(cname))
+            return
 
 
         pitem =QTableWidgetItem(str(cur))
         pitem.setTextAlignment(Qt.AlignRight|Qt.AlignVCenter)
+        if ratio == 0:
+            pitem.setForeground(Qt.black)
+        elif ratio < 0:
+            pitem.setForeground(Qt.blue)
+        else:
+            pitem.setForeground(Qt.red)
         self.ui.tableWidget_status.setItem(row,2, pitem)
 
         vitem =QTableWidgetItem(str(vol))
@@ -380,6 +391,21 @@ class MainWindow(QMainWindow):
         citem =QTableWidgetItem(strCname)
         self.ui.tableWidget_status.setItem(row,0, citem)
         self.setTreeView(self.ui.treeWidget_coins,strCname)
+        if ratio == 0:
+            pitem.setForeground(Qt.black)
+            ritem.setForeground(Qt.black)
+            citem.setForeground(Qt.black)
+            vitem.setForeground(Qt.black)
+        elif ratio < 0:
+            pitem.setForeground(Qt.blue)
+            ritem.setForeground(Qt.blue)
+            vitem.setForeground(Qt.blue)
+            citem.setForeground(Qt.blue)
+        else:
+            pitem.setForeground(Qt.red)
+            ritem.setForeground(Qt.red)
+            vitem.setForeground(Qt.red)
+            citem.setForeground(Qt.red)
 
 
     def __init__(self):
