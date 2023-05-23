@@ -371,7 +371,7 @@ class MainWindow(QMainWindow):
     def setcoinsinfo(self,data):
         cname=""
         cur=0
-        vol=""
+        amtvol=""
         it=data.split("@")
         row = int(it[0])
         coin = it[1]
@@ -384,7 +384,8 @@ class MainWindow(QMainWindow):
             tmp=self.upbit.GetCurrentInfo(1,cname)
             cinfo=ast.literal_eval(tmp)
             cdata = json.loads(json.dumps(cinfo))
-            vol = cdata.get('volume')
+            tmp = cdata.get('volume')
+            amtvol=format(tmp,",")
             ratio = cdata.get('ratio')
         except Exception as e:
             logging.info('3. 예외가 발생했습니다. %s' %(cname))
@@ -393,15 +394,9 @@ class MainWindow(QMainWindow):
 
         pitem =QTableWidgetItem(str(cur))
         pitem.setTextAlignment(Qt.AlignRight|Qt.AlignVCenter)
-        if ratio == 0:
-            pitem.setForeground(Qt.black)
-        elif ratio < 0:
-            pitem.setForeground(Qt.blue)
-        else:
-            pitem.setForeground(Qt.red)
         self.ui.tableWidget_status.setItem(row,2, pitem)
 
-        vitem =QTableWidgetItem(str(vol))
+        vitem =QTableWidgetItem(str(f'{amtvol}백만'))
         vitem.setTextAlignment(Qt.AlignRight|Qt.AlignVCenter)
         self.ui.tableWidget_status.setItem(row,1, vitem)
 

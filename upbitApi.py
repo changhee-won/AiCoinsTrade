@@ -154,7 +154,7 @@ class upbitApi:
         while(i<2):
             try:
                 dinfo = pyupbit.get_ohlcv(ticker=coin, interval='day', count=2, to=None, period=0)
-                vol = dinfo['volume'].values[1]
+                vol = dinfo['value'].values[1]
                 dprice = dinfo['close'].values[0]
                 minfo = pyupbit.get_ohlcv(ticker=coin, interval=mintval, count=1, to=None, period=0)
                 mprice= minfo['close'].values[0]
@@ -170,8 +170,9 @@ class upbitApi:
             logging.info('예외가 발생했습니다. %s' %(cname))
             ratio=0
             pass
-        logging.info(f'makrket: [{coin}] Now: [{mprice}]  Before: [{dprice}]  Ratio:[{ratio}]')
-        info='{"volume": %s,"ratio":%s}'  %(vol,ratio)
+        avol= round(vol/1000000)
+        logging.info(f'makrket: [{coin}] Now: [{mprice}]  Before: [{dprice}]  Ratio:[{ratio}] amount: [{avol}]')
+        info='{"volume": %s,"ratio":%s}'  %(avol,ratio)
         return info
 
     def min_candle(self,min, coin="KRW-BTC"):
