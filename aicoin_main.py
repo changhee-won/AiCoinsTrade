@@ -355,8 +355,8 @@ class MainWindow(QMainWindow):
 
         #logging.info(self.coins)
     def set_updateAllData(self):
-        QTimer.singleShot(1000, self.set_tblBalance)
-        QTimer.singleShot(2000, self.set_tbleData)
+        QTimer.singleShot(500, self.set_tblBalance)
+        QTimer.singleShot(500, self.set_tbleData)
 
     def set_tbleData(self):
         self.ui.tableWidget_status.setRowCount(len(self.coins))
