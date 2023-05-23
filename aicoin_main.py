@@ -144,6 +144,10 @@ class MainWindow(QMainWindow):
         logging.info("start upbit auto trade 1")
         self.ui.tableWidget_status.setStyleSheet(tblstyle)
         self.ui.tableWidget_tot.setStyleSheet(tblstyle)
+
+        self.ui.tableWidget_status.setSelectionBehavior(QAbstractItemView.SelectRows)
+        self.ui.tableWidget_tot.setSelectionBehavior(QAbstractItemView.SelectRows)
+
         self.ui.pushButton_close.setStyleSheet(btnstylestr)
         self.ui.pushButton_start.setStyleSheet(btnstylestr)
         self.ui.pushButton_stop.setStyleSheet(btnstylestr)
@@ -394,19 +398,27 @@ class MainWindow(QMainWindow):
 
         pitem =QTableWidgetItem(str(cur))
         pitem.setTextAlignment(Qt.AlignRight|Qt.AlignVCenter)
+        pitem.setFlags(pitem.flags()&~(Qt.ItemIsEditable))
+        pitem.setFlags(pitem.flags()|(Qt.ItemIsSelectable))
         self.ui.tableWidget_status.setItem(row,2, pitem)
 
         vitem =QTableWidgetItem(str(f'{amtvol}백만'))
         vitem.setTextAlignment(Qt.AlignRight|Qt.AlignVCenter)
+        vitem.setFlags(vitem.flags()&~(Qt.ItemIsEditable))
+        vitem.setFlags(vitem.flags()|(Qt.ItemIsSelectable))
         self.ui.tableWidget_status.setItem(row,1, vitem)
 
         ritem =QTableWidgetItem(str(ratio))
         ritem.setTextAlignment(Qt.AlignRight|Qt.AlignVCenter)
+        ritem.setFlags(ritem.flags()&~(Qt.ItemIsEditable))
+        ritem.setFlags(ritem.flags()|(Qt.ItemIsSelectable))
         self.ui.tableWidget_status.setItem(row,3, ritem)
 
         strCname=json_data.get("korean_name")
 
         citem =QTableWidgetItem(strCname)
+        citem.setFlags(citem.flags()&~(Qt.ItemIsEditable))
+        citem.setFlags(citem.flags()|(Qt.ItemIsSelectable))
         self.ui.tableWidget_status.setItem(row,0, citem)
         self.setTreeView(self.ui.treeWidget_coins,strCname)
         if ratio == 0:
