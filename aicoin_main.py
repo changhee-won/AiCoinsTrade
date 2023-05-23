@@ -25,6 +25,7 @@ class reflash_marketproc(QThread):
                break
             param=('%s@%s' %(self.row,it))
             self.poped.emit(param)
+            time.sleep(0.05)
             self.row +=1
 
         logging.info('done!')
@@ -226,9 +227,18 @@ class MainWindow(QMainWindow):
     def btn_event(self,obj):
         QApplication.setOverrideCursor(Qt.WaitCursor)
         if obj.objectName()=="pushButton_close":
-             QApplication.instance().quit()
+            if self.reflash_balance:
+                self.reflash_balance.stop()
+
+            if self.reflash_market:
+                self.reflash_market.stop()
+            QApplication.instance().quit()
+
         elif obj.objectName()=="pushButton_stop":
-            logging.info('TBD')
+            if self.reflash_balance:
+                self.reflash_balance.stop()
+            if self.reflash_market:
+                self.reflash_market.stop()
         elif obj.objectName()=="pushButton_start":
             logging.info('TBD')
         elif obj.objectName()=="pushButton_reflash":
@@ -244,6 +254,14 @@ class MainWindow(QMainWindow):
             logging.info('no action')
         QApplication.restoreOverrideCursor()
 
+    def closeEvent(self,event):
+        logging.info("Main close")
+        if self.reflash_balance:
+            self.reflash_balance.stop()
+
+        if self.reflash_market:
+            self.reflash_market.stop()
+
     def set_btnevt(self):
         self.ui.pushButton_start.clicked.connect(lambda x:self.btn_event(self.ui.pushButton_start))
         self.ui.pushButton_stop.clicked.connect(lambda x:self.btn_event(self.ui.pushButton_stop))
@@ -252,6 +270,7 @@ class MainWindow(QMainWindow):
         self.ui.pushButton_sellcur.clicked.connect(lambda x:self.btn_event(self.ui.pushButton_reflash))
         self.ui.pushButton_selllimit.clicked.connect(lambda x:self.btn_event(self.ui.pushButton_reflash))
         self.ui.pushButton_sellall.clicked.connect(lambda x:self.btn_event(self.ui.pushButton_reflash))
+        self.ui.closeEvent = self.closeEvent
 
 
     def setTreeView(self,tree,it):
