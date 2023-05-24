@@ -1097,6 +1097,34 @@
        <item row="0" column="1">
         <layout class="QVBoxLayout" name="verticalLayout">
          <item>
+          <widget class="QTableWidget" name="tableWidget_asksum">
+           <column>
+            <property name="text">
+             <string>시간</string>
+            </property>
+            <property name="textAlignment">
+             <set>AlignCenter</set>
+            </property>
+           </column>
+           <column>
+            <property name="text">
+             <string>매수량</string>
+            </property>
+            <property name="textAlignment">
+             <set>AlignCenter</set>
+            </property>
+           </column>
+           <column>
+            <property name="text">
+             <string>매도량</string>
+            </property>
+            <property name="textAlignment">
+             <set>AlignCenter</set>
+            </property>
+           </column>
+          </widget>
+         </item>
+         <item>
           <widget class="QTableWidget" name="tableWidget_ask">
            <property name="minimumSize">
             <size>
@@ -1139,7 +1167,7 @@
            </column>
            <column>
             <property name="text">
-             <string>매도양</string>
+             <string>매도량</string>
             </property>
             <property name="textAlignment">
              <set>AlignCenter</set>
@@ -1167,7 +1195,7 @@
            </column>
            <column>
             <property name="text">
-             <string>체결양</string>
+             <string>체결량</string>
             </property>
             <property name="textAlignment">
              <set>AlignCenter</set>
