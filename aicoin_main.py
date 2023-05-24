@@ -152,19 +152,19 @@ class MainWindow(QMainWindow):
         self.ui.pushButton_start.setStyleSheet(btnstylestr)
         self.ui.pushButton_stop.setStyleSheet(btnstylestr)
         self.ui.pushButton_reflash.setStyleSheet(btnstylestr)
-        self.ui.pushButton_sellcur.setStyleSheet(btnstylestr)
-        self.ui.pushButton_sellall.setStyleSheet(btnstylestr)
-        self.ui.pushButton_selllimit.setStyleSheet(btnstylestr)
+        self.ui.pushButton_sellcur.setStyleSheet(btnstylestr1)
+        self.ui.pushButton_sellall.setStyleSheet(btnstylestr1)
+        self.ui.pushButton_selllimit.setStyleSheet(btnstylestr1)
 
-        self.ui.tableWidget_status.setColumnWidth(0, 100)
+        self.ui.tableWidget_status.setColumnWidth(0, 160)
         self.ui.tableWidget_status.setColumnWidth(1, 100)
         self.ui.tableWidget_status.setColumnWidth(2, 100)
-        self.ui.tableWidget_status.setColumnWidth(3, 100)
-        self.ui.tableWidget_tot.setColumnWidth(0, 100)
+        self.ui.tableWidget_status.setColumnWidth(3, 50)
+        self.ui.tableWidget_tot.setColumnWidth(0, 160)
         self.ui.tableWidget_tot.setColumnWidth(1, 60)
         self.ui.tableWidget_tot.setColumnWidth(2, 100)
-        self.ui.tableWidget_tot.setColumnWidth(3, 60)
-        self.ui.tableWidget_tot.setColumnWidth(4, 60)
+        self.ui.tableWidget_tot.setColumnWidth(3, 70)
+        self.ui.tableWidget_tot.setColumnWidth(4, 70)
         self.ui.treeWidget_coins.itemClicked.connect(lambda x:
                 self.onItemClicked(self.ui.treeWidget_coins,
                 self.ui.treeWidget_coins.currentItem(),

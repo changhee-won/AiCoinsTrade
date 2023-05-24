@@ -120,7 +120,7 @@
             </size>
            </property>
            <property name="currentIndex">
-            <number>1</number>
+            <number>2</number>
            </property>
            <widget class="QWidget" name="tab_3">
             <attribute name="title">
@@ -1047,25 +1047,40 @@
             <property name="text">
              <string>Name</string>
             </property>
-           </column>
-           <column>
-            <property name="text">
-             <string>avg buy price</string>
+            <property name="textAlignment">
+             <set>AlignCenter</set>
             </property>
            </column>
            <column>
             <property name="text">
-             <string>balance</string>
+             <string>매수가</string>
+            </property>
+            <property name="textAlignment">
+             <set>AlignCenter</set>
             </property>
            </column>
            <column>
             <property name="text">
-             <string>Current Price</string>
+             <string>잔고</string>
+            </property>
+            <property name="textAlignment">
+             <set>AlignCenter</set>
             </property>
            </column>
            <column>
             <property name="text">
-             <string>Profit Ratio</string>
+             <string>현재가</string>
+            </property>
+            <property name="textAlignment">
+             <set>AlignCenter</set>
+            </property>
+           </column>
+           <column>
+            <property name="text">
+             <string>수익율</string>
+            </property>
+            <property name="textAlignment">
+             <set>AlignCenter</set>
             </property>
            </column>
           </widget>
@@ -1082,7 +1097,7 @@
        <item row="0" column="1">
         <layout class="QVBoxLayout" name="verticalLayout">
          <item>
-          <widget class="QTableWidget" name="tableWidget_tradelist">
+          <widget class="QTableWidget" name="tableWidget_ask">
            <property name="minimumSize">
             <size>
              <width>400</width>
@@ -1100,7 +1115,7 @@
            </attribute>
            <column>
             <property name="text">
-             <string>주문</string>
+             <string>매수호가</string>
             </property>
             <property name="textAlignment">
              <set>AlignCenter</set>
@@ -1108,7 +1123,43 @@
            </column>
            <column>
             <property name="text">
-             <string>등락율</string>
+             <string>매수량</string>
+            </property>
+            <property name="textAlignment">
+             <set>AlignCenter</set>
+            </property>
+           </column>
+           <column>
+            <property name="text">
+             <string>매도호가</string>
+            </property>
+            <property name="textAlignment">
+             <set>AlignCenter</set>
+            </property>
+           </column>
+           <column>
+            <property name="text">
+             <string>매도양</string>
+            </property>
+            <property name="textAlignment">
+             <set>AlignCenter</set>
+            </property>
+           </column>
+          </widget>
+         </item>
+         <item>
+          <widget class="QTableWidget" name="tableWidget_trade">
+           <column>
+            <property name="text">
+             <string>시간 </string>
+            </property>
+            <property name="textAlignment">
+             <set>AlignCenter</set>
+            </property>
+           </column>
+           <column>
+            <property name="text">
+             <string>체결가</string>
             </property>
             <property name="textAlignment">
              <set>AlignCenter</set>
@@ -1117,6 +1168,22 @@
            <column>
             <property name="text">
              <string>체결양</string>
+            </property>
+            <property name="textAlignment">
+             <set>AlignCenter</set>
+            </property>
+           </column>
+           <column>
+            <property name="text">
+             <string>행</string>
+            </property>
+            <property name="textAlignment">
+             <set>AlignCenter</set>
+            </property>
+           </column>
+           <column>
+            <property name="text">
+             <string>등락율</string>
             </property>
             <property name="textAlignment">
              <set>AlignCenter</set>

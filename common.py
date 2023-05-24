@@ -1,6 +1,6 @@
 import os
 from PySide2 import QtCore, QtGui
-import platform 
+import platform
 from multiprocessing import Process, freeze_support
 import sys,traceback
 from PySide2.QtUiTools import QUiLoader
@@ -38,8 +38,8 @@ tblstyle='''
           font-family: Arial;
           font-size:10px; }
  '''
- 
- 
+
+
 btnstylestr = '''
  QPushButton{
         font: 8pt Arial Black;
@@ -55,6 +55,21 @@ btnstylestr = '''
      }
  QPushButton:checked {color: white; background-color: red;}
  '''
+btnstylestr1 = '''
+ QPushButton{
+        font: 8pt Arial Black;
+        border-width: 3px;
+        border-radius: 7px;
+        font-weight: bold;
+        border-color: beige;
+        color: yellow;
+        background-color: blue; }
+ QPushButton:pressed {
+     border-style: inset;
+     background-color: red;
+     }
+ QPushButton:checked {color: white; background-color: red;}
+ '''
 lineedstylestr = '''
  QLineEdit{
         font: 8pt Arial Black;
@@ -63,18 +78,18 @@ lineedstylestr = '''
         font-weight: bold;
         border-color: beige;
         color: darkBlue;}
-        
+
   '''
 
 labelstylestr = '''
  QLabel{
         font: 8pt Arial Black;
-               
+
         color: darkRed;
-        
+
          }
   '''
- 
+
 
 UI_FILE = "main.ui"
 LOGINUI_FILE = "login.ui"
