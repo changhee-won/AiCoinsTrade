@@ -143,6 +143,42 @@ class upbitApi:
         res = requests.post(self.server_url + "/v1/orders", params=query, headers=self.headers)
         ret = res.json()
         return ret
+    # 이동 평균 값
+    def GetMA(self,inter, cnt,coin="KRW-BTC"):
+        df = pyupbit.get_ohlcv(ticker=coin, interval=inter, count=cnt)
+        ma = df['close'].rolling(window=cnt, min_periods=1).mean().iloc[-1]
+
+    def get_current_price(self,ticker):
+        """현재가 조회"""
+        return pyupbit.get_orderbook(tickers=ticker)[0]["orderbook_units"][0]["ask_price"]
+    
+    def get_ma20(self,ticker):
+        """20일 이동 평균선 조회"""
+        df = pyupbit.get_ohlcv(ticker, interval="day", count=20)
+        ma20 = df['close'].rolling(window=20, min_periods=1).mean().iloc[-1]
+        
+        return ma20
+
+    def get_target_price(self,ticker, k):
+        """변동성 돌파 전략으로 매수 목표가 조회"""
+        df = pyupbit.get_ohlcv(ticker, interval="day", count=20)
+        k = 1 - abs(df.iloc[0]['open'] - df.iloc[0]['close']) / (df.iloc[0]['high'] - df.iloc[0]['low'])
+        target_price = df.iloc[0]['close'] + (df.iloc[0]['high'] - df.iloc[0]['low']) * k
+        logging.info(target_price)
+        return target_price
+     
+    def get_start_time(self,ticker):
+        """시작 시간 조회"""
+        df = pyupbit.get_ohlcv(ticker, interval="minute1", count=1)
+        start_time = df.index[0]
+        return start_time
+
+    def sell_market_order(self,coin,price):
+        pyupbit.sell_market_order(coin, price)
+        
+    def buy_market_order(self,coin,price):
+        pyupbit.buy_market_order(coin, price)
+        
 
     def GetCurrentInfo(self,min, coin="KRW-BTC"):
         i =0
@@ -171,7 +207,7 @@ class upbitApi:
             ratio=0
             pass
         avol= round(vol/1000000)
-        logging.info(f'makrket: [{coin}] Now: [{mprice}]  Before: [{dprice}]  Ratio:[{ratio}] amount: [{avol}]')
+#        logging.info(f'makrket: [{coin}] Now: [{mprice}]  Before: [{dprice}]  Ratio:[{ratio}] amount: [{avol}]')
         info='{"volume": %s,"ratio":%s}'  %(avol,ratio)
         return info
 
@@ -213,13 +249,22 @@ class upbitApi:
         ret = json.loads(response.text)
 
         return ret
+    
+    # 시세 캔들 조회 - min 캔들
+    def GetCandlesMinutes(self, market, count,tm):
+        
+        url = f'https://api.upbit.com/v1/candles/minutes/{tm}'
+        querystring = {"market":market,"count":str(count)}
+        response = requests.request("GET", url, params=querystring)
+        ret = json.loads(response.text)
+        return ret
 
 
     # 시세 체결 조회 - 최근 체결 내역
-    def GetTradesTicks(self):
+    def GetTradesTicks(self,coin):
         url = "https://api.upbit.com/v1/trades/ticks"
 
-        querystring = {"market": "KRW-BTC", "count": "1"}
+        querystring = {"market": coin, "count": "1"}
 
         response = requests.request("GET", url, params=querystring)
 

@@ -7,6 +7,71 @@ import json
 from common import *
 from upbitApi import *
 import ast
+import pandas as pd
+import requests
+
+import numpy as np
+
+
+class autoTradproc(QThread):
+    poped = Signal(str)
+    def __init__(self,coins,tm,ma_t1=20,ma_t2=60):
+        super().__init__()
+        self.working = True
+        self.coinis= coins
+        self.upbitapi= upbitApi()
+        self.tm=tm
+        self.ma_t1=ma_t1
+        self.ma_t2=ma_t2
+
+    def run(self):
+        # 자동매매 시작
+        while self.working:
+            for coin in self.coins:
+                data= self.uptbitapi.GetCandlesMinutes(coin,self.count,self.tm)
+                df = pd.DataFrame(data)
+                df=df['trade_price'].iloc[::-1]
+                ma_1 = df.rolling(window=self.ma_t1, min_periods=1).mean()
+                ma_2 = df.rolling(window=self.ma_t2, min_periods=1).mean()
+                test1=ma_1.iloc[-2]-ma_1.iloc[-2]
+                test2=ma_1.iloc[-1]-ma_1.iloc[-1]
+                call='해당없음'
+                if test1>0 and test2<0:
+                    call='데드크로스'
+                if test1<0 and test2>0:
+                    call='골든크로스'
+                logging.info(self.market)
+                logging.info('이동평균선 20: ', round(ma_1.iloc[-1],2))
+                logging.info('이동평균선 60: ', round(ma_2.iloc[-1],2))
+                logging.info('골든크로스/데드크로스: ',call)
+                logging.info('')
+                time.sleep(1)
+                try:
+                    now = datetime.datetime.now()
+                    start_time = self.upbitapi.get_start_time(coin)
+                    end_time = start_time + datetime.timedelta(days=1)
+                    if start_time < now < end_time - datetime.timedelta(seconds=10):
+                        target_price = self.upbitapi.get_target_price(coin, 0.5)
+                        ma20 = self.upbitapi.get_ma20(coin)
+                        current_price = self.upbitapi.get_current_price(coin)
+
+                    if target_price < current_price and ma20 < current_price:
+                        bprice = self.upbitapi.get_balance(coin)
+                        if bprice > 5000:
+                            self.upbitapi.buy_market_order(coin, bprice*0.9995)
+                    else:
+                        sprice = self.upbitapi.get_balance(coin)
+                        if sprice > 0.44:
+                            self.upbitapi.sell_market_order(coin, sprice*0.9995)
+
+                except Exception as e:
+                    logging.info(e)
+                    time.sleep(1)
+   
+    def stop(self):
+        self.working = False
+        self.quit()
+        self.wait(5000) #5000ms = 5
 
 class reflash_marketproc(QThread):
     poped = Signal(str)
@@ -53,6 +118,55 @@ class reflash_balanceproc(QThread):
             param=('%s@%s' %(self.row,it))
             self.poped.emit(param)
             self.row +=1
+
+        logging.info('done!')
+
+    def stop(self):
+        self.working = False
+        self.quit()
+        self.wait(5000) #5000ms = 5
+
+class TradeStatus_proc(QThread):
+    poped = Signal(str)
+
+    def __init__(self,coin):
+        super().__init__()
+        self.working = True
+        self.coin=coin
+        self.upbitapi= upbitApi()
+    
+    def run(self):
+        while (self.working):
+            time.sleep(1)
+            data=  self.upbitapi.GetTradesTicks(self.coin)
+            param=('%s' %(data))
+            self.poped.emit(param)
+        
+
+        
+    def stop(self):
+        self.working = False
+        self.quit()
+        self.wait(5000) #5000ms = 5    
+
+class watch_proc(QThread):
+    poped = Signal(str)
+
+    def __init__(self):
+        super().__init__()
+        self.working = True
+        
+    
+    def run(self):
+        while (self.working):
+            time.sleep(1)
+            now = QtCore.QTime.currentTime()
+            
+            
+            nowstr = now.toString('hh:mm:ss')
+            param=('%s' %(nowstr))
+            self.poped.emit(param)
+        
 
         logging.info('done!')
 
@@ -136,17 +250,23 @@ class MainWindow(QMainWindow):
         self.coinitems=[]
         self.reflash_market= None
         self.reflash_balance= None
+        self.mon_TradeStatus=None
+        self.watch_Timer =None
+        self.tradesum_row =0
         self.upbit= upbitApi()
         self.coins=self.upbit.get_coins()
         self.balance=self.upbit.Getbalances()
         self.currentAll=self.upbit.GetCurrentAll()
         self.pjson_data = json.loads(json.dumps(self.currentAll))
+        self.date = QDate.currentDate()
         logging.info("start upbit auto trade 1")
         self.ui.tableWidget_status.setStyleSheet(tblstyle)
         self.ui.tableWidget_tot.setStyleSheet(tblstyle)
+        self.ui.tableWidget_tradesum.setStyleSheet(tblstyle)
 
         self.ui.tableWidget_status.setSelectionBehavior(QAbstractItemView.SelectRows)
         self.ui.tableWidget_tot.setSelectionBehavior(QAbstractItemView.SelectRows)
+        self.ui.tableWidget_tradesum.setSelectionBehavior(QAbstractItemView.SelectRows)
 
         self.ui.pushButton_close.setStyleSheet(btnstylestr)
         self.ui.pushButton_start.setStyleSheet(btnstylestr)
@@ -177,6 +297,7 @@ class MainWindow(QMainWindow):
         self.set_btnevt()
         self.ui.show()
         self.set_updateAllData()
+        self.start_watchTimer()
 
     def findTableItmes(self,key,tblwidget):
         fitems = tblwidget.findItems(key,Qt.MatchExactly)
@@ -227,6 +348,7 @@ class MainWindow(QMainWindow):
         self.ui.comboBox_pratio.add(ratiolist)
 
     def settblEvent(self):
+         
         self.ui.tableWidget_coins.clicked.connect(lambda x: self.tblselectRow( self.ui.tableWidget_coins, self.ui.tableWidget_coins.currentRow()))
 
 
@@ -239,13 +361,24 @@ class MainWindow(QMainWindow):
 
             if self.reflash_market:
                 self.reflash_market.stop()
+                
+            
+               
+            if self.watch_Timer:
+                self.watch_Timer.stop()                
+                
+            if self.mon_TradeStatus:
+                self.mon_TradeStatus.stop()                
+                                   
             QApplication.instance().quit()
 
         elif obj.objectName()=="pushButton_stop":
             if self.reflash_balance:
                 self.reflash_balance.stop()
+                
             if self.reflash_market:
                 self.reflash_market.stop()
+                
         elif obj.objectName()=="pushButton_start":
             logging.info('TBD')
             ret = self.upbit.GetOrderbook("KRW-BTC")
@@ -280,6 +413,7 @@ class MainWindow(QMainWindow):
         self.ui.pushButton_sellcur.clicked.connect(lambda x:self.btn_event(self.ui.pushButton_reflash))
         self.ui.pushButton_selllimit.clicked.connect(lambda x:self.btn_event(self.ui.pushButton_reflash))
         self.ui.pushButton_sellall.clicked.connect(lambda x:self.btn_event(self.ui.pushButton_reflash))
+        self.ui.statusBar().showMessage(self.date.toString(Qt.DefaultLocaleLongDate))
         self.ui.closeEvent = self.closeEvent
 
 
@@ -361,7 +495,131 @@ class MainWindow(QMainWindow):
         self.reflash_balance.poped.connect(self.setbalance)
         self.reflash_balance.start()
 
+    def start_watchTimer(self):
+        if self.watch_Timer:
+            self.watch_Timer.stop()
+        self.watch_Timer= watch_proc()
+        self.watch_Timer.poped.connect(self.setwatch)
+        self.watch_Timer.start()
+        self.date = QDate.currentDate()
+        self.ui.statusBar().showMessage(self.date.toString(Qt.DefaultLocaleLongDate))
+        self.start_TradeStatus("KRW-BTC")
+        
+        
+    def start_TradeStatus(self,coin):
+        if self.mon_TradeStatus:
+            self.mon_TradeStatus.stop()
+        self.mon_TradeStatus= TradeStatus_proc(coin)
+        self.mon_TradeStatus.poped.connect(self.setTradeStatus)
+        self.mon_TradeStatus.start()
+        
+    @Slot('QString')
+    def setTradeStatus(self,data):
+        a=data.replace('[','')
+        b=a.replace(']','')
+           
+        tmp=ast.literal_eval(str(b))
+        jdata = json.loads(json.dumps(tmp))
+        logging.info(jdata)
+        '''
+        'market': 'KRW-BTC', 
+        'trade_date_utc': '2023-05-27', 
+        'trade_time_utc': '14:08:48', 
+        'timestamp': 1685196528667, 
+        'trade_price': 35644000.0, 
+        'trade_volume': 0.00015068, 
+        'prev_closing_price': 35771000.0, 
+        'change_price': -127000.0, 
+        'ask_bid': 'BID', 
+        'sequential_id': 1685196528667000}]
+        '''
+        self.tradesum_row = self.ui.tableWidget_tradesum.rowCount()
+        self.ui.tableWidget_tradesum.insertRow(self.tradesum_row)
+        tmp=jdata.get("trade_date_utc")
+        logging.info(tmp)
+        col0 =QTableWidgetItem(str(tmp))
+        col0.setTextAlignment(Qt.AlignRight|Qt.AlignVCenter)
+        col0.setFlags(col0.flags()&~(Qt.ItemIsEditable))
+        col0.setFlags(col0.flags()|(Qt.ItemIsSelectable))
+        self.ui.tableWidget_tradesum.setItem(self.tradesum_row,0, col0)
 
+        tmp=jdata.get("trade_time_utc")
+        logging.info(tmp)
+        col1 =QTableWidgetItem(str(tmp))
+        col1.setTextAlignment(Qt.AlignRight|Qt.AlignVCenter)
+        col1.setFlags(col0.flags()&~(Qt.ItemIsEditable))
+        col1.setFlags(col0.flags()|(Qt.ItemIsSelectable))
+        self.ui.tableWidget_tradesum.setItem(self.tradesum_row,1, col1)
+
+        tmp=jdata.get("timestamp")
+        logging.info(tmp)
+        col1 =QTableWidgetItem(str(tmp))
+        col1.setTextAlignment(Qt.AlignRight|Qt.AlignVCenter)
+        col1.setFlags(col1.flags()&~(Qt.ItemIsEditable))
+        col1.setFlags(col1.flags()|(Qt.ItemIsSelectable))
+        self.ui.tableWidget_tradesum.setItem(self.tradesum_row,2, col1)
+        
+        tmp=jdata.get("trade_price")
+        col2 =QTableWidgetItem(str(tmp))
+        col2.setTextAlignment(Qt.AlignRight|Qt.AlignVCenter)
+        col2.setFlags(col2.flags()&~(Qt.ItemIsEditable))
+        col2.setFlags(col2.flags()|(Qt.ItemIsSelectable))
+        self.ui.tableWidget_tradesum.setItem(self.tradesum_row,3, col2)
+        
+        
+        
+        tmp=jdata.get("trade_volume")
+        col4 =QTableWidgetItem(str(tmp))
+        col4.setTextAlignment(Qt.AlignRight|Qt.AlignVCenter)
+        col4.setFlags(col4.flags()&~(Qt.ItemIsEditable))
+        col4.setFlags(col4.flags()|(Qt.ItemIsSelectable))
+        self.ui.tableWidget_tradesum.setItem(self.tradesum_row,4, col4)
+        
+        
+        
+        tmp=jdata.get("prev_closing_price")
+        col5 =QTableWidgetItem(str(tmp))
+        col5.setTextAlignment(Qt.AlignRight|Qt.AlignVCenter)
+        col5.setFlags(col5.flags()&~(Qt.ItemIsEditable))
+        col5.setFlags(col5.flags()|(Qt.ItemIsSelectable))
+        self.ui.tableWidget_tradesum.setItem(self.tradesum_row,5, col5)
+
+        
+
+        tmp=jdata.get("change_price")
+        col6 =QTableWidgetItem(str(tmp))
+        col6.setTextAlignment(Qt.AlignRight|Qt.AlignVCenter)
+        col6.setFlags(col6.flags()&~(Qt.ItemIsEditable))
+        col6.setFlags(col6.flags()|(Qt.ItemIsSelectable))
+        self.ui.tableWidget_tradesum.setItem(self.tradesum_row,6, col6)
+
+
+        tmp=jdata.get("ask_bid")
+        if tmp == 'ASK':
+            col7 =QTableWidgetItem('매수')
+        else:
+            col7 =QTableWidgetItem('매도')
+        
+        col7.setTextAlignment(Qt.AlignRight|Qt.AlignVCenter)
+        col7.setFlags(col7.flags()&~(Qt.ItemIsEditable))
+        col7.setFlags(col7.flags()|(Qt.ItemIsSelectable))
+        self.ui.tableWidget_tradesum.setItem(self.tradesum_row,7, col7)
+
+        tmp=jdata.get("sequential_id")
+        col8 =QTableWidgetItem(str(tmp))
+        col8.setTextAlignment(Qt.AlignRight|Qt.AlignVCenter)
+        col8.setFlags(col8.flags()&~(Qt.ItemIsEditable))
+        col8.setFlags(col8.flags()|(Qt.ItemIsSelectable))
+        self.ui.tableWidget_tradesum.setItem(self.tradesum_row,8, col8)
+        self.tradesum_row +=1
+
+        
+        
+    @Slot('QString')
+    def setwatch(self,data):
+        
+        self.date = QDate.currentDate()
+        self.ui.statusBar().showMessage(self.date.toString(Qt.DefaultLocaleLongDate) + " " + data) 
         #logging.info(self.coins)
     def set_updateAllData(self):
         QTimer.singleShot(500, self.set_tblBalance)
@@ -370,6 +628,7 @@ class MainWindow(QMainWindow):
 
     def set_tbleReszie(self):
         self.ui.tableWidget_status.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeToContents)
+        self.ui.tableWidget_tradesum.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeToContents)
         self.ui.tableWidget_tot.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeToContents)
         self.ui.treeWidget_coins.header().setSectionResizeMode(0,QHeaderView.ResizeToContents)
 
@@ -427,11 +686,11 @@ class MainWindow(QMainWindow):
 
         strCname=json_data.get("korean_name")
 
-        citem =QTableWidgetItem(strCname)
+        citem =QTableWidgetItem(f'{strCname} {cname}')
         citem.setFlags(citem.flags()&~(Qt.ItemIsEditable))
         citem.setFlags(citem.flags()|(Qt.ItemIsSelectable))
         self.ui.tableWidget_status.setItem(row,0, citem)
-        self.setTreeView(self.ui.treeWidget_coins,strCname)
+        self.setTreeView(self.ui.treeWidget_coins,f'{strCname} {cname}')
         if ratio == 0:
             pitem.setForeground(Qt.black)
             ritem.setForeground(Qt.black)

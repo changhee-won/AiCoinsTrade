@@ -27,5 +27,14 @@ querystring = {"markets": market}
 response = requests.request("GET", url, params=querystring)
 
 ret = json.loads(response.text)
-print("====================================")
-print(ret)
+#print("====================================")
+#print(ret)
+
+df = pyupbit.get_ohlcv(ticker="KRW-BTC",interval='day',count=20)
+#print(df)
+ma20 = df['close'].rolling(window=20, min_periods=1).mean().iloc[-1]
+#print(ma20)
+
+
+#df = pyupbit.get_ohlcv(ticker="KRW-BTC",interval='minute1',count=12)
+#print(df)

@@ -8,7 +8,7 @@ import logging
 from PySide2.QtSql import QSqlDatabase, QSqlQuery, QSqlRecord, QSqlTableModel
 from PySide2 import QtWidgets
 from PySide2.QtCore import Qt,QFile, QIODevice,QStringListModel \
-,QDateTime,QTimer,QThread ,QProcess,Signal,Slot
+,QDateTime,QTimer,QThread ,QProcess,Signal,Slot,QDate
 from PySide2.QtWidgets import *
 import json
 import configparser
@@ -18,6 +18,7 @@ import subprocess
 from decimal import Decimal
 from enum import Enum
 import time
+from datetime import datetime
 import configparser
 CFG_FILE ="login.cfg"
 logger = logging.getLogger()
@@ -91,5 +92,5 @@ labelstylestr = '''
   '''
 
 
-UI_FILE = "main.ui"
+UI_FILE = "main1.ui"
 LOGINUI_FILE = "login.ui"
