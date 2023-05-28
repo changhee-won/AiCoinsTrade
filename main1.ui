@@ -22,6 +22,12 @@
     <height>775</height>
    </size>
   </property>
+  <property name="font">
+   <font>
+    <family>Arial</family>
+    <pointsize>8</pointsize>
+   </font>
+  </property>
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
@@ -145,7 +151,7 @@
              </size>
             </property>
             <property name="currentIndex">
-             <number>0</number>
+             <number>2</number>
             </property>
             <widget class="QWidget" name="tab_3">
              <attribute name="title">
@@ -1172,101 +1178,6 @@
          </widget>
         </item>
         <item>
-         <widget class="QTableWidget" name="tableWidget_ask">
-          <property name="minimumSize">
-           <size>
-            <width>400</width>
-            <height>0</height>
-           </size>
-          </property>
-          <property name="maximumSize">
-           <size>
-            <width>16777215</width>
-            <height>16777215</height>
-           </size>
-          </property>
-          <attribute name="verticalHeaderVisible">
-           <bool>false</bool>
-          </attribute>
-          <column>
-           <property name="text">
-            <string>매수호가</string>
-           </property>
-           <property name="textAlignment">
-            <set>AlignCenter</set>
-           </property>
-          </column>
-          <column>
-           <property name="text">
-            <string>매수량</string>
-           </property>
-           <property name="textAlignment">
-            <set>AlignCenter</set>
-           </property>
-          </column>
-          <column>
-           <property name="text">
-            <string>매도호가</string>
-           </property>
-           <property name="textAlignment">
-            <set>AlignCenter</set>
-           </property>
-          </column>
-          <column>
-           <property name="text">
-            <string>매도량</string>
-           </property>
-           <property name="textAlignment">
-            <set>AlignCenter</set>
-           </property>
-          </column>
-         </widget>
-        </item>
-        <item>
-         <widget class="QTableWidget" name="tableWidget_trade">
-          <column>
-           <property name="text">
-            <string>시간 </string>
-           </property>
-           <property name="textAlignment">
-            <set>AlignCenter</set>
-           </property>
-          </column>
-          <column>
-           <property name="text">
-            <string>체결가</string>
-           </property>
-           <property name="textAlignment">
-            <set>AlignCenter</set>
-           </property>
-          </column>
-          <column>
-           <property name="text">
-            <string>체결량</string>
-           </property>
-           <property name="textAlignment">
-            <set>AlignCenter</set>
-           </property>
-          </column>
-          <column>
-           <property name="text">
-            <string>행</string>
-           </property>
-           <property name="textAlignment">
-            <set>AlignCenter</set>
-           </property>
-          </column>
-          <column>
-           <property name="text">
-            <string>등락율</string>
-           </property>
-           <property name="textAlignment">
-            <set>AlignCenter</set>
-           </property>
-          </column>
-         </widget>
-        </item>
-        <item>
          <layout class="QHBoxLayout" name="horizontalLayout">
           <item>
            <widget class="QLabel" name="label_2">
@@ -2173,13 +2084,13 @@
        <widget class="QPushButton" name="pushButton_close">
         <property name="minimumSize">
          <size>
-          <width>100</width>
+          <width>110</width>
           <height>30</height>
          </size>
         </property>
         <property name="maximumSize">
          <size>
-          <width>100</width>
+          <width>150</width>
           <height>30</height>
          </size>
         </property>
@@ -2192,13 +2103,13 @@
        <widget class="QPushButton" name="pushButton_stop">
         <property name="minimumSize">
          <size>
-          <width>100</width>
+          <width>110</width>
           <height>30</height>
          </size>
         </property>
         <property name="maximumSize">
          <size>
-          <width>100</width>
+          <width>150</width>
           <height>30</height>
          </size>
         </property>
@@ -2211,13 +2122,13 @@
        <widget class="QPushButton" name="pushButton_start">
         <property name="minimumSize">
          <size>
-          <width>100</width>
+          <width>110</width>
           <height>30</height>
          </size>
         </property>
         <property name="maximumSize">
          <size>
-          <width>100</width>
+          <width>150</width>
           <height>30</height>
          </size>
         </property>
@@ -2230,13 +2141,13 @@
        <widget class="QPushButton" name="pushButton_reflash">
         <property name="minimumSize">
          <size>
-          <width>100</width>
+          <width>110</width>
           <height>30</height>
          </size>
         </property>
         <property name="maximumSize">
          <size>
-          <width>100</width>
+          <width>150</width>
           <height>30</height>
          </size>
         </property>
@@ -2255,7 +2166,7 @@
      <x>0</x>
      <y>0</y>
      <width>1162</width>
-     <height>28</height>
+     <height>22</height>
     </rect>
    </property>
   </widget>

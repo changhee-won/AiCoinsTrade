@@ -263,10 +263,12 @@ class MainWindow(QMainWindow):
         self.ui.tableWidget_status.setStyleSheet(tblstyle)
         self.ui.tableWidget_tot.setStyleSheet(tblstyle)
         self.ui.tableWidget_tradesum.setStyleSheet(tblstyle)
+        self.ui.tableWidget_tradelist.setStyleSheet(tblstyle)
 
         self.ui.tableWidget_status.setSelectionBehavior(QAbstractItemView.SelectRows)
         self.ui.tableWidget_tot.setSelectionBehavior(QAbstractItemView.SelectRows)
         self.ui.tableWidget_tradesum.setSelectionBehavior(QAbstractItemView.SelectRows)
+        self.ui.tableWidget_tradelist.setSelectionBehavior(QAbstractItemView.SelectRows)
 
         self.ui.pushButton_close.setStyleSheet(btnstylestr)
         self.ui.pushButton_start.setStyleSheet(btnstylestr)
@@ -275,6 +277,7 @@ class MainWindow(QMainWindow):
         self.ui.pushButton_sellcur.setStyleSheet(btnstylestr1)
         self.ui.pushButton_sellall.setStyleSheet(btnstylestr1)
         self.ui.pushButton_selllimit.setStyleSheet(btnstylestr1)
+        
 
         self.ui.tableWidget_status.setColumnWidth(0, 160)
         self.ui.tableWidget_status.setColumnWidth(1, 100)
