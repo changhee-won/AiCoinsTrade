@@ -348,8 +348,8 @@ class MainWindow(QMainWindow):
         self.set_Combo()
     def set_Combo(self):
         
-        self.ui.comboBox_buyratio.setStyleiSheet(cmbstyle)
-        self.ui.comboBox_sellratio.setStyleiSheet(cmbstyle)
+        self.ui.comboBox_buyratio.setStyleSheet(cmbstyle)
+        self.ui.comboBox_sellratio.setStyleSheet(cmbstyle)
         for i in range(1, 100):
             self.ui.comboBox_buyratio.addItem(str(i))
             self.ui.comboBox_sellratio.addItem(str(i))
