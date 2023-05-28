@@ -291,12 +291,12 @@ class MainWindow(QMainWindow):
         
         
         self.ui.tableWidget_tradesum.setColumnWidth(0, 2)
-        self.ui.tableWidget_tradesum.setColumnWidth(1, 70)
-        self.ui.tableWidget_tradesum.setColumnWidth(2, 70)
-        self.ui.tableWidget_tradesum.setColumnWidth(3, 70)
-        self.ui.tableWidget_tradesum.setColumnWidth(4, 70)
-        self.ui.tableWidget_tradesum.setColumnWidth(5, 1)
-        self.ui.tableWidget_tradesum.setColumnWidth(6, 100)
+        self.ui.tableWidget_tradesum.setColumnWidth(1, 2)
+        self.ui.tableWidget_tradesum.setColumnWidth(2, 2)
+        self.ui.tableWidget_tradesum.setColumnWidth(3, 2)
+        self.ui.tableWidget_tradesum.setColumnWidth(4, 2)
+        self.ui.tableWidget_tradesum.setColumnWidth(5, 2)
+        self.ui.tableWidget_tradesum.setColumnWidth(6, 10)
         
         self.ui.treeWidget_coins.itemClicked.connect(lambda x:
                 self.onItemClicked(self.ui.treeWidget_coins,
@@ -546,8 +546,19 @@ class MainWindow(QMainWindow):
         'ask_bid': 'BID', 
         'sequential_id': 1685196528667000}]
         '''
-        self.tradesum_row = self.ui.tableWidget_tradesum.rowCount()
-        self.ui.tableWidget_tradesum.insertRow(self.tradesum_row)
+        key=jdata.get("sequential_id")
+        logging.info(key)
+        matching_items= self.ui.tableWidget_tradesum.findItems(str(key), Qt.MatchExactly)
+        
+        if matching_items :
+            return
+        
+        self.tradesum_row = 0 #self.ui.tableWidget_tradesum.rowCount()
+        maxRows= self.ui.tableWidget_tradesum.rowCount()
+        if  maxRows >100:
+            self.ui.tableWidget_tradesum.removeRow(maxRows)
+        self.ui.tableWidget_tradesum.insertRow(0)
+        #self.tradesum_row)
         tmp=jdata.get("trade_date_utc")
         logging.info(tmp)
         
@@ -601,7 +612,7 @@ class MainWindow(QMainWindow):
         else:
             col5 =QTableWidgetItem('매도')
         
-        col5.setTextAlignment(Qt.AlignRight|Qt.AlignVCenter)
+        col5.setTextAlignment(Qt.AlignCenter|Qt.AlignVCenter)
         col5.setFlags(col5.flags()&~(Qt.ItemIsEditable))
         col5.setFlags(col5.flags()|(Qt.ItemIsSelectable))
         self.ui.tableWidget_tradesum.setItem(self.tradesum_row,5, col5)
@@ -612,6 +623,7 @@ class MainWindow(QMainWindow):
         col6.setFlags(col6.flags()&~(Qt.ItemIsEditable))
         col6.setFlags(col6.flags()|(Qt.ItemIsSelectable))
         self.ui.tableWidget_tradesum.setItem(self.tradesum_row,6, col6)
+        
         if chgratio == 0:
             col0.setForeground(Qt.black)
             col1.setForeground(Qt.black)

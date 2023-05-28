@@ -22,6 +22,14 @@
     <height>300</height>
    </size>
   </property>
+  <property name="font">
+   <font>
+    <family>Arial Black</family>
+    <pointsize>10</pointsize>
+    <weight>75</weight>
+    <bold>true</bold>
+   </font>
+  </property>
   <property name="windowTitle">
    <string>Login</string>
   </property>
