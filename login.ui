@@ -6,26 +6,26 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>500</width>
-    <height>300</height>
+    <width>400</width>
+    <height>200</height>
    </rect>
   </property>
   <property name="minimumSize">
    <size>
-    <width>500</width>
-    <height>300</height>
+    <width>400</width>
+    <height>200</height>
    </size>
   </property>
   <property name="maximumSize">
    <size>
-    <width>500</width>
-    <height>300</height>
+    <width>400</width>
+    <height>200</height>
    </size>
   </property>
   <property name="font">
    <font>
     <family>Arial Black</family>
-    <pointsize>10</pointsize>
+    <pointsize>8</pointsize>
     <weight>75</weight>
     <bold>true</bold>
    </font>
@@ -50,6 +50,14 @@
          <height>30</height>
         </size>
        </property>
+       <property name="font">
+        <font>
+         <family>Arial Black</family>
+         <pointsize>7</pointsize>
+         <weight>75</weight>
+         <bold>true</bold>
+        </font>
+       </property>
        <property name="text">
         <string>AES Key</string>
        </property>
@@ -59,15 +67,23 @@
       <widget class="QLineEdit" name="lineEdit_aes">
        <property name="minimumSize">
         <size>
-         <width>350</width>
+         <width>200</width>
          <height>30</height>
         </size>
        </property>
        <property name="maximumSize">
         <size>
-         <width>350</width>
+         <width>200</width>
          <height>30</height>
         </size>
+       </property>
+       <property name="font">
+        <font>
+         <family>Arial Black</family>
+         <pointsize>8</pointsize>
+         <weight>75</weight>
+         <bold>true</bold>
+        </font>
        </property>
       </widget>
      </item>
@@ -89,6 +105,14 @@
          <height>30</height>
         </size>
        </property>
+       <property name="font">
+        <font>
+         <family>Arial Black</family>
+         <pointsize>8</pointsize>
+         <weight>75</weight>
+         <bold>true</bold>
+        </font>
+       </property>
        <property name="text">
         <string>Security Key</string>
        </property>
@@ -98,15 +122,23 @@
       <widget class="QLineEdit" name="lineEdit_sec">
        <property name="minimumSize">
         <size>
-         <width>350</width>
+         <width>200</width>
          <height>30</height>
         </size>
        </property>
        <property name="maximumSize">
         <size>
-         <width>350</width>
+         <width>200</width>
          <height>30</height>
         </size>
+       </property>
+       <property name="font">
+        <font>
+         <family>Arial Black</family>
+         <pointsize>8</pointsize>
+         <weight>75</weight>
+         <bold>true</bold>
+        </font>
        </property>
       </widget>
      </item>
@@ -129,6 +161,14 @@
      </item>
      <item>
       <widget class="QCheckBox" name="checkBox_save">
+       <property name="font">
+        <font>
+         <family>Arial Black</family>
+         <pointsize>8</pointsize>
+         <weight>75</weight>
+         <bold>true</bold>
+        </font>
+       </property>
        <property name="text">
         <string>Save Key</string>
        </property>
@@ -148,6 +188,14 @@
          <height>30</height>
         </size>
        </property>
+       <property name="font">
+        <font>
+         <family>Arial Black</family>
+         <pointsize>8</pointsize>
+         <weight>75</weight>
+         <bold>true</bold>
+        </font>
+       </property>
        <property name="text">
         <string>OK</string>
        </property>
@@ -166,6 +214,14 @@
          <width>100</width>
          <height>30</height>
         </size>
+       </property>
+       <property name="font">
+        <font>
+         <family>Arial Black</family>
+         <pointsize>8</pointsize>
+         <weight>75</weight>
+         <bold>true</bold>
+        </font>
        </property>
        <property name="text">
         <string>Exit</string>

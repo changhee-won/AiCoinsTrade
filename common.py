@@ -37,9 +37,16 @@ tblstyle='''
           margin: 1px;
           text-align: right;
           font-family: Arial;
-          font-size:10px; }
+          font-size:8px; }
  '''
 
+cmbstyle='''
+ComboBox::drop-down {
+    subcontrol-origin: padding;
+    subcontrol-position: bottom right;
+}
+QComboBox {font: 8pt Arial;combobox-popup: 0;}
+'''
 
 btnstylestr = '''
  QPushButton{
@@ -60,7 +67,7 @@ btnstylestr1 = '''
  QPushButton{
         font: 8pt Arial Black;
         border-width: 3px;
-        border-radius: 7px;
+        border-radius: 8px;
         font-weight: bold;
         border-color: beige;
         color: yellow;
@@ -84,9 +91,9 @@ lineedstylestr = '''
 
 labelstylestr = '''
  QLabel{
-        font: 8pt Arial Black;
-
-        color: darkRed;
+       font: 8pt Arial Black;
+       font-weight: bold;
+       color: darkRed;
 
          }
   '''

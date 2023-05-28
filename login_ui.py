@@ -23,12 +23,12 @@ class Ui_Dialog(object):
     def setupUi(self, Dialog):
         if not Dialog.objectName():
             Dialog.setObjectName(u"Dialog")
-        Dialog.resize(500, 300)
-        Dialog.setMinimumSize(QSize(500, 300))
-        Dialog.setMaximumSize(QSize(500, 300))
+        Dialog.resize(400, 200)
+        Dialog.setMinimumSize(QSize(400, 200))
+        Dialog.setMaximumSize(QSize(400, 200))
         font = QFont()
         font.setFamilies([u"Arial Black"])
-        font.setPointSize(10)
+        font.setPointSize(8)
         font.setBold(True)
         Dialog.setFont(font)
         self.verticalLayout = QVBoxLayout(Dialog)
@@ -39,13 +39,19 @@ class Ui_Dialog(object):
         self.label_aes.setObjectName(u"label_aes")
         self.label_aes.setMinimumSize(QSize(100, 30))
         self.label_aes.setMaximumSize(QSize(100, 30))
+        font1 = QFont()
+        font1.setFamilies([u"Arial Black"])
+        font1.setPointSize(7)
+        font1.setBold(True)
+        self.label_aes.setFont(font1)
 
         self.horizontalLayout_3.addWidget(self.label_aes)
 
         self.lineEdit_aes = QLineEdit(Dialog)
         self.lineEdit_aes.setObjectName(u"lineEdit_aes")
-        self.lineEdit_aes.setMinimumSize(QSize(350, 30))
-        self.lineEdit_aes.setMaximumSize(QSize(350, 30))
+        self.lineEdit_aes.setMinimumSize(QSize(200, 30))
+        self.lineEdit_aes.setMaximumSize(QSize(200, 30))
+        self.lineEdit_aes.setFont(font)
 
         self.horizontalLayout_3.addWidget(self.lineEdit_aes)
 
@@ -58,13 +64,15 @@ class Ui_Dialog(object):
         self.label_sec.setObjectName(u"label_sec")
         self.label_sec.setMinimumSize(QSize(100, 30))
         self.label_sec.setMaximumSize(QSize(100, 30))
+        self.label_sec.setFont(font)
 
         self.horizontalLayout_2.addWidget(self.label_sec)
 
         self.lineEdit_sec = QLineEdit(Dialog)
         self.lineEdit_sec.setObjectName(u"lineEdit_sec")
-        self.lineEdit_sec.setMinimumSize(QSize(350, 30))
-        self.lineEdit_sec.setMaximumSize(QSize(350, 30))
+        self.lineEdit_sec.setMinimumSize(QSize(200, 30))
+        self.lineEdit_sec.setMaximumSize(QSize(200, 30))
+        self.lineEdit_sec.setFont(font)
 
         self.horizontalLayout_2.addWidget(self.lineEdit_sec)
 
@@ -79,6 +87,7 @@ class Ui_Dialog(object):
 
         self.checkBox_save = QCheckBox(Dialog)
         self.checkBox_save.setObjectName(u"checkBox_save")
+        self.checkBox_save.setFont(font)
 
         self.horizontalLayout.addWidget(self.checkBox_save)
 
@@ -86,6 +95,7 @@ class Ui_Dialog(object):
         self.pushButton_ok.setObjectName(u"pushButton_ok")
         self.pushButton_ok.setMinimumSize(QSize(100, 30))
         self.pushButton_ok.setMaximumSize(QSize(100, 30))
+        self.pushButton_ok.setFont(font)
 
         self.horizontalLayout.addWidget(self.pushButton_ok)
 
@@ -93,6 +103,7 @@ class Ui_Dialog(object):
         self.pushButton_exit.setObjectName(u"pushButton_exit")
         self.pushButton_exit.setMinimumSize(QSize(100, 30))
         self.pushButton_exit.setMaximumSize(QSize(100, 30))
+        self.pushButton_exit.setFont(font)
 
         self.horizontalLayout.addWidget(self.pushButton_exit)
 

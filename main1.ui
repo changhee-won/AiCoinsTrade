@@ -25,11 +25,11 @@
   <property name="font">
    <font>
     <family>Arial</family>
-    <pointsize>7</pointsize>
+    <pointsize>8</pointsize>
    </font>
   </property>
   <property name="windowTitle">
-   <string>AI Coin Trade</string>
+   <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QFormLayout" name="formLayout">
@@ -49,14 +49,14 @@
           <height>16777215</height>
          </size>
         </property>
-        <column>
-         <property name="text">
-          <string>마켓</string>
-         </property>
-         <property name="textAlignment">
-          <set>AlignCenter</set>
-         </property>
-        </column>
+        <property name="font">
+         <font>
+          <family>Arial</family>
+          <pointsize>8</pointsize>
+          <weight>75</weight>
+          <bold>true</bold>
+         </font>
+        </property>
        </widget>
       </item>
       <item>
@@ -73,12 +73,24 @@
           <height>16777215</height>
          </size>
         </property>
+        <property name="font">
+         <font>
+          <family>Arial</family>
+          <pointsize>8</pointsize>
+         </font>
+        </property>
         <attribute name="verticalHeaderVisible">
          <bool>false</bool>
         </attribute>
         <column>
          <property name="text">
           <string>마켓</string>
+         </property>
+         <property name="font">
+          <font>
+           <family>Arial Black</family>
+           <pointsize>8</pointsize>
+          </font>
          </property>
          <property name="textAlignment">
           <set>AlignCenter</set>
@@ -88,6 +100,12 @@
          <property name="text">
           <string>수량</string>
          </property>
+         <property name="font">
+          <font>
+           <family>Arial Black</family>
+           <pointsize>8</pointsize>
+          </font>
+         </property>
          <property name="textAlignment">
           <set>AlignCenter</set>
          </property>
@@ -96,6 +114,12 @@
          <property name="text">
           <string>현재가</string>
          </property>
+         <property name="font">
+          <font>
+           <family>Arial Black</family>
+           <pointsize>8</pointsize>
+          </font>
+         </property>
          <property name="textAlignment">
           <set>AlignCenter</set>
          </property>
@@ -103,6 +127,12 @@
         <column>
          <property name="text">
           <string>등락율</string>
+         </property>
+         <property name="font">
+          <font>
+           <family>Arial Black</family>
+           <pointsize>8</pointsize>
+          </font>
          </property>
          <property name="textAlignment">
           <set>AlignCenter</set>
@@ -126,8 +156,14 @@
         <height>16777215</height>
        </size>
       </property>
+      <property name="font">
+       <font>
+        <family>Arial</family>
+        <pointsize>8</pointsize>
+       </font>
+      </property>
       <property name="currentIndex">
-       <number>0</number>
+       <number>2</number>
       </property>
       <widget class="QWidget" name="tabWidgetPage1">
        <attribute name="title">
@@ -150,8 +186,14 @@
               <height>16777215</height>
              </size>
             </property>
+            <property name="font">
+             <font>
+              <family>Arial Black</family>
+              <pointsize>8</pointsize>
+             </font>
+            </property>
             <property name="currentIndex">
-             <number>2</number>
+             <number>1</number>
             </property>
             <widget class="QWidget" name="tab_3">
              <attribute name="title">
@@ -220,28 +262,6 @@
                </layout>
               </item>
               <item>
-               <widget class="QLabel" name="label">
-                <property name="minimumSize">
-                 <size>
-                  <width>80</width>
-                  <height>30</height>
-                 </size>
-                </property>
-                <property name="maximumSize">
-                 <size>
-                  <width>80</width>
-                  <height>30</height>
-                 </size>
-                </property>
-                <property name="text">
-                 <string>주문가능</string>
-                </property>
-                <property name="alignment">
-                 <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-                </property>
-               </widget>
-              </item>
-              <item>
                <layout class="QHBoxLayout" name="horizontalLayout_6">
                 <item>
                  <widget class="QLabel" name="label_4">
@@ -279,6 +299,12 @@
                     <height>30</height>
                    </size>
                   </property>
+                  <property name="font">
+                   <font>
+                    <family>Arial</family>
+                    <pointsize>8</pointsize>
+                   </font>
+                  </property>
                   <property name="alignment">
                    <set>Qt::AlignCenter</set>
                   </property>
@@ -297,6 +323,12 @@
                     <width>40</width>
                     <height>30</height>
                    </size>
+                  </property>
+                  <property name="font">
+                   <font>
+                    <family>Arial</family>
+                    <pointsize>8</pointsize>
+                   </font>
                   </property>
                   <property name="text">
                    <string>KRW</string>
@@ -346,6 +378,12 @@
                     <height>30</height>
                    </size>
                   </property>
+                  <property name="font">
+                   <font>
+                    <family>Arial</family>
+                    <pointsize>8</pointsize>
+                   </font>
+                  </property>
                   <property name="alignment">
                    <set>Qt::AlignCenter</set>
                   </property>
@@ -364,6 +402,12 @@
                     <width>40</width>
                     <height>30</height>
                    </size>
+                  </property>
+                  <property name="font">
+                   <font>
+                    <family>Arial</family>
+                    <pointsize>8</pointsize>
+                   </font>
                   </property>
                   <property name="text">
                    <string>KRW</string>
@@ -400,7 +444,7 @@
                  </widget>
                 </item>
                 <item>
-                 <widget class="QComboBox" name="comboBox_ratio">
+                 <widget class="QComboBox" name="comboBox_buyratio">
                   <property name="minimumSize">
                    <size>
                     <width>200</width>
@@ -412,6 +456,12 @@
                     <width>200</width>
                     <height>30</height>
                    </size>
+                  </property>
+                  <property name="font">
+                   <font>
+                    <family>Arial</family>
+                    <pointsize>8</pointsize>
+                   </font>
                   </property>
                  </widget>
                 </item>
@@ -428,6 +478,12 @@
                     <width>40</width>
                     <height>30</height>
                    </size>
+                  </property>
+                  <property name="font">
+                   <font>
+                    <family>Arial</family>
+                    <pointsize>8</pointsize>
+                   </font>
                   </property>
                   <property name="text">
                    <string>%</string>
@@ -477,6 +533,12 @@
                     <height>30</height>
                    </size>
                   </property>
+                  <property name="font">
+                   <font>
+                    <family>Arial</family>
+                    <pointsize>8</pointsize>
+                   </font>
+                  </property>
                   <property name="alignment">
                    <set>Qt::AlignCenter</set>
                   </property>
@@ -495,6 +557,12 @@
                     <width>40</width>
                     <height>30</height>
                    </size>
+                  </property>
+                  <property name="font">
+                   <font>
+                    <family>Arial</family>
+                    <pointsize>8</pointsize>
+                   </font>
                   </property>
                   <property name="text">
                    <string>KRW</string>
@@ -617,28 +685,6 @@
                </layout>
               </item>
               <item>
-               <widget class="QLabel" name="label_29">
-                <property name="minimumSize">
-                 <size>
-                  <width>80</width>
-                  <height>30</height>
-                 </size>
-                </property>
-                <property name="maximumSize">
-                 <size>
-                  <width>80</width>
-                  <height>30</height>
-                 </size>
-                </property>
-                <property name="text">
-                 <string>주문가능</string>
-                </property>
-                <property name="alignment">
-                 <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-                </property>
-               </widget>
-              </item>
-              <item>
                <layout class="QHBoxLayout" name="horizontalLayout_18">
                 <item>
                  <widget class="QLabel" name="label_25">
@@ -676,6 +722,12 @@
                     <height>30</height>
                    </size>
                   </property>
+                  <property name="font">
+                   <font>
+                    <family>Arial</family>
+                    <pointsize>8</pointsize>
+                   </font>
+                  </property>
                   <property name="alignment">
                    <set>Qt::AlignCenter</set>
                   </property>
@@ -694,6 +746,12 @@
                     <width>40</width>
                     <height>30</height>
                    </size>
+                  </property>
+                  <property name="font">
+                   <font>
+                    <family>Arial</family>
+                    <pointsize>8</pointsize>
+                   </font>
                   </property>
                   <property name="text">
                    <string>KRW</string>
@@ -743,6 +801,12 @@
                     <height>30</height>
                    </size>
                   </property>
+                  <property name="font">
+                   <font>
+                    <family>Arial</family>
+                    <pointsize>8</pointsize>
+                   </font>
+                  </property>
                   <property name="alignment">
                    <set>Qt::AlignCenter</set>
                   </property>
@@ -761,6 +825,12 @@
                     <width>40</width>
                     <height>30</height>
                    </size>
+                  </property>
+                  <property name="font">
+                   <font>
+                    <family>Arial</family>
+                    <pointsize>8</pointsize>
+                   </font>
                   </property>
                   <property name="text">
                    <string>KRW</string>
@@ -807,6 +877,12 @@
                     <height>30</height>
                    </size>
                   </property>
+                  <property name="font">
+                   <font>
+                    <family>Arial</family>
+                    <pointsize>8</pointsize>
+                   </font>
+                  </property>
                  </widget>
                 </item>
                 <item>
@@ -822,6 +898,12 @@
                     <width>30</width>
                     <height>30</height>
                    </size>
+                  </property>
+                  <property name="font">
+                   <font>
+                    <family>Arial</family>
+                    <pointsize>8</pointsize>
+                   </font>
                   </property>
                   <property name="text">
                    <string>%</string>
@@ -874,6 +956,12 @@
                     <height>30</height>
                    </size>
                   </property>
+                  <property name="font">
+                   <font>
+                    <family>Arial</family>
+                    <pointsize>8</pointsize>
+                   </font>
+                  </property>
                   <property name="alignment">
                    <set>Qt::AlignCenter</set>
                   </property>
@@ -892,6 +980,12 @@
                     <width>30</width>
                     <height>30</height>
                    </size>
+                  </property>
+                  <property name="font">
+                   <font>
+                    <family>Arial</family>
+                    <pointsize>8</pointsize>
+                   </font>
                   </property>
                   <property name="text">
                    <string>KRW</string>
@@ -1000,25 +1094,70 @@
                  <property name="text">
                   <string>구분</string>
                  </property>
+                 <property name="font">
+                  <font>
+                   <family>Arial Black</family>
+                   <pointsize>8</pointsize>
+                  </font>
+                 </property>
+                 <property name="textAlignment">
+                  <set>AlignCenter</set>
+                 </property>
                 </column>
                 <column>
                  <property name="text">
                   <string>마켓명</string>
+                 </property>
+                 <property name="font">
+                  <font>
+                   <family>Arial Black</family>
+                   <pointsize>8</pointsize>
+                  </font>
+                 </property>
+                 <property name="textAlignment">
+                  <set>AlignCenter</set>
                  </property>
                 </column>
                 <column>
                  <property name="text">
                   <string>체결가격</string>
                  </property>
+                 <property name="font">
+                  <font>
+                   <family>Arial Black</family>
+                   <pointsize>8</pointsize>
+                  </font>
+                 </property>
+                 <property name="textAlignment">
+                  <set>AlignCenter</set>
+                 </property>
                 </column>
                 <column>
                  <property name="text">
                   <string>채결수량</string>
                  </property>
+                 <property name="font">
+                  <font>
+                   <family>Arial Black</family>
+                   <pointsize>8</pointsize>
+                  </font>
+                 </property>
+                 <property name="textAlignment">
+                  <set>AlignCenter</set>
+                 </property>
                 </column>
                 <column>
                  <property name="text">
                   <string>체결금액</string>
+                 </property>
+                 <property name="font">
+                  <font>
+                   <family>Arial Black</family>
+                   <pointsize>8</pointsize>
+                  </font>
+                 </property>
+                 <property name="textAlignment">
+                  <set>AlignCenter</set>
                  </property>
                 </column>
                </widget>
@@ -1048,6 +1187,12 @@
              <property name="text">
               <string>마켓</string>
              </property>
+             <property name="font">
+              <font>
+               <family>Arial Black</family>
+               <pointsize>8</pointsize>
+              </font>
+             </property>
              <property name="textAlignment">
               <set>AlignCenter</set>
              </property>
@@ -1055,6 +1200,12 @@
             <column>
              <property name="text">
               <string>매수가</string>
+             </property>
+             <property name="font">
+              <font>
+               <family>Arial Black</family>
+               <pointsize>8</pointsize>
+              </font>
              </property>
              <property name="textAlignment">
               <set>AlignCenter</set>
@@ -1064,6 +1215,12 @@
              <property name="text">
               <string>잔고</string>
              </property>
+             <property name="font">
+              <font>
+               <family>Arial Black</family>
+               <pointsize>8</pointsize>
+              </font>
+             </property>
              <property name="textAlignment">
               <set>AlignCenter</set>
              </property>
@@ -1072,6 +1229,12 @@
              <property name="text">
               <string>현재가</string>
              </property>
+             <property name="font">
+              <font>
+               <family>Arial Black</family>
+               <pointsize>8</pointsize>
+              </font>
+             </property>
              <property name="textAlignment">
               <set>AlignCenter</set>
              </property>
@@ -1079,6 +1242,12 @@
             <column>
              <property name="text">
               <string>수익율</string>
+             </property>
+             <property name="font">
+              <font>
+               <family>Arial Black</family>
+               <pointsize>8</pointsize>
+              </font>
              </property>
              <property name="textAlignment">
               <set>AlignCenter</set>
@@ -1105,10 +1274,11 @@
           </attribute>
           <column>
            <property name="text">
-            <string>time</string>
+            <string>시간</string>
            </property>
            <property name="font">
             <font>
+             <family>Arial Black</family>
              <pointsize>8</pointsize>
             </font>
            </property>
@@ -1122,6 +1292,7 @@
            </property>
            <property name="font">
             <font>
+             <family>Arial Black</family>
              <pointsize>8</pointsize>
             </font>
            </property>
@@ -1135,6 +1306,7 @@
            </property>
            <property name="font">
             <font>
+             <family>Arial Black</family>
              <pointsize>8</pointsize>
             </font>
            </property>
@@ -1148,6 +1320,7 @@
            </property>
            <property name="font">
             <font>
+             <family>Arial Black</family>
              <pointsize>8</pointsize>
             </font>
            </property>
@@ -1161,6 +1334,7 @@
            </property>
            <property name="font">
             <font>
+             <family>Arial Black</family>
              <pointsize>8</pointsize>
             </font>
            </property>
@@ -1174,6 +1348,7 @@
            </property>
            <property name="font">
             <font>
+             <family>Arial Black</family>
              <pointsize>8</pointsize>
             </font>
            </property>
@@ -1187,6 +1362,7 @@
            </property>
            <property name="font">
             <font>
+             <family>Arial Black</family>
              <pointsize>8</pointsize>
             </font>
            </property>
@@ -1199,17 +1375,17 @@
         <item>
          <layout class="QHBoxLayout" name="horizontalLayout">
           <item>
-           <widget class="QLabel" name="label_2">
+           <widget class="QLabel" name="label_sell">
             <property name="minimumSize">
              <size>
               <width>50</width>
-              <height>40</height>
+              <height>30</height>
              </size>
             </property>
             <property name="maximumSize">
              <size>
               <width>40</width>
-              <height>40</height>
+              <height>30</height>
              </size>
             </property>
             <property name="text">
@@ -1218,10 +1394,10 @@
            </widget>
           </item>
           <item>
-           <widget class="QSpinBox" name="spinBox_orice">
+           <widget class="QDoubleSpinBox" name="doubleSpinBox_2">
             <property name="minimumSize">
              <size>
-              <width>100</width>
+              <width>150</width>
               <height>30</height>
              </size>
             </property>
@@ -1231,20 +1407,23 @@
               <height>30</height>
              </size>
             </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
+            </property>
            </widget>
           </item>
           <item>
-           <widget class="QLabel" name="label_5">
+           <widget class="QLabel" name="label_cur">
             <property name="minimumSize">
              <size>
               <width>40</width>
-              <height>40</height>
+              <height>30</height>
              </size>
             </property>
             <property name="maximumSize">
              <size>
               <width>100</width>
-              <height>40</height>
+              <height>30</height>
              </size>
             </property>
             <property name="text">
@@ -1277,13 +1456,13 @@
             <property name="minimumSize">
              <size>
               <width>50</width>
-              <height>40</height>
+              <height>30</height>
              </size>
             </property>
             <property name="maximumSize">
              <size>
               <width>40</width>
-              <height>40</height>
+              <height>30</height>
              </size>
             </property>
             <property name="text">
@@ -1292,10 +1471,10 @@
            </widget>
           </item>
           <item>
-           <widget class="QSpinBox" name="spinBox_2">
+           <widget class="QDoubleSpinBox" name="doubleSpinBox_3">
             <property name="minimumSize">
              <size>
-              <width>100</width>
+              <width>150</width>
               <height>30</height>
              </size>
             </property>
@@ -1305,6 +1484,9 @@
               <height>30</height>
              </size>
             </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
+            </property>
            </widget>
           </item>
           <item>
@@ -1312,13 +1494,13 @@
             <property name="minimumSize">
              <size>
               <width>40</width>
-              <height>40</height>
+              <height>30</height>
              </size>
             </property>
             <property name="maximumSize">
              <size>
               <width>100</width>
-              <height>40</height>
+              <height>30</height>
              </size>
             </property>
             <property name="text">
@@ -1425,6 +1607,12 @@
             <width>16777215</width>
             <height>150</height>
            </size>
+          </property>
+          <property name="font">
+           <font>
+            <family>Arial Black</family>
+            <pointsize>8</pointsize>
+           </font>
           </property>
          </widget>
         </item>
@@ -1557,7 +1745,7 @@
               </widget>
              </item>
              <item>
-              <widget class="QComboBox" name="comboBox_aspsellrate">
+              <widget class="QComboBox" name="comboBox_spsellrate">
                <property name="minimumSize">
                 <size>
                  <width>100</width>
@@ -1747,7 +1935,7 @@
               </widget>
              </item>
              <item>
-              <widget class="QComboBox" name="comboBox_spbuyrate">
+              <widget class="QComboBox" name="comboBox_aspbuyrate">
                <property name="minimumSize">
                 <size>
                  <width>100</width>
@@ -1832,7 +2020,7 @@
            <item>
             <layout class="QHBoxLayout" name="horizontalLayout_21">
              <item>
-              <widget class="QLabel" name="label_17">
+              <widget class="QLabel" name="label_ma">
                <property name="minimumSize">
                 <size>
                  <width>15</width>
@@ -1960,13 +2148,13 @@
               <widget class="QLabel" name="label_startdate">
                <property name="minimumSize">
                 <size>
-                 <width>120</width>
+                 <width>95</width>
                  <height>30</height>
                 </size>
                </property>
                <property name="maximumSize">
                 <size>
-                 <width>120</width>
+                 <width>95</width>
                  <height>30</height>
                 </size>
                </property>
@@ -2028,13 +2216,13 @@
               <widget class="QLabel" name="label_enddate">
                <property name="minimumSize">
                 <size>
-                 <width>120</width>
+                 <width>95</width>
                  <height>30</height>
                 </size>
                </property>
                <property name="maximumSize">
                 <size>
-                 <width>120</width>
+                 <width>95</width>
                  <height>30</height>
                 </size>
                </property>
@@ -2185,7 +2373,7 @@
      <x>0</x>
      <y>0</y>
      <width>1162</width>
-     <height>19</height>
+     <height>22</height>
     </rect>
    </property>
   </widget>

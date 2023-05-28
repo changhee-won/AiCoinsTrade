@@ -264,6 +264,36 @@ class MainWindow(QMainWindow):
         self.ui.tableWidget_tot.setStyleSheet(tblstyle)
         self.ui.tableWidget_tradesum.setStyleSheet(tblstyle)
         self.ui.tableWidget_tradelist.setStyleSheet(tblstyle)
+        self.ui.label_13.setStyleSheet(labelstylestr)
+        self.ui.label_16.setStyleSheet(labelstylestr)
+        self.ui.label_15.setStyleSheet(labelstylestr)
+        self.ui.label_14.setStyleSheet(labelstylestr)
+        self.ui.label_27.setStyleSheet(labelstylestr)
+        self.ui.label_28.setStyleSheet(labelstylestr)
+        self.ui.label_30.setStyleSheet(labelstylestr)
+        self.ui.label_31.setStyleSheet(labelstylestr)
+        self.ui.label_startdate.setStyleSheet(labelstylestr)
+        self.ui.label_enddate.setStyleSheet(labelstylestr)
+        self.ui.label_ma.setStyleSheet(labelstylestr)
+        self.ui.label_4.setStyleSheet(labelstylestr)
+        self.ui.label_7.setStyleSheet(labelstylestr)
+        self.ui.label_8.setStyleSheet(labelstylestr)
+        self.ui.label_9.setStyleSheet(labelstylestr)
+        self.ui.label_3.setStyleSheet(labelstylestr)
+        self.ui.label_6.setStyleSheet(labelstylestr)
+        self.ui.label_10.setStyleSheet(labelstylestr)
+        self.ui.label_11.setStyleSheet(labelstylestr)
+        self.ui.label_18.setStyleSheet(labelstylestr)
+        self.ui.label_19.setStyleSheet(labelstylestr)
+        self.ui.label_25.setStyleSheet(labelstylestr)
+        self.ui.label_23.setStyleSheet(labelstylestr)
+        self.ui.label_26.setStyleSheet(labelstylestr)
+        self.ui.label_24.setStyleSheet(labelstylestr)
+        self.ui.label_12.setStyleSheet(labelstylestr)
+        self.ui.label_20.setStyleSheet(labelstylestr)
+        
+        
+        
 
         self.ui.tableWidget_status.setSelectionBehavior(QAbstractItemView.SelectRows)
         self.ui.tableWidget_tot.setSelectionBehavior(QAbstractItemView.SelectRows)
@@ -278,6 +308,10 @@ class MainWindow(QMainWindow):
         self.ui.pushButton_sellall.setStyleSheet(btnstylestr1)
         self.ui.pushButton_selllimit.setStyleSheet(btnstylestr1)
         
+        self.ui.label_sell.setStyleSheet(labelstylestr)
+        self.ui.label_cur.setStyleSheet(labelstylestr)
+        self.ui.label_amount.setStyleSheet(labelstylestr)
+        self.ui.label_aratio.setStyleSheet(labelstylestr)
 
         self.ui.tableWidget_status.setColumnWidth(0, 160)
         self.ui.tableWidget_status.setColumnWidth(1, 100)
@@ -291,12 +325,12 @@ class MainWindow(QMainWindow):
         
         
         self.ui.tableWidget_tradesum.setColumnWidth(0, 2)
-        self.ui.tableWidget_tradesum.setColumnWidth(1, 2)
-        self.ui.tableWidget_tradesum.setColumnWidth(2, 2)
-        self.ui.tableWidget_tradesum.setColumnWidth(3, 2)
-        self.ui.tableWidget_tradesum.setColumnWidth(4, 2)
-        self.ui.tableWidget_tradesum.setColumnWidth(5, 2)
-        self.ui.tableWidget_tradesum.setColumnWidth(6, 10)
+        self.ui.tableWidget_tradesum.setColumnWidth(1, 50)
+        self.ui.tableWidget_tradesum.setColumnWidth(2, 70)
+        self.ui.tableWidget_tradesum.setColumnWidth(3, 70)
+        self.ui.tableWidget_tradesum.setColumnWidth(4, 70)
+        self.ui.tableWidget_tradesum.setColumnWidth(5, 70)
+        self.ui.tableWidget_tradesum.setColumnWidth(6, 100)
         
         self.ui.treeWidget_coins.itemClicked.connect(lambda x:
                 self.onItemClicked(self.ui.treeWidget_coins,
@@ -311,7 +345,23 @@ class MainWindow(QMainWindow):
         self.ui.show()
         self.set_updateAllData()
         self.start_watchTimer()
-
+        self.set_Combo()
+    def set_Combo(self):
+        
+        self.ui.comboBox_buyratio.setStyleiSheet(cmbstyle)
+        self.ui.comboBox_sellratio.setStyleiSheet(cmbstyle)
+        for i in range(1, 100):
+            self.ui.comboBox_buyratio.addItem(str(i))
+            self.ui.comboBox_sellratio.addItem(str(i))
+        
+            self.ui.comboBox_pratio.addItem(str(i))
+            self.ui.comboBox_aratio.addItem(str(i))
+        
+            self.ui.comboBox_asellrate.addItem(str(i))
+            self.ui.comboBox_spsellrate.addItem(str(i))
+            self.ui.comboBox_abuyrate.addItem(str(i))
+            self.ui.comboBox_aspbuyrate.addItem(str(i))       
+    
     def findTableItmes(self,key,tblwidget):
         fitems = tblwidget.findItems(key,Qt.MatchExactly)
         if not fitems:
