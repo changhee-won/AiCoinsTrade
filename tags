@@ -1,0 +1,87 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_OUTPUT_EXCMD	mixed	/number, pattern, mixed, or combineV2/
+!_TAG_OUTPUT_FILESEP	slash	/slash or backslash/
+!_TAG_OUTPUT_MODE	u-ctags	/u-ctags or e-ctags/
+!_TAG_PATTERN_LENGTH_LIMIT	96	/0 for no limit/
+!_TAG_PROC_CWD	/media/jupiter/새 볼륨/work/AiCoinsTrade/	//
+!_TAG_PROGRAM_AUTHOR	Universal Ctags Team	//
+!_TAG_PROGRAM_NAME	Universal Ctags	/Derived from Exuberant Ctags/
+!_TAG_PROGRAM_URL	https://ctags.io/	/official site/
+!_TAG_PROGRAM_VERSION	5.9.0	//
+AiCoinsTrade	README.md	/^# AiCoinsTrade/;"	c
+CFG_FILE	common.py	/^CFG_FILE ="login.cfg"$/;"	v
+GetCandlesWeeks	upbitApi.py	/^    def GetCandlesWeeks(self, market, count):$/;"	m	class:upbitApi
+GetCurrent	upbitApi.py	/^    def GetCurrent(self,coin=["KRW-BTC"]):$/;"	m	class:upbitApi
+GetCurrentAll	upbitApi.py	/^    def GetCurrentAll(self):$/;"	m	class:upbitApi
+GetCurrentInfo	upbitApi.py	/^    def GetCurrentInfo(self,min, coin="KRW-BTC"):$/;"	m	class:upbitApi
+GetOrder	upbitApi.py	/^    def GetOrder(self):$/;"	m	class:upbitApi
+GetOrderbook	upbitApi.py	/^    def GetOrderbook(self, market):$/;"	m	class:upbitApi
+GetOrders	upbitApi.py	/^    def GetOrders(self, uuids):$/;"	m	class:upbitApi
+GetOrdersChance	upbitApi.py	/^    def GetOrdersChance(self, market):$/;"	m	class:upbitApi
+GetTicker	upbitApi.py	/^    def GetTicker(self, market):$/;"	m	class:upbitApi
+GetTradesTicks	upbitApi.py	/^    def GetTradesTicks(self):$/;"	m	class:upbitApi
+Getbalances	upbitApi.py	/^    def Getbalances(self):$/;"	m	class:upbitApi
+LOGINUI_FILE	common.py	/^LOGINUI_FILE = "login.ui"$/;"	v
+LoginDlg	aicoin_main.py	/^class LoginDlg(QDialog):$/;"	c
+MainWindow	aicoin_main.py	/^class MainWindow(QMainWindow):$/;"	c
+PostOrders_Buy	upbitApi.py	/^    def PostOrders_Buy(self, market, volume, price):$/;"	m	class:upbitApi
+PostOrders_Buy_Auto	upbitApi.py	/^    def PostOrders_Buy_Auto(self, market, price):$/;"	m	class:upbitApi
+UI_FILE	common.py	/^UI_FILE = "main.ui"$/;"	v
+Ui_Widget	main_ui.py	/^class Ui_Widget(object):$/;"	c
+__init__	aicoin_main.py	/^    def __init__(self):$/;"	m	class:MainWindow
+__init__	aicoin_main.py	/^    def __init__(self, parent=None):$/;"	m	class:LoginDlg
+__init__	aicoin_main.py	/^    def __init__(self,tbl,Prog):$/;"	m	class:reflash_producer
+__init__	upbitApi.py	/^    def __init__(self):$/;"	m	class:upbitApi
+args	aicoin_main.py	/^        args = parser.parse_args()$/;"	v
+auto_trade	aicoin_main.py	/^    def auto_trade(self,coins,inteval=60):$/;"	m	class:MainWindow
+base	appico.svg	/^     inkscape:window-maximized="1" \/>$/;"	i
+btn_event	aicoin_main.py	/^    def btn_event(self,obj):$/;"	m	class:LoginDlg
+btn_event	aicoin_main.py	/^    def btn_event(self,obj):$/;"	m	class:MainWindow
+btnstylestr	common.py	/^btnstylestr = '''$/;"	v
+cc	appico.svg	/^   sodipodi:docname="mon.svg">$/;"	n	uri:http://creativecommons.org/ns#
+closeEvent	aicoin_main.py	/^    def closeEvent(self,event):$/;"	m	class:LoginDlg
+confirmed	aicoin_main.py	/^    def confirmed(self):$/;"	m	class:LoginDlg
+dc	appico.svg	/^   sodipodi:docname="mon.svg">$/;"	n	uri:http://purl.org/dc/elements/1.1/
+defs110	appico.svg	/^     id="defs110" \/>$/;"	i
+findTableItmes	aicoin_main.py	/^    def findTableItmes(self,key,tblwidget):$/;"	m	class:MainWindow
+get_CoinName	aicoin_main.py	/^    def get_CoinName(self, coin):$/;"	m	class:MainWindow
+get_coins	upbitApi.py	/^    def get_coins(self):$/;"	m	class:upbitApi
+image128	appico.svg	/^       y="3.4222882" \/>$/;"	i
+inkscape	appico.svg	/^   sodipodi:docname="mon.svg">$/;"	n	uri:http://www.inkscape.org/namespaces/inkscape
+krw_tickers	KR-tickerlist.py	/^krw_tickers = pyupbit.get_tickers("KRW")$/;"	v
+labelstylestr	common.py	/^labelstylestr = '''$/;"	v
+layer1	appico.svg	/^     id="layer1">$/;"	i
+lineedstylestr	common.py	/^lineedstylestr = '''$/;"	v
+logger	common.py	/^logger = logging.getLogger()$/;"	v
+main	aicoin_main.py	/^def main():$/;"	f
+main__init__	aicoin_main.py	/^    def main__init__(self):$/;"	m	class:MainWindow
+metadata113	appico.svg	/^     id="metadata113">$/;"	i
+min_candle	upbitApi.py	/^    def min_candle(self,min, coin="KRW-BTC"):$/;"	m	class:upbitApi
+ni	common.py	/^import netifaces as ni$/;"	I	nameref:module:netifaces
+ns9272e33f0101	appico.svg	/^   sodipodi:docname="mon.svg">$/;"	n	uri:http://www.w3.org/2000/svg
+onItemClicked	aicoin_main.py	/^    def onItemClicked(self, tree,it, col,tblwidget):$/;"	m	class:MainWindow
+poped	aicoin_main.py	/^    poped = Signal(str)$/;"	v	class:reflash_producer
+rdf	appico.svg	/^   sodipodi:docname="mon.svg">$/;"	n	uri:http://www.w3.org/1999/02/22-rdf-syntax-ns#
+reflash_producer	aicoin_main.py	/^class reflash_producer(QThread):$/;"	c
+retranslateUi	main_ui.py	/^    def retranslateUi(self, Widget):$/;"	m	class:Ui_Widget
+run	aicoin_main.py	/^    def run(self):$/;"	m	class:reflash_producer
+server_url	upbitApi.py	/^server_url = "https:\/\/api.upbit.com"$/;"	v
+setStyle	aicoin_main.py	/^    def setStyle(self):$/;"	m	class:LoginDlg
+setTreeView	aicoin_main.py	/^    def setTreeView(self,tree,it):$/;"	m	class:MainWindow
+set_btnevt	aicoin_main.py	/^    def set_btnevt(self):$/;"	m	class:MainWindow
+set_tblBalance	aicoin_main.py	/^    def set_tblBalance(self):$/;"	m	class:MainWindow
+set_tbleData	aicoin_main.py	/^    def set_tbleData(self):$/;"	m	class:MainWindow
+setcmbData	aicoin_main.py	/^    def setcmbData(self):$/;"	m	class:MainWindow
+settblEvent	aicoin_main.py	/^    def settblEvent(self):$/;"	m	class:MainWindow
+setupUi	main_ui.py	/^    def setupUi(self, Widget):$/;"	m	class:Ui_Widget
+showDlg	aicoin_main.py	/^    def showDlg(self):$/;"	m	class:LoginDlg
+sodipodi	appico.svg	/^   sodipodi:docname="mon.svg">$/;"	n	uri:http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd
+stop	aicoin_main.py	/^    def stop(self):$/;"	m	class:reflash_producer
+svg	appico.svg	/^   sodipodi:docname="mon.svg">$/;"	n	uri:http://www.w3.org/2000/svg
+svg116	appico.svg	/^   sodipodi:docname="mon.svg">$/;"	i
+tblselectRow	aicoin_main.py	/^    def tblselectRow(self,tbl,row):$/;"	m	class:MainWindow
+tblstyle	common.py	/^tblstyle='''$/;"	v
+upbitApi	upbitApi.py	/^class upbitApi:$/;"	c
+upbit_connect	upbitApi.py	/^    def upbit_connect(self):$/;"	m	class:upbitApi
+xlink	appico.svg	/^   sodipodi:docname="mon.svg">$/;"	n	uri:http://www.w3.org/1999/xlink

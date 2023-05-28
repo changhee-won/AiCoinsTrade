@@ -25,11 +25,11 @@
   <property name="font">
    <font>
     <family>Arial</family>
-    <pointsize>8</pointsize>
+    <pointsize>7</pointsize>
    </font>
   </property>
   <property name="windowTitle">
-   <string>MainWindow</string>
+   <string>AI Coin Trade</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QFormLayout" name="formLayout">
@@ -1105,23 +1105,12 @@
           </attribute>
           <column>
            <property name="text">
-            <string>utc</string>
-           </property>
-           <property name="textAlignment">
-            <set>AlignCenter</set>
-           </property>
-          </column>
-          <column>
-           <property name="text">
             <string>time</string>
            </property>
-           <property name="textAlignment">
-            <set>AlignCenter</set>
-           </property>
-          </column>
-          <column>
-           <property name="text">
-            <string>time stamp</string>
+           <property name="font">
+            <font>
+             <pointsize>8</pointsize>
+            </font>
            </property>
            <property name="textAlignment">
             <set>AlignCenter</set>
@@ -1131,6 +1120,11 @@
            <property name="text">
             <string>거래금액</string>
            </property>
+           <property name="font">
+            <font>
+             <pointsize>8</pointsize>
+            </font>
+           </property>
            <property name="textAlignment">
             <set>AlignCenter</set>
            </property>
@@ -1138,6 +1132,11 @@
           <column>
            <property name="text">
             <string>거래량</string>
+           </property>
+           <property name="font">
+            <font>
+             <pointsize>8</pointsize>
+            </font>
            </property>
            <property name="textAlignment">
             <set>AlignCenter</set>
@@ -1147,6 +1146,11 @@
            <property name="text">
             <string>전일종가</string>
            </property>
+           <property name="font">
+            <font>
+             <pointsize>8</pointsize>
+            </font>
+           </property>
            <property name="textAlignment">
             <set>AlignCenter</set>
            </property>
@@ -1155,13 +1159,23 @@
            <property name="text">
             <string>변동가격</string>
            </property>
+           <property name="font">
+            <font>
+             <pointsize>8</pointsize>
+            </font>
+           </property>
            <property name="textAlignment">
             <set>AlignCenter</set>
            </property>
           </column>
           <column>
            <property name="text">
-            <string>매수/매도</string>
+            <string>구분</string>
+           </property>
+           <property name="font">
+            <font>
+             <pointsize>8</pointsize>
+            </font>
            </property>
            <property name="textAlignment">
             <set>AlignCenter</set>
@@ -1170,6 +1184,11 @@
           <column>
            <property name="text">
             <string>ID</string>
+           </property>
+           <property name="font">
+            <font>
+             <pointsize>8</pointsize>
+            </font>
            </property>
            <property name="textAlignment">
             <set>AlignCenter</set>
@@ -2166,7 +2185,7 @@
      <x>0</x>
      <y>0</y>
      <width>1162</width>
-     <height>22</height>
+     <height>19</height>
     </rect>
    </property>
   </widget>

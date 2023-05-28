@@ -288,6 +288,16 @@ class MainWindow(QMainWindow):
         self.ui.tableWidget_tot.setColumnWidth(2, 100)
         self.ui.tableWidget_tot.setColumnWidth(3, 70)
         self.ui.tableWidget_tot.setColumnWidth(4, 70)
+        
+        
+        self.ui.tableWidget_tradesum.setColumnWidth(0, 2)
+        self.ui.tableWidget_tradesum.setColumnWidth(1, 70)
+        self.ui.tableWidget_tradesum.setColumnWidth(2, 70)
+        self.ui.tableWidget_tradesum.setColumnWidth(3, 70)
+        self.ui.tableWidget_tradesum.setColumnWidth(4, 70)
+        self.ui.tableWidget_tradesum.setColumnWidth(5, 1)
+        self.ui.tableWidget_tradesum.setColumnWidth(6, 100)
+        
         self.ui.treeWidget_coins.itemClicked.connect(lambda x:
                 self.onItemClicked(self.ui.treeWidget_coins,
                 self.ui.treeWidget_coins.currentItem(),
@@ -295,8 +305,8 @@ class MainWindow(QMainWindow):
                self.ui.tableWidget_status))
         logging.info("start upbit auto trade 2")
         self.ui.tabWidget.setCurrentIndex(0)
-#        self.set_tblBalance()
-#        self.set_tbleData()
+        self.set_tblBalance()
+        self.set_tbleData()
         self.set_btnevt()
         self.ui.show()
         self.set_updateAllData()
@@ -540,81 +550,93 @@ class MainWindow(QMainWindow):
         self.ui.tableWidget_tradesum.insertRow(self.tradesum_row)
         tmp=jdata.get("trade_date_utc")
         logging.info(tmp)
+        
+        tmp=jdata.get("trade_time_utc")
+        logging.info(tmp)
         col0 =QTableWidgetItem(str(tmp))
         col0.setTextAlignment(Qt.AlignRight|Qt.AlignVCenter)
         col0.setFlags(col0.flags()&~(Qt.ItemIsEditable))
         col0.setFlags(col0.flags()|(Qt.ItemIsSelectable))
         self.ui.tableWidget_tradesum.setItem(self.tradesum_row,0, col0)
 
-        tmp=jdata.get("trade_time_utc")
-        logging.info(tmp)
-        col1 =QTableWidgetItem(str(tmp))
-        col1.setTextAlignment(Qt.AlignRight|Qt.AlignVCenter)
-        col1.setFlags(col0.flags()&~(Qt.ItemIsEditable))
-        col1.setFlags(col0.flags()|(Qt.ItemIsSelectable))
-        self.ui.tableWidget_tradesum.setItem(self.tradesum_row,1, col1)
-
-        tmp=jdata.get("timestamp")
-        logging.info(tmp)
+                
+        tmp=jdata.get("trade_price")
         col1 =QTableWidgetItem(str(tmp))
         col1.setTextAlignment(Qt.AlignRight|Qt.AlignVCenter)
         col1.setFlags(col1.flags()&~(Qt.ItemIsEditable))
         col1.setFlags(col1.flags()|(Qt.ItemIsSelectable))
-        self.ui.tableWidget_tradesum.setItem(self.tradesum_row,2, col1)
-        
-        tmp=jdata.get("trade_price")
-        col2 =QTableWidgetItem(str(tmp))
-        col2.setTextAlignment(Qt.AlignRight|Qt.AlignVCenter)
-        col2.setFlags(col2.flags()&~(Qt.ItemIsEditable))
-        col2.setFlags(col2.flags()|(Qt.ItemIsSelectable))
-        self.ui.tableWidget_tradesum.setItem(self.tradesum_row,3, col2)
+        self.ui.tableWidget_tradesum.setItem(self.tradesum_row,1, col1)
         
         
         
         tmp=jdata.get("trade_volume")
-        col4 =QTableWidgetItem(str(tmp))
-        col4.setTextAlignment(Qt.AlignRight|Qt.AlignVCenter)
-        col4.setFlags(col4.flags()&~(Qt.ItemIsEditable))
-        col4.setFlags(col4.flags()|(Qt.ItemIsSelectable))
-        self.ui.tableWidget_tradesum.setItem(self.tradesum_row,4, col4)
+        col2 =QTableWidgetItem(str(tmp))
+        col2.setTextAlignment(Qt.AlignRight|Qt.AlignVCenter)
+        col2.setFlags(col2.flags()&~(Qt.ItemIsEditable))
+        col2.setFlags(col2.flags()|(Qt.ItemIsSelectable))
+        self.ui.tableWidget_tradesum.setItem(self.tradesum_row,2, col2)
         
         
         
         tmp=jdata.get("prev_closing_price")
-        col5 =QTableWidgetItem(str(tmp))
+        col3 =QTableWidgetItem(str(tmp))
+        col3.setTextAlignment(Qt.AlignRight|Qt.AlignVCenter)
+        col3.setFlags(col3.flags()&~(Qt.ItemIsEditable))
+        col3.setFlags(col3.flags()|(Qt.ItemIsSelectable))
+        self.ui.tableWidget_tradesum.setItem(self.tradesum_row,3, col3)
+
+        
+
+        chgratio=jdata.get("change_price")
+        col4 =QTableWidgetItem(str(chgratio))
+        col4.setTextAlignment(Qt.AlignRight|Qt.AlignVCenter)
+        col4.setFlags(col4.flags()&~(Qt.ItemIsEditable))
+        col4.setFlags(col4.flags()|(Qt.ItemIsSelectable))
+        self.ui.tableWidget_tradesum.setItem(self.tradesum_row,4, col4)
+
+
+        tmp=jdata.get("ask_bid")
+        if tmp == 'ASK':
+            col5 =QTableWidgetItem('매수')
+        else:
+            col5 =QTableWidgetItem('매도')
+        
         col5.setTextAlignment(Qt.AlignRight|Qt.AlignVCenter)
         col5.setFlags(col5.flags()&~(Qt.ItemIsEditable))
         col5.setFlags(col5.flags()|(Qt.ItemIsSelectable))
         self.ui.tableWidget_tradesum.setItem(self.tradesum_row,5, col5)
 
-        
-
-        tmp=jdata.get("change_price")
+        tmp=jdata.get("sequential_id")
         col6 =QTableWidgetItem(str(tmp))
         col6.setTextAlignment(Qt.AlignRight|Qt.AlignVCenter)
         col6.setFlags(col6.flags()&~(Qt.ItemIsEditable))
         col6.setFlags(col6.flags()|(Qt.ItemIsSelectable))
         self.ui.tableWidget_tradesum.setItem(self.tradesum_row,6, col6)
-
-
-        tmp=jdata.get("ask_bid")
-        if tmp == 'ASK':
-            col7 =QTableWidgetItem('매수')
+        if chgratio == 0:
+            col0.setForeground(Qt.black)
+            col1.setForeground(Qt.black)
+            col2.setForeground(Qt.black)
+            col4.setForeground(Qt.black)
+            col5.setForeground(Qt.black)
+            col6.setForeground(Qt.black)
+        elif chgratio < 0:
+            col0.setForeground(Qt.red)
+            col1.setForeground(Qt.red)
+            col2.setForeground(Qt.red)
+            col3.setForeground(Qt.red)
+            col4.setForeground(Qt.red)
+            col5.setForeground(Qt.red)
+            col6.setForeground(Qt.red)
         else:
-            col7 =QTableWidgetItem('매도')
+            col0.setForeground(Qt.blue)
+            col1.setForeground(Qt.blue)
+            col2.setForeground(Qt.blue)
+            col3.setForeground(Qt.blue)
+            col4.setForeground(Qt.blue)
+            col5.setForeground(Qt.blue)
+            col6.setForeground(Qt.blue)
+            
         
-        col7.setTextAlignment(Qt.AlignRight|Qt.AlignVCenter)
-        col7.setFlags(col7.flags()&~(Qt.ItemIsEditable))
-        col7.setFlags(col7.flags()|(Qt.ItemIsSelectable))
-        self.ui.tableWidget_tradesum.setItem(self.tradesum_row,7, col7)
-
-        tmp=jdata.get("sequential_id")
-        col8 =QTableWidgetItem(str(tmp))
-        col8.setTextAlignment(Qt.AlignRight|Qt.AlignVCenter)
-        col8.setFlags(col8.flags()&~(Qt.ItemIsEditable))
-        col8.setFlags(col8.flags()|(Qt.ItemIsSelectable))
-        self.ui.tableWidget_tradesum.setItem(self.tradesum_row,8, col8)
-        self.tradesum_row +=1
 
         
         
