@@ -85,6 +85,43 @@ class Ui_MainWindow(object):
 
         self.formLayout.setLayout(0, QFormLayout.LabelRole, self.horizontalLayout_4)
 
+        self.horizontalSpacer_6 = QSpacerItem(40, 29, QSizePolicy.Expanding, QSizePolicy.Minimum)
+
+        self.formLayout.setItem(1, QFormLayout.LabelRole, self.horizontalSpacer_6)
+
+        self.gridLayout_3 = QGridLayout()
+        self.gridLayout_3.setObjectName(u"gridLayout_3")
+        self.pushButton_close = QPushButton(self.centralwidget)
+        self.pushButton_close.setObjectName(u"pushButton_close")
+        self.pushButton_close.setMinimumSize(QSize(110, 30))
+        self.pushButton_close.setMaximumSize(QSize(150, 30))
+
+        self.gridLayout_3.addWidget(self.pushButton_close, 0, 3, 1, 1)
+
+        self.pushButton_stop = QPushButton(self.centralwidget)
+        self.pushButton_stop.setObjectName(u"pushButton_stop")
+        self.pushButton_stop.setMinimumSize(QSize(110, 30))
+        self.pushButton_stop.setMaximumSize(QSize(150, 30))
+
+        self.gridLayout_3.addWidget(self.pushButton_stop, 0, 2, 1, 1)
+
+        self.pushButton_start = QPushButton(self.centralwidget)
+        self.pushButton_start.setObjectName(u"pushButton_start")
+        self.pushButton_start.setMinimumSize(QSize(110, 30))
+        self.pushButton_start.setMaximumSize(QSize(150, 30))
+
+        self.gridLayout_3.addWidget(self.pushButton_start, 0, 1, 1, 1)
+
+        self.pushButton_reflash = QPushButton(self.centralwidget)
+        self.pushButton_reflash.setObjectName(u"pushButton_reflash")
+        self.pushButton_reflash.setMinimumSize(QSize(110, 30))
+        self.pushButton_reflash.setMaximumSize(QSize(150, 30))
+
+        self.gridLayout_3.addWidget(self.pushButton_reflash, 0, 0, 1, 1)
+
+
+        self.formLayout.setLayout(1, QFormLayout.FieldRole, self.gridLayout_3)
+
         self.tabWidget = QTabWidget(self.centralwidget)
         self.tabWidget.setObjectName(u"tabWidget")
         self.tabWidget.setMinimumSize(QSize(500, 0))
@@ -208,6 +245,8 @@ class Ui_MainWindow(object):
         self.comboBox_buyratio.setMinimumSize(QSize(200, 30))
         self.comboBox_buyratio.setMaximumSize(QSize(200, 30))
         self.comboBox_buyratio.setFont(font)
+        self.comboBox_buyratio.setLayoutDirection(Qt.LeftToRight)
+        self.comboBox_buyratio.setSizeAdjustPolicy(QComboBox.AdjustToContents)
 
         self.horizontalLayout_9.addWidget(self.comboBox_buyratio)
 
@@ -380,6 +419,7 @@ class Ui_MainWindow(object):
         self.comboBox_sellratio.setMinimumSize(QSize(200, 30))
         self.comboBox_sellratio.setMaximumSize(QSize(200, 30))
         self.comboBox_sellratio.setFont(font)
+        self.comboBox_sellratio.setSizeAdjustPolicy(QComboBox.AdjustToContents)
 
         self.horizontalLayout_14.addWidget(self.comboBox_sellratio)
 
@@ -580,99 +620,10 @@ class Ui_MainWindow(object):
 
         self.verticalLayout.addWidget(self.tableWidget_tradesum)
 
-        self.horizontalLayout = QHBoxLayout()
-        self.horizontalLayout.setObjectName(u"horizontalLayout")
-        self.label_sell = QLabel(self.tabWidgetPage2)
-        self.label_sell.setObjectName(u"label_sell")
-        self.label_sell.setMinimumSize(QSize(50, 30))
-        self.label_sell.setMaximumSize(QSize(40, 30))
-
-        self.horizontalLayout.addWidget(self.label_sell)
-
-        self.doubleSpinBox_2 = QDoubleSpinBox(self.tabWidgetPage2)
-        self.doubleSpinBox_2.setObjectName(u"doubleSpinBox_2")
-        self.doubleSpinBox_2.setMinimumSize(QSize(150, 30))
-        self.doubleSpinBox_2.setMaximumSize(QSize(150, 30))
-        self.doubleSpinBox_2.setAlignment(Qt.AlignCenter)
-
-        self.horizontalLayout.addWidget(self.doubleSpinBox_2)
-
-        self.label_cur = QLabel(self.tabWidgetPage2)
-        self.label_cur.setObjectName(u"label_cur")
-        self.label_cur.setMinimumSize(QSize(40, 30))
-        self.label_cur.setMaximumSize(QSize(100, 30))
-
-        self.horizontalLayout.addWidget(self.label_cur)
-
-        self.comboBox_pratio = QComboBox(self.tabWidgetPage2)
-        self.comboBox_pratio.setObjectName(u"comboBox_pratio")
-        self.comboBox_pratio.setMinimumSize(QSize(50, 30))
-        self.comboBox_pratio.setMaximumSize(QSize(80, 30))
-
-        self.horizontalLayout.addWidget(self.comboBox_pratio)
-
-
-        self.verticalLayout.addLayout(self.horizontalLayout)
-
         self.horizontalLayout_2 = QHBoxLayout()
         self.horizontalLayout_2.setObjectName(u"horizontalLayout_2")
-        self.label_amount = QLabel(self.tabWidgetPage2)
-        self.label_amount.setObjectName(u"label_amount")
-        self.label_amount.setMinimumSize(QSize(50, 30))
-        self.label_amount.setMaximumSize(QSize(40, 30))
-
-        self.horizontalLayout_2.addWidget(self.label_amount)
-
-        self.doubleSpinBox_3 = QDoubleSpinBox(self.tabWidgetPage2)
-        self.doubleSpinBox_3.setObjectName(u"doubleSpinBox_3")
-        self.doubleSpinBox_3.setMinimumSize(QSize(150, 30))
-        self.doubleSpinBox_3.setMaximumSize(QSize(150, 30))
-        self.doubleSpinBox_3.setAlignment(Qt.AlignCenter)
-
-        self.horizontalLayout_2.addWidget(self.doubleSpinBox_3)
-
-        self.label_aratio = QLabel(self.tabWidgetPage2)
-        self.label_aratio.setObjectName(u"label_aratio")
-        self.label_aratio.setMinimumSize(QSize(40, 30))
-        self.label_aratio.setMaximumSize(QSize(100, 30))
-
-        self.horizontalLayout_2.addWidget(self.label_aratio)
-
-        self.comboBox_aratio = QComboBox(self.tabWidgetPage2)
-        self.comboBox_aratio.setObjectName(u"comboBox_aratio")
-        self.comboBox_aratio.setMinimumSize(QSize(50, 30))
-        self.comboBox_aratio.setMaximumSize(QSize(80, 30))
-
-        self.horizontalLayout_2.addWidget(self.comboBox_aratio)
-
 
         self.verticalLayout.addLayout(self.horizontalLayout_2)
-
-        self.horizontalLayout_3 = QHBoxLayout()
-        self.horizontalLayout_3.setObjectName(u"horizontalLayout_3")
-        self.pushButton_sellcur = QPushButton(self.tabWidgetPage2)
-        self.pushButton_sellcur.setObjectName(u"pushButton_sellcur")
-        self.pushButton_sellcur.setMinimumSize(QSize(120, 30))
-        self.pushButton_sellcur.setMaximumSize(QSize(120, 30))
-
-        self.horizontalLayout_3.addWidget(self.pushButton_sellcur)
-
-        self.pushButton_selllimit = QPushButton(self.tabWidgetPage2)
-        self.pushButton_selllimit.setObjectName(u"pushButton_selllimit")
-        self.pushButton_selllimit.setMinimumSize(QSize(120, 30))
-        self.pushButton_selllimit.setMaximumSize(QSize(120, 30))
-
-        self.horizontalLayout_3.addWidget(self.pushButton_selllimit)
-
-        self.pushButton_sellall = QPushButton(self.tabWidgetPage2)
-        self.pushButton_sellall.setObjectName(u"pushButton_sellall")
-        self.pushButton_sellall.setMinimumSize(QSize(120, 30))
-        self.pushButton_sellall.setMaximumSize(QSize(120, 30))
-
-        self.horizontalLayout_3.addWidget(self.pushButton_sellall)
-
-
-        self.verticalLayout.addLayout(self.horizontalLayout_3)
 
         self.tabWidget.addTab(self.tabWidgetPage2, "")
         self.tab = QWidget()
@@ -708,6 +659,7 @@ class Ui_MainWindow(object):
         self.comboBox_asellrate.setObjectName(u"comboBox_asellrate")
         self.comboBox_asellrate.setMinimumSize(QSize(100, 30))
         self.comboBox_asellrate.setMaximumSize(QSize(100, 30))
+        self.comboBox_asellrate.setEditable(False)
 
         self.horizontalLayout_12.addWidget(self.comboBox_asellrate)
 
@@ -966,43 +918,6 @@ class Ui_MainWindow(object):
 
         self.formLayout.setWidget(0, QFormLayout.FieldRole, self.tabWidget)
 
-        self.horizontalSpacer_6 = QSpacerItem(40, 29, QSizePolicy.Expanding, QSizePolicy.Minimum)
-
-        self.formLayout.setItem(1, QFormLayout.LabelRole, self.horizontalSpacer_6)
-
-        self.gridLayout_3 = QGridLayout()
-        self.gridLayout_3.setObjectName(u"gridLayout_3")
-        self.pushButton_close = QPushButton(self.centralwidget)
-        self.pushButton_close.setObjectName(u"pushButton_close")
-        self.pushButton_close.setMinimumSize(QSize(110, 30))
-        self.pushButton_close.setMaximumSize(QSize(150, 30))
-
-        self.gridLayout_3.addWidget(self.pushButton_close, 0, 3, 1, 1)
-
-        self.pushButton_stop = QPushButton(self.centralwidget)
-        self.pushButton_stop.setObjectName(u"pushButton_stop")
-        self.pushButton_stop.setMinimumSize(QSize(110, 30))
-        self.pushButton_stop.setMaximumSize(QSize(150, 30))
-
-        self.gridLayout_3.addWidget(self.pushButton_stop, 0, 2, 1, 1)
-
-        self.pushButton_start = QPushButton(self.centralwidget)
-        self.pushButton_start.setObjectName(u"pushButton_start")
-        self.pushButton_start.setMinimumSize(QSize(110, 30))
-        self.pushButton_start.setMaximumSize(QSize(150, 30))
-
-        self.gridLayout_3.addWidget(self.pushButton_start, 0, 1, 1, 1)
-
-        self.pushButton_reflash = QPushButton(self.centralwidget)
-        self.pushButton_reflash.setObjectName(u"pushButton_reflash")
-        self.pushButton_reflash.setMinimumSize(QSize(110, 30))
-        self.pushButton_reflash.setMaximumSize(QSize(150, 30))
-
-        self.gridLayout_3.addWidget(self.pushButton_reflash, 0, 0, 1, 1)
-
-
-        self.formLayout.setLayout(1, QFormLayout.FieldRole, self.gridLayout_3)
-
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QMenuBar(MainWindow)
         self.menubar.setObjectName(u"menubar")
@@ -1014,8 +929,9 @@ class Ui_MainWindow(object):
 
         self.retranslateUi(MainWindow)
 
-        self.tabWidget.setCurrentIndex(2)
+        self.tabWidget.setCurrentIndex(0)
         self.tabWidget_2.setCurrentIndex(1)
+        self.comboBox_abuyrate.setCurrentIndex(-1)
 
 
         QMetaObject.connectSlotsByName(MainWindow)
@@ -1031,6 +947,10 @@ class Ui_MainWindow(object):
         ___qtablewidgetitem2.setText(QCoreApplication.translate("MainWindow", u"\ud604\uc7ac\uac00", None));
         ___qtablewidgetitem3 = self.tableWidget_status.horizontalHeaderItem(3)
         ___qtablewidgetitem3.setText(QCoreApplication.translate("MainWindow", u"\ub4f1\ub77d\uc728", None));
+        self.pushButton_close.setText(QCoreApplication.translate("MainWindow", u"\uc885\ub8cc", None))
+        self.pushButton_stop.setText(QCoreApplication.translate("MainWindow", u"\uc790\ub3d9 \ub9e4\ub9e4 \uc911\uc9c0", None))
+        self.pushButton_start.setText(QCoreApplication.translate("MainWindow", u"\uc790\ub3d9 \ub9e4\ub9e4 \uc2dc\uc791", None))
+        self.pushButton_reflash.setText(QCoreApplication.translate("MainWindow", u"\ub2e4\uc2dc \ubd88\ub7ec\uc624\uae30", None))
         self.radioButton_limit.setText(QCoreApplication.translate("MainWindow", u"\uc9c0\uc815\uac00", None))
         self.radioButton_cur.setText(QCoreApplication.translate("MainWindow", u"\ud604\uc7ac\uac00", None))
         self.radioButton_reserve.setText(QCoreApplication.translate("MainWindow", u"\uc608\uc57d", None))
@@ -1097,13 +1017,6 @@ class Ui_MainWindow(object):
         ___qtablewidgetitem19.setText(QCoreApplication.translate("MainWindow", u"\uad6c\ubd84", None));
         ___qtablewidgetitem20 = self.tableWidget_tradesum.horizontalHeaderItem(6)
         ___qtablewidgetitem20.setText(QCoreApplication.translate("MainWindow", u"ID", None));
-        self.label_sell.setText(QCoreApplication.translate("MainWindow", u"\ub9e4\ub3c4\uac00", None))
-        self.label_cur.setText(QCoreApplication.translate("MainWindow", u"\ud604\uc7ac\uac00 \ub300\ube44", None))
-        self.label_amount.setText(QCoreApplication.translate("MainWindow", u"\uc218\ub7c9", None))
-        self.label_aratio.setText(QCoreApplication.translate("MainWindow", u"\ub9e4\ub3c4 \ube44\uc728", None))
-        self.pushButton_sellcur.setText(QCoreApplication.translate("MainWindow", u"\ud604\uc7ac\uac00 \ub9e4\ub3c4", None))
-        self.pushButton_selllimit.setText(QCoreApplication.translate("MainWindow", u"\uc9c0\uc815\uac00 \ub9e4\ub3c4", None))
-        self.pushButton_sellall.setText(QCoreApplication.translate("MainWindow", u"\ud604\uc7ac\uac00 \uc804\ub7c9 \ub9e4\ub3c4", None))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tabWidgetPage2), QCoreApplication.translate("MainWindow", u"\ub9e4\ub9e4\ud604\ud669", None))
         self.groupBox.setTitle(QCoreApplication.translate("MainWindow", u"\ub9e4\ub3c4 \ubaa9\ud45c", None))
         self.label_15.setText(QCoreApplication.translate("MainWindow", u"\ube44\uc728", None))
@@ -1123,9 +1036,5 @@ class Ui_MainWindow(object):
         self.label_startdate.setText(QCoreApplication.translate("MainWindow", u"\uc2dc\uc791\uc77c", None))
         self.label_enddate.setText(QCoreApplication.translate("MainWindow", u"\uc885\ub8cc\uc77c", None))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab), QCoreApplication.translate("MainWindow", u"\uc790\ub3d9 \ub9e4\ub9e4 \uc124\uc815", None))
-        self.pushButton_close.setText(QCoreApplication.translate("MainWindow", u"\uc885\ub8cc", None))
-        self.pushButton_stop.setText(QCoreApplication.translate("MainWindow", u"\uc790\ub3d9 \ub9e4\ub9e4 \uc911\uc9c0", None))
-        self.pushButton_start.setText(QCoreApplication.translate("MainWindow", u"\uc790\ub3d9 \ub9e4\ub9e4 \uc2dc\uc791", None))
-        self.pushButton_reflash.setText(QCoreApplication.translate("MainWindow", u"\ub2e4\uc2dc \ubd88\ub7ec\uc624\uae30", None))
     # retranslateUi
 

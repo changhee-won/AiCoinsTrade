@@ -304,14 +304,11 @@ class MainWindow(QMainWindow):
         self.ui.pushButton_start.setStyleSheet(btnstylestr)
         self.ui.pushButton_stop.setStyleSheet(btnstylestr)
         self.ui.pushButton_reflash.setStyleSheet(btnstylestr)
-        self.ui.pushButton_sellcur.setStyleSheet(btnstylestr1)
-        self.ui.pushButton_sellall.setStyleSheet(btnstylestr1)
-        self.ui.pushButton_selllimit.setStyleSheet(btnstylestr1)
         
-        self.ui.label_sell.setStyleSheet(labelstylestr)
-        self.ui.label_cur.setStyleSheet(labelstylestr)
-        self.ui.label_amount.setStyleSheet(labelstylestr)
-        self.ui.label_aratio.setStyleSheet(labelstylestr)
+        
+        
+        
+        
 
         self.ui.tableWidget_status.setColumnWidth(0, 160)
         self.ui.tableWidget_status.setColumnWidth(1, 100)
@@ -348,19 +345,62 @@ class MainWindow(QMainWindow):
         self.set_Combo()
     def set_Combo(self):
         
+        
+        
         self.ui.comboBox_buyratio.setStyleSheet(cmbstyle)
+        self.ui.comboBox_buyratio.setEditable(True)
+        self.ui.comboBox_buyratio.lineEdit().setAlignment(QtCore.Qt.AlignCenter)
+        self.ui.comboBox_buyratio.view().setVerticalScrollBarPolicy(Qt.ScrollBarAsNeeded)
+        
+        
         self.ui.comboBox_sellratio.setStyleSheet(cmbstyle)
-        for i in range(1, 100):
-            self.ui.comboBox_buyratio.addItem(str(i))
-            self.ui.comboBox_sellratio.addItem(str(i))
+        self.ui.comboBox_sellratio.setEditable(True)
+        self.ui.comboBox_sellratio.lineEdit().setAlignment(QtCore.Qt.AlignCenter)
+        self.ui.comboBox_sellratio.view().setVerticalScrollBarPolicy(Qt.ScrollBarAsNeeded)
         
-            self.ui.comboBox_pratio.addItem(str(i))
-            self.ui.comboBox_aratio.addItem(str(i))
         
-            self.ui.comboBox_asellrate.addItem(str(i))
-            self.ui.comboBox_spsellrate.addItem(str(i))
-            self.ui.comboBox_abuyrate.addItem(str(i))
-            self.ui.comboBox_aspbuyrate.addItem(str(i))       
+        
+        self.ui.comboBox_asellrate.setStyleSheet(cmbstyle)
+        self.ui.comboBox_asellrate.setEditable(True)
+        self.ui.comboBox_asellrate.lineEdit().setAlignment(QtCore.Qt.AlignCenter)
+        self.ui.comboBox_asellrate.view().setVerticalScrollBarPolicy(Qt.ScrollBarAsNeeded)
+        
+        self.ui.comboBox_spsellrate.setStyleSheet(cmbstyle)
+        self.ui.comboBox_spsellrate.setEditable(True)
+        self.ui.comboBox_spsellrate.lineEdit().setAlignment(QtCore.Qt.AlignCenter)
+        self.ui.comboBox_spsellrate.view().setVerticalScrollBarPolicy(Qt.ScrollBarAsNeeded)
+        
+        self.ui.comboBox_abuyrate.setStyleSheet(cmbstyle)
+        self.ui.comboBox_abuyrate.setEditable(True)
+        self.ui.comboBox_abuyrate.lineEdit().setAlignment(QtCore.Qt.AlignCenter)
+        self.ui.comboBox_abuyrate.view().setVerticalScrollBarPolicy(Qt.ScrollBarAsNeeded)
+        
+        self.ui.comboBox_aspbuyrate.setStyleSheet(cmbstyle)
+        self.ui.comboBox_aspbuyrate.setEditable(True)
+        self.ui.comboBox_aspbuyrate.lineEdit().setAlignment(QtCore.Qt.AlignCenter)
+        self.ui.comboBox_aspbuyrate.view().setVerticalScrollBarPolicy(Qt.ScrollBarAsNeeded)
+
+        for i in range(0, 201):
+            if i%5 ==0:
+                if i <= 100:
+                    val = i
+                else:
+                    val = (i-100) *-1
+                    
+                
+                if val <= 105:                                   
+                    self.ui.comboBox_buyratio.addItem(str(val))
+                    self.ui.comboBox_abuyrate.addItem(str(val))
+                    
+                if val >= -5:                                   
+                    self.ui.comboBox_sellratio.addItem(str(val))
+                    self.ui.comboBox_asellrate.addItem(str(val))
+                    
+        
+                
+                if val >=0:                                   
+                    self.ui.comboBox_spsellrate.addItem(str(val))
+                    self.ui.comboBox_aspbuyrate.addItem(str(val))       
     
     def findTableItmes(self,key,tblwidget):
         fitems = tblwidget.findItems(key,Qt.MatchExactly)
@@ -473,9 +513,7 @@ class MainWindow(QMainWindow):
         self.ui.pushButton_stop.clicked.connect(lambda x:self.btn_event(self.ui.pushButton_stop))
         self.ui.pushButton_close.clicked.connect(lambda x:self.btn_event(self.ui.pushButton_close))
         self.ui.pushButton_reflash.clicked.connect(lambda x:self.btn_event(self.ui.pushButton_reflash))
-        self.ui.pushButton_sellcur.clicked.connect(lambda x:self.btn_event(self.ui.pushButton_reflash))
-        self.ui.pushButton_selllimit.clicked.connect(lambda x:self.btn_event(self.ui.pushButton_reflash))
-        self.ui.pushButton_sellall.clicked.connect(lambda x:self.btn_event(self.ui.pushButton_reflash))
+        
         self.ui.statusBar().showMessage(self.date.toString(Qt.DefaultLocaleLongDate))
         self.ui.closeEvent = self.closeEvent
 

@@ -142,6 +142,99 @@
       </item>
      </layout>
     </item>
+    <item row="1" column="0">
+     <spacer name="horizontalSpacer_6">
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+      <property name="sizeHint" stdset="0">
+       <size>
+        <width>40</width>
+        <height>29</height>
+       </size>
+      </property>
+     </spacer>
+    </item>
+    <item row="1" column="1">
+     <layout class="QGridLayout" name="gridLayout_3">
+      <item row="0" column="3">
+       <widget class="QPushButton" name="pushButton_close">
+        <property name="minimumSize">
+         <size>
+          <width>110</width>
+          <height>30</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>150</width>
+          <height>30</height>
+         </size>
+        </property>
+        <property name="text">
+         <string>종료</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="2">
+       <widget class="QPushButton" name="pushButton_stop">
+        <property name="minimumSize">
+         <size>
+          <width>110</width>
+          <height>30</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>150</width>
+          <height>30</height>
+         </size>
+        </property>
+        <property name="text">
+         <string>자동 매매 중지</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="1">
+       <widget class="QPushButton" name="pushButton_start">
+        <property name="minimumSize">
+         <size>
+          <width>110</width>
+          <height>30</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>150</width>
+          <height>30</height>
+         </size>
+        </property>
+        <property name="text">
+         <string>자동 매매 시작</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="0">
+       <widget class="QPushButton" name="pushButton_reflash">
+        <property name="minimumSize">
+         <size>
+          <width>110</width>
+          <height>30</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>150</width>
+          <height>30</height>
+         </size>
+        </property>
+        <property name="text">
+         <string>다시 불러오기</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
     <item row="0" column="1">
      <widget class="QTabWidget" name="tabWidget">
       <property name="minimumSize">
@@ -163,7 +256,7 @@
        </font>
       </property>
       <property name="currentIndex">
-       <number>2</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="tabWidgetPage1">
        <attribute name="title">
@@ -462,6 +555,12 @@
                     <family>Arial</family>
                     <pointsize>8</pointsize>
                    </font>
+                  </property>
+                  <property name="layoutDirection">
+                   <enum>Qt::LeftToRight</enum>
+                  </property>
+                  <property name="sizeAdjustPolicy">
+                   <enum>QComboBox::AdjustToContents</enum>
                   </property>
                  </widget>
                 </item>
@@ -882,6 +981,9 @@
                     <family>Arial</family>
                     <pointsize>8</pointsize>
                    </font>
+                  </property>
+                  <property name="sizeAdjustPolicy">
+                   <enum>QComboBox::AdjustToContents</enum>
                   </property>
                  </widget>
                 </item>
@@ -1373,219 +1475,7 @@
          </widget>
         </item>
         <item>
-         <layout class="QHBoxLayout" name="horizontalLayout">
-          <item>
-           <widget class="QLabel" name="label_sell">
-            <property name="minimumSize">
-             <size>
-              <width>50</width>
-              <height>30</height>
-             </size>
-            </property>
-            <property name="maximumSize">
-             <size>
-              <width>40</width>
-              <height>30</height>
-             </size>
-            </property>
-            <property name="text">
-             <string>매도가</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QDoubleSpinBox" name="doubleSpinBox_2">
-            <property name="minimumSize">
-             <size>
-              <width>150</width>
-              <height>30</height>
-             </size>
-            </property>
-            <property name="maximumSize">
-             <size>
-              <width>150</width>
-              <height>30</height>
-             </size>
-            </property>
-            <property name="alignment">
-             <set>Qt::AlignCenter</set>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QLabel" name="label_cur">
-            <property name="minimumSize">
-             <size>
-              <width>40</width>
-              <height>30</height>
-             </size>
-            </property>
-            <property name="maximumSize">
-             <size>
-              <width>100</width>
-              <height>30</height>
-             </size>
-            </property>
-            <property name="text">
-             <string>현재가 대비</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QComboBox" name="comboBox_pratio">
-            <property name="minimumSize">
-             <size>
-              <width>50</width>
-              <height>30</height>
-             </size>
-            </property>
-            <property name="maximumSize">
-             <size>
-              <width>80</width>
-              <height>30</height>
-             </size>
-            </property>
-           </widget>
-          </item>
-         </layout>
-        </item>
-        <item>
-         <layout class="QHBoxLayout" name="horizontalLayout_2">
-          <item>
-           <widget class="QLabel" name="label_amount">
-            <property name="minimumSize">
-             <size>
-              <width>50</width>
-              <height>30</height>
-             </size>
-            </property>
-            <property name="maximumSize">
-             <size>
-              <width>40</width>
-              <height>30</height>
-             </size>
-            </property>
-            <property name="text">
-             <string>수량</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QDoubleSpinBox" name="doubleSpinBox_3">
-            <property name="minimumSize">
-             <size>
-              <width>150</width>
-              <height>30</height>
-             </size>
-            </property>
-            <property name="maximumSize">
-             <size>
-              <width>150</width>
-              <height>30</height>
-             </size>
-            </property>
-            <property name="alignment">
-             <set>Qt::AlignCenter</set>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QLabel" name="label_aratio">
-            <property name="minimumSize">
-             <size>
-              <width>40</width>
-              <height>30</height>
-             </size>
-            </property>
-            <property name="maximumSize">
-             <size>
-              <width>100</width>
-              <height>30</height>
-             </size>
-            </property>
-            <property name="text">
-             <string>매도 비율</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QComboBox" name="comboBox_aratio">
-            <property name="minimumSize">
-             <size>
-              <width>50</width>
-              <height>30</height>
-             </size>
-            </property>
-            <property name="maximumSize">
-             <size>
-              <width>80</width>
-              <height>30</height>
-             </size>
-            </property>
-           </widget>
-          </item>
-         </layout>
-        </item>
-        <item>
-         <layout class="QHBoxLayout" name="horizontalLayout_3">
-          <item>
-           <widget class="QPushButton" name="pushButton_sellcur">
-            <property name="minimumSize">
-             <size>
-              <width>120</width>
-              <height>30</height>
-             </size>
-            </property>
-            <property name="maximumSize">
-             <size>
-              <width>120</width>
-              <height>30</height>
-             </size>
-            </property>
-            <property name="text">
-             <string>현재가 매도</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QPushButton" name="pushButton_selllimit">
-            <property name="minimumSize">
-             <size>
-              <width>120</width>
-              <height>30</height>
-             </size>
-            </property>
-            <property name="maximumSize">
-             <size>
-              <width>120</width>
-              <height>30</height>
-             </size>
-            </property>
-            <property name="text">
-             <string>지정가 매도</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QPushButton" name="pushButton_sellall">
-            <property name="minimumSize">
-             <size>
-              <width>120</width>
-              <height>30</height>
-             </size>
-            </property>
-            <property name="maximumSize">
-             <size>
-              <width>120</width>
-              <height>30</height>
-             </size>
-            </property>
-            <property name="text">
-             <string>현재가 전량 매도</string>
-            </property>
-           </widget>
-          </item>
-         </layout>
+         <layout class="QHBoxLayout" name="horizontalLayout_2"/>
         </item>
        </layout>
       </widget>
@@ -1674,6 +1564,9 @@
                  <width>100</width>
                  <height>30</height>
                 </size>
+               </property>
+               <property name="editable">
+                <bool>false</bool>
                </property>
               </widget>
              </item>
@@ -1864,6 +1757,9 @@
                  <width>100</width>
                  <height>30</height>
                 </size>
+               </property>
+               <property name="currentIndex">
+                <number>-1</number>
                </property>
               </widget>
              </item>
@@ -2271,99 +2167,6 @@
        </layout>
       </widget>
      </widget>
-    </item>
-    <item row="1" column="0">
-     <spacer name="horizontalSpacer_6">
-      <property name="orientation">
-       <enum>Qt::Horizontal</enum>
-      </property>
-      <property name="sizeHint" stdset="0">
-       <size>
-        <width>40</width>
-        <height>29</height>
-       </size>
-      </property>
-     </spacer>
-    </item>
-    <item row="1" column="1">
-     <layout class="QGridLayout" name="gridLayout_3">
-      <item row="0" column="3">
-       <widget class="QPushButton" name="pushButton_close">
-        <property name="minimumSize">
-         <size>
-          <width>110</width>
-          <height>30</height>
-         </size>
-        </property>
-        <property name="maximumSize">
-         <size>
-          <width>150</width>
-          <height>30</height>
-         </size>
-        </property>
-        <property name="text">
-         <string>종료</string>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="2">
-       <widget class="QPushButton" name="pushButton_stop">
-        <property name="minimumSize">
-         <size>
-          <width>110</width>
-          <height>30</height>
-         </size>
-        </property>
-        <property name="maximumSize">
-         <size>
-          <width>150</width>
-          <height>30</height>
-         </size>
-        </property>
-        <property name="text">
-         <string>자동 매매 중지</string>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="1">
-       <widget class="QPushButton" name="pushButton_start">
-        <property name="minimumSize">
-         <size>
-          <width>110</width>
-          <height>30</height>
-         </size>
-        </property>
-        <property name="maximumSize">
-         <size>
-          <width>150</width>
-          <height>30</height>
-         </size>
-        </property>
-        <property name="text">
-         <string>자동 매매 시작</string>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="0">
-       <widget class="QPushButton" name="pushButton_reflash">
-        <property name="minimumSize">
-         <size>
-          <width>110</width>
-          <height>30</height>
-         </size>
-        </property>
-        <property name="maximumSize">
-         <size>
-          <width>150</width>
-          <height>30</height>
-         </size>
-        </property>
-        <property name="text">
-         <string>다시 불러오기</string>
-        </property>
-       </widget>
-      </item>
-     </layout>
     </item>
    </layout>
   </widget>
