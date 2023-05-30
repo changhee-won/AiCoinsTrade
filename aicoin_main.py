@@ -129,11 +129,11 @@ class reflash_balanceproc(QThread):
 class TradeStatus_proc(QThread):
     poped = Signal(str)
 
-    def __init__(self,coin):
+    def __init__(self,upbitApi,coin):
         super().__init__()
         self.working = True
         self.coin=coin
-        self.upbitapi= upbitApi()
+        self.upbitapi= upbitApi
     
     def run(self):
         while (self.working):
@@ -552,7 +552,7 @@ class MainWindow(QMainWindow):
         it=ast.literal_eval(tmp[1])
         cname = it.get("currency")
         avg= it.get("avg_buy_price")
-        bal= it.get("balance")
+        bal= it.get("locked")
         if cname != "KRW" and avg !="0":
             name=self.get_CoinName(cname)
             row = self.ui.tableWidget_tot.rowCount()
@@ -610,7 +610,7 @@ class MainWindow(QMainWindow):
     def start_TradeStatus(self,coin):
         if self.mon_TradeStatus:
             self.mon_TradeStatus.stop()
-        self.mon_TradeStatus= TradeStatus_proc(coin)
+        self.mon_TradeStatus= TradeStatus_proc(self.upbit,coin)
         self.mon_TradeStatus.poped.connect(self.setTradeStatus)
         self.mon_TradeStatus.start()
         
@@ -719,7 +719,7 @@ class MainWindow(QMainWindow):
             col4.setForeground(Qt.black)
             col5.setForeground(Qt.black)
             col6.setForeground(Qt.black)
-        elif chgratio < 0:
+        elif chgratio > 0:
             col0.setForeground(Qt.red)
             col1.setForeground(Qt.red)
             col2.setForeground(Qt.red)

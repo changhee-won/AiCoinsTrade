@@ -2,6 +2,8 @@
 import requests
 import json
 import pyupbit
+access = 'AVkrSuvV2ZvfQLDc67jWxlHRTHAD5zWDRH7JsIAC'
+security = 'FmYDmMJxIukg7m1Hm0PIZNWd5mM8GILleB2WhxWx'
 
 # 원화 시장 티커목록 조회
 market = "KRW-BTC"
@@ -38,3 +40,6 @@ ma20 = df['close'].rolling(window=20, min_periods=1).mean().iloc[-1]
 
 #df = pyupbit.get_ohlcv(ticker="KRW-BTC",interval='minute1',count=12)
 #print(df)
+upbit = pyupbit.Upbit(access, security)
+res =  upbit.get_balances()
+print (res)
