@@ -67,7 +67,7 @@ class autoTradproc(QThread):
                 except Exception as e:
                     logging.info(e)
                     time.sleep(1)
-   
+
     def stop(self):
         self.working = False
         self.quit()
@@ -134,20 +134,20 @@ class TradeStatus_proc(QThread):
         self.working = True
         self.coin=coin
         self.upbitapi= upbitApi
-    
+
     def run(self):
         while (self.working):
             time.sleep(1)
             data=  self.upbitapi.GetTradesTicks(self.coin)
             param=('%s' %(data))
             self.poped.emit(param)
-        
 
-        
+
+
     def stop(self):
         self.working = False
         self.quit()
-        self.wait(5000) #5000ms = 5    
+        self.wait(5000) #5000ms = 5
 
 class watch_proc(QThread):
     poped = Signal(str)
@@ -155,18 +155,18 @@ class watch_proc(QThread):
     def __init__(self):
         super().__init__()
         self.working = True
-        
-    
+
+
     def run(self):
         while (self.working):
             time.sleep(1)
             now = QtCore.QTime.currentTime()
-            
-            
+
+
             nowstr = now.toString('hh:mm:ss')
             param=('%s' %(nowstr))
             self.poped.emit(param)
-        
+
 
         logging.info('done!')
 
@@ -291,9 +291,9 @@ class MainWindow(QMainWindow):
         self.ui.label_24.setStyleSheet(labelstylestr)
         self.ui.label_12.setStyleSheet(labelstylestr)
         self.ui.label_20.setStyleSheet(labelstylestr)
-        
-        
-        
+
+
+
 
         self.ui.tableWidget_status.setSelectionBehavior(QAbstractItemView.SelectRows)
         self.ui.tableWidget_tot.setSelectionBehavior(QAbstractItemView.SelectRows)
@@ -304,11 +304,11 @@ class MainWindow(QMainWindow):
         self.ui.pushButton_start.setStyleSheet(btnstylestr)
         self.ui.pushButton_stop.setStyleSheet(btnstylestr)
         self.ui.pushButton_reflash.setStyleSheet(btnstylestr)
-        
-        
-        
-        
-        
+
+
+
+
+
 
         self.ui.tableWidget_status.setColumnWidth(0, 160)
         self.ui.tableWidget_status.setColumnWidth(1, 100)
@@ -319,8 +319,8 @@ class MainWindow(QMainWindow):
         self.ui.tableWidget_tot.setColumnWidth(2, 100)
         self.ui.tableWidget_tot.setColumnWidth(3, 70)
         self.ui.tableWidget_tot.setColumnWidth(4, 70)
-        
-        
+
+
         self.ui.tableWidget_tradesum.setColumnWidth(0, 2)
         self.ui.tableWidget_tradesum.setColumnWidth(1, 50)
         self.ui.tableWidget_tradesum.setColumnWidth(2, 70)
@@ -328,7 +328,7 @@ class MainWindow(QMainWindow):
         self.ui.tableWidget_tradesum.setColumnWidth(4, 70)
         self.ui.tableWidget_tradesum.setColumnWidth(5, 70)
         self.ui.tableWidget_tradesum.setColumnWidth(6, 100)
-        
+
         self.ui.treeWidget_coins.itemClicked.connect(lambda x:
                 self.onItemClicked(self.ui.treeWidget_coins,
                 self.ui.treeWidget_coins.currentItem(),
@@ -344,37 +344,37 @@ class MainWindow(QMainWindow):
         self.start_watchTimer()
         self.set_Combo()
     def set_Combo(self):
-        
-        
-        
+
+
+
         self.ui.comboBox_buyratio.setStyleSheet(cmbstyle)
         self.ui.comboBox_buyratio.setEditable(True)
         self.ui.comboBox_buyratio.lineEdit().setAlignment(QtCore.Qt.AlignCenter)
         self.ui.comboBox_buyratio.view().setVerticalScrollBarPolicy(Qt.ScrollBarAsNeeded)
-        
-        
+
+
         self.ui.comboBox_sellratio.setStyleSheet(cmbstyle)
         self.ui.comboBox_sellratio.setEditable(True)
         self.ui.comboBox_sellratio.lineEdit().setAlignment(QtCore.Qt.AlignCenter)
         self.ui.comboBox_sellratio.view().setVerticalScrollBarPolicy(Qt.ScrollBarAsNeeded)
-        
-        
-        
+
+
+
         self.ui.comboBox_asellrate.setStyleSheet(cmbstyle)
         self.ui.comboBox_asellrate.setEditable(True)
         self.ui.comboBox_asellrate.lineEdit().setAlignment(QtCore.Qt.AlignCenter)
         self.ui.comboBox_asellrate.view().setVerticalScrollBarPolicy(Qt.ScrollBarAsNeeded)
-        
+
         self.ui.comboBox_spsellrate.setStyleSheet(cmbstyle)
         self.ui.comboBox_spsellrate.setEditable(True)
         self.ui.comboBox_spsellrate.lineEdit().setAlignment(QtCore.Qt.AlignCenter)
         self.ui.comboBox_spsellrate.view().setVerticalScrollBarPolicy(Qt.ScrollBarAsNeeded)
-        
+
         self.ui.comboBox_abuyrate.setStyleSheet(cmbstyle)
         self.ui.comboBox_abuyrate.setEditable(True)
         self.ui.comboBox_abuyrate.lineEdit().setAlignment(QtCore.Qt.AlignCenter)
         self.ui.comboBox_abuyrate.view().setVerticalScrollBarPolicy(Qt.ScrollBarAsNeeded)
-        
+
         self.ui.comboBox_aspbuyrate.setStyleSheet(cmbstyle)
         self.ui.comboBox_aspbuyrate.setEditable(True)
         self.ui.comboBox_aspbuyrate.lineEdit().setAlignment(QtCore.Qt.AlignCenter)
@@ -386,22 +386,22 @@ class MainWindow(QMainWindow):
                     val = i
                 else:
                     val = (i-100) *-1
-                    
-                
-                if val <= 105:                                   
+
+
+                if val <= 105:
                     self.ui.comboBox_buyratio.addItem(str(val))
                     self.ui.comboBox_abuyrate.addItem(str(val))
-                    
-                if val >= -5:                                   
+
+                if val >= -5:
                     self.ui.comboBox_sellratio.addItem(str(val))
                     self.ui.comboBox_asellrate.addItem(str(val))
-                    
-        
-                
-                if val >=0:                                   
+
+
+
+                if val >=0:
                     self.ui.comboBox_spsellrate.addItem(str(val))
-                    self.ui.comboBox_aspbuyrate.addItem(str(val))       
-    
+                    self.ui.comboBox_aspbuyrate.addItem(str(val))
+
     def findTableItmes(self,key,tblwidget):
         fitems = tblwidget.findItems(key,Qt.MatchExactly)
         if not fitems:
@@ -451,7 +451,7 @@ class MainWindow(QMainWindow):
         self.ui.comboBox_pratio.add(ratiolist)
 
     def settblEvent(self):
-         
+
         self.ui.tableWidget_coins.clicked.connect(lambda x: self.tblselectRow( self.ui.tableWidget_coins, self.ui.tableWidget_coins.currentRow()))
 
 
@@ -464,24 +464,24 @@ class MainWindow(QMainWindow):
 
             if self.reflash_market:
                 self.reflash_market.stop()
-                
-            
-               
+
+
+
             if self.watch_Timer:
-                self.watch_Timer.stop()                
-                
+                self.watch_Timer.stop()
+
             if self.mon_TradeStatus:
-                self.mon_TradeStatus.stop()                
-                                   
+                self.mon_TradeStatus.stop()
+
             QApplication.instance().quit()
 
         elif obj.objectName()=="pushButton_stop":
             if self.reflash_balance:
                 self.reflash_balance.stop()
-                
+
             if self.reflash_market:
                 self.reflash_market.stop()
-                
+
         elif obj.objectName()=="pushButton_start":
             logging.info('TBD')
             ret = self.upbit.GetOrderbook("KRW-BTC")
@@ -513,7 +513,7 @@ class MainWindow(QMainWindow):
         self.ui.pushButton_stop.clicked.connect(lambda x:self.btn_event(self.ui.pushButton_stop))
         self.ui.pushButton_close.clicked.connect(lambda x:self.btn_event(self.ui.pushButton_close))
         self.ui.pushButton_reflash.clicked.connect(lambda x:self.btn_event(self.ui.pushButton_reflash))
-        
+
         self.ui.statusBar().showMessage(self.date.toString(Qt.DefaultLocaleLongDate))
         self.ui.closeEvent = self.closeEvent
 
@@ -552,7 +552,7 @@ class MainWindow(QMainWindow):
         it=ast.literal_eval(tmp[1])
         cname = it.get("currency")
         avg= it.get("avg_buy_price")
-        bal= it.get("locked")
+        bal= it.get("balance")
         if cname != "KRW" and avg !="0":
             name=self.get_CoinName(cname)
             row = self.ui.tableWidget_tot.rowCount()
@@ -605,42 +605,42 @@ class MainWindow(QMainWindow):
         self.date = QDate.currentDate()
         self.ui.statusBar().showMessage(self.date.toString(Qt.DefaultLocaleLongDate))
         self.start_TradeStatus("KRW-BTC")
-        
-        
+
+
     def start_TradeStatus(self,coin):
         if self.mon_TradeStatus:
             self.mon_TradeStatus.stop()
         self.mon_TradeStatus= TradeStatus_proc(self.upbit,coin)
         self.mon_TradeStatus.poped.connect(self.setTradeStatus)
         self.mon_TradeStatus.start()
-        
+
     @Slot('QString')
     def setTradeStatus(self,data):
         a=data.replace('[','')
         b=a.replace(']','')
-           
+
         tmp=ast.literal_eval(str(b))
         jdata = json.loads(json.dumps(tmp))
         logging.info(jdata)
         '''
-        'market': 'KRW-BTC', 
-        'trade_date_utc': '2023-05-27', 
-        'trade_time_utc': '14:08:48', 
-        'timestamp': 1685196528667, 
-        'trade_price': 35644000.0, 
-        'trade_volume': 0.00015068, 
-        'prev_closing_price': 35771000.0, 
-        'change_price': -127000.0, 
-        'ask_bid': 'BID', 
+        'market': 'KRW-BTC',
+        'trade_date_utc': '2023-05-27',
+        'trade_time_utc': '14:08:48',
+        'timestamp': 1685196528667,
+        'trade_price': 35644000.0,
+        'trade_volume': 0.00015068,
+        'prev_closing_price': 35771000.0,
+        'change_price': -127000.0,
+        'ask_bid': 'BID',
         'sequential_id': 1685196528667000}]
         '''
         key=jdata.get("sequential_id")
         logging.info(key)
         matching_items= self.ui.tableWidget_tradesum.findItems(str(key), Qt.MatchExactly)
-        
+
         if matching_items :
             return
-        
+
         self.tradesum_row = 0 #self.ui.tableWidget_tradesum.rowCount()
         maxRows= self.ui.tableWidget_tradesum.rowCount()
         if  maxRows >100:
@@ -649,7 +649,7 @@ class MainWindow(QMainWindow):
         #self.tradesum_row)
         tmp=jdata.get("trade_date_utc")
         logging.info(tmp)
-        
+
         tmp=jdata.get("trade_time_utc")
         logging.info(tmp)
         col0 =QTableWidgetItem(str(tmp))
@@ -658,25 +658,25 @@ class MainWindow(QMainWindow):
         col0.setFlags(col0.flags()|(Qt.ItemIsSelectable))
         self.ui.tableWidget_tradesum.setItem(self.tradesum_row,0, col0)
 
-                
+
         tmp=jdata.get("trade_price")
         col1 =QTableWidgetItem(str(tmp))
         col1.setTextAlignment(Qt.AlignRight|Qt.AlignVCenter)
         col1.setFlags(col1.flags()&~(Qt.ItemIsEditable))
         col1.setFlags(col1.flags()|(Qt.ItemIsSelectable))
         self.ui.tableWidget_tradesum.setItem(self.tradesum_row,1, col1)
-        
-        
-        
+
+
+
         tmp=jdata.get("trade_volume")
         col2 =QTableWidgetItem(str(tmp))
         col2.setTextAlignment(Qt.AlignRight|Qt.AlignVCenter)
         col2.setFlags(col2.flags()&~(Qt.ItemIsEditable))
         col2.setFlags(col2.flags()|(Qt.ItemIsSelectable))
         self.ui.tableWidget_tradesum.setItem(self.tradesum_row,2, col2)
-        
-        
-        
+
+
+
         tmp=jdata.get("prev_closing_price")
         col3 =QTableWidgetItem(str(tmp))
         col3.setTextAlignment(Qt.AlignRight|Qt.AlignVCenter)
@@ -684,7 +684,7 @@ class MainWindow(QMainWindow):
         col3.setFlags(col3.flags()|(Qt.ItemIsSelectable))
         self.ui.tableWidget_tradesum.setItem(self.tradesum_row,3, col3)
 
-        
+
 
         chgratio=jdata.get("change_price")
         col4 =QTableWidgetItem(str(chgratio))
@@ -699,7 +699,7 @@ class MainWindow(QMainWindow):
             col5 =QTableWidgetItem('매수')
         else:
             col5 =QTableWidgetItem('매도')
-        
+
         col5.setTextAlignment(Qt.AlignCenter|Qt.AlignVCenter)
         col5.setFlags(col5.flags()&~(Qt.ItemIsEditable))
         col5.setFlags(col5.flags()|(Qt.ItemIsSelectable))
@@ -711,7 +711,7 @@ class MainWindow(QMainWindow):
         col6.setFlags(col6.flags()&~(Qt.ItemIsEditable))
         col6.setFlags(col6.flags()|(Qt.ItemIsSelectable))
         self.ui.tableWidget_tradesum.setItem(self.tradesum_row,6, col6)
-        
+
         if chgratio == 0:
             col0.setForeground(Qt.black)
             col1.setForeground(Qt.black)
@@ -735,16 +735,16 @@ class MainWindow(QMainWindow):
             col4.setForeground(Qt.blue)
             col5.setForeground(Qt.blue)
             col6.setForeground(Qt.blue)
-            
-        
 
-        
-        
+
+
+
+
     @Slot('QString')
     def setwatch(self,data):
-        
+
         self.date = QDate.currentDate()
-        self.ui.statusBar().showMessage(self.date.toString(Qt.DefaultLocaleLongDate) + " " + data) 
+        self.ui.statusBar().showMessage(self.date.toString(Qt.DefaultLocaleLongDate) + " " + data)
         #logging.info(self.coins)
     def set_updateAllData(self):
         QTimer.singleShot(500, self.set_tblBalance)

@@ -5,6 +5,8 @@ import os
 import uuid
 import jwt
 import json
+from urllib.parse import unquote, quote, quote_plus, urlencode
+
 from common import *
 #기본 변수 설정
 server_url = "https://api.upbit.com"
@@ -84,28 +86,8 @@ class upbitApi:
 
         # 주문 - 주문 리스트 조회
     def GetOrders(self, uuids):
-        query = {
-            'state': 'wait',
-        }
-        query_string = urlencode(query)
-
-        uuids = [
-            '9ca023a5-851b-4fec-9f0a-48cd83c2eaae',
-            # ...
-        ]
-        uuids_query_string = '&'.join(["uuids[]={}".format(uuid) for uuid in uuids])
-
-        query['uuids[]'] = uuids
-        query_string = "{0}&{1}".format(query_string, uuids_query_string).encode()
-
-        m = hashlib.sha512()
-        m.update(query_string)
-        query_hash = m.hexdigest()
-
-        res = requests.get(self.server_url + "/v1/orders", params=query, headers=self.headers)
-
+        res = requests.get(self.server_url + "/v1/orders", headers=self.headers)
         ret = res.json()
-
         return ret
 
     # 주문 - 주문하기(Buy) : 지정가
