@@ -350,11 +350,22 @@ class MainWindow(QMainWindow):
         self.ui.comboBox_buyratio.lineEdit().setAlignment(QtCore.Qt.AlignCenter)
         self.ui.comboBox_buyratio.view().setVerticalScrollBarPolicy(Qt.ScrollBarAsNeeded)
 
+        self.ui.comboBox_buyratio_1.setStyleSheet(cmbstyle)
+        self.ui.comboBox_buyratio_1.setEditable(True)
+        self.ui.comboBox_buyratio_1.lineEdit().setAlignment(QtCore.Qt.AlignCenter)
+        self.ui.comboBox_buyratio_1.view().setVerticalScrollBarPolicy(Qt.ScrollBarAsNeeded)
+
 
         self.ui.comboBox_sellratio.setStyleSheet(cmbstyle)
         self.ui.comboBox_sellratio.setEditable(True)
         self.ui.comboBox_sellratio.lineEdit().setAlignment(QtCore.Qt.AlignCenter)
         self.ui.comboBox_sellratio.view().setVerticalScrollBarPolicy(Qt.ScrollBarAsNeeded)
+
+
+        self.ui.comboBox_sellratio_1.setStyleSheet(cmbstyle)
+        self.ui.comboBox_sellratio_1.setEditable(True)
+        self.ui.comboBox_sellratio_1.lineEdit().setAlignment(QtCore.Qt.AlignCenter)
+        self.ui.comboBox_sellratio_1.view().setVerticalScrollBarPolicy(Qt.ScrollBarAsNeeded)
 
 
 
@@ -377,7 +388,7 @@ class MainWindow(QMainWindow):
         self.ui.comboBox_aspbuyrate.setEditable(True)
         self.ui.comboBox_aspbuyrate.lineEdit().setAlignment(QtCore.Qt.AlignCenter)
         self.ui.comboBox_aspbuyrate.view().setVerticalScrollBarPolicy(Qt.ScrollBarAsNeeded)
-
+        
         for i in range(0, 201):
             if i%5 ==0:
                 if i <= 100:
@@ -385,8 +396,10 @@ class MainWindow(QMainWindow):
                 else:
                     val = (i-100) *-1
 
-
-                if val <= 105:
+                if val < 105 and val >0:
+                    self.ui.comboBox_buyratio_1.addItem(str(val))
+                    self.ui.comboBox_sellratio_1.addItem(str(val))
+                elif val <= 105:
                     self.ui.comboBox_buyratio.addItem(str(val))
                     self.ui.comboBox_abuyrate.addItem(str(val))
 
