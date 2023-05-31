@@ -334,8 +334,7 @@ class MainWindow(QMainWindow):
                self.ui.tableWidget_status))
         logging.info("start upbit auto trade 2")
         self.ui.tabWidget.setCurrentIndex(0)
-        self.set_tblBalance()
-        self.set_tbleData()
+        
         self.set_btnevt()
         self.ui.show()
         self.set_updateAllData()
@@ -634,7 +633,9 @@ class MainWindow(QMainWindow):
         avg= it.get("avg_buy_price")
         bal= it.get("balance")
         if cname != "KRW" and avg !="0":
+            
             name=self.get_CoinName(cname)
+            
             row = self.ui.tableWidget_tot.rowCount()
             self.ui.tableWidget_tot.insertRow(row)
             col0 =QTableWidgetItem(name)
@@ -651,6 +652,7 @@ class MainWindow(QMainWindow):
             col3 =QTableWidgetItem(str(cur))
             col3.setTextAlignment(Qt.AlignRight|Qt.AlignVCenter)
             self.ui.tableWidget_tot.setItem(row,3, col3)
+            self.setTreeView(self.ui.treeWidget_autolist,f'{name} {cname}')
             try:
                 ratio=round((float(cur)/float(avg) *100.0)-100.0,2)
             except Exception as e:
@@ -838,6 +840,7 @@ class MainWindow(QMainWindow):
         self.ui.tableWidget_tot.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeToContents)
         self.ui.tableWidget_tradelist.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeToContents)
         self.ui.treeWidget_coins.header().setSectionResizeMode(0,QHeaderView.ResizeToContents)
+        self.ui.treeWidget_autolist.header().setSectionResizeMode(0,QHeaderView.ResizeToContents)
         
 
     def set_tbleData(self):

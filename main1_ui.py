@@ -17,11 +17,11 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QPalette, QPixmap, QRadialGradient, QTransform)
 from PySide6.QtWidgets import (QApplication, QComboBox, QDateTimeEdit, QDoubleSpinBox,
     QFormLayout, QGridLayout, QGroupBox, QHBoxLayout,
-    QHeaderView, QLabel, QListWidget, QListWidgetItem,
-    QMainWindow, QMenuBar, QPushButton, QRadioButton,
-    QSizePolicy, QSpacerItem, QSpinBox, QStatusBar,
-    QTabWidget, QTableWidget, QTableWidgetItem, QTreeWidget,
-    QTreeWidgetItem, QVBoxLayout, QWidget)
+    QHeaderView, QLabel, QMainWindow, QMenuBar,
+    QPushButton, QRadioButton, QSizePolicy, QSpacerItem,
+    QSpinBox, QStatusBar, QTabWidget, QTableWidget,
+    QTableWidgetItem, QTreeWidget, QTreeWidgetItem, QVBoxLayout,
+    QWidget)
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
@@ -634,13 +634,13 @@ class Ui_MainWindow(object):
         self.tab.setObjectName(u"tab")
         self.verticalLayout_7 = QVBoxLayout(self.tab)
         self.verticalLayout_7.setObjectName(u"verticalLayout_7")
-        self.listWidget_autolist = QListWidget(self.tab)
-        self.listWidget_autolist.setObjectName(u"listWidget_autolist")
-        self.listWidget_autolist.setMinimumSize(QSize(0, 150))
-        self.listWidget_autolist.setMaximumSize(QSize(16777215, 150))
-        self.listWidget_autolist.setFont(font2)
+        self.treeWidget_autolist = QTreeWidget(self.tab)
+        __qtreewidgetitem1 = QTreeWidgetItem()
+        __qtreewidgetitem1.setText(0, u"1");
+        self.treeWidget_autolist.setHeaderItem(__qtreewidgetitem1)
+        self.treeWidget_autolist.setObjectName(u"treeWidget_autolist")
 
-        self.verticalLayout_7.addWidget(self.listWidget_autolist)
+        self.verticalLayout_7.addWidget(self.treeWidget_autolist)
 
         self.groupBox = QGroupBox(self.tab)
         self.groupBox.setObjectName(u"groupBox")
