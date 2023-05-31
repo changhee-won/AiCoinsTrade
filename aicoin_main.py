@@ -460,6 +460,75 @@ class MainWindow(QMainWindow):
     def setcmbData(self):
         ratiolist=[10,20]
         self.ui.comboBox_pratio.add(ratiolist)
+        
+    def get_orderlist(self):
+        '''
+        {'uuid': '08bf4717-7255-4b64-8aa7-606ac8446827', 'side': 'ask', 
+        'ord_type': 'limit', 'price': '44292000', 'state': 'wait', 'market': 'KRW-BTC', 
+        'created_at': '2023-05-31T11:43:03+09:00', 'volume': '0.0017538', 'remaining_volume': '0.0017538', 'reserved_fee': '0', 
+        'remaining_fee': '0', 'paid_fee': '0', 'locked': '0.0017538', 'executed_volume': '0', 'trades_count': 0}]
+        '''
+        
+        data= self.upbit.GetOrders()
+        logging.info(data)
+        for jdata in data:
+            row = 0
+            
+            self.ui.tableWidget_tradelist.insertRow(row)
+            
+            tmp=jdata.get("uuid")
+            col0 =QTableWidgetItem(str(tmp))
+            col0.setTextAlignment(Qt.AlignCenter|Qt.AlignVCenter)
+            self.ui.tableWidget_tradelist.setItem(row,0, col0)
+        
+            tmp=jdata.get("created_at")
+            col1 =QTableWidgetItem(str(tmp))
+            col1.setTextAlignment(Qt.AlignCenter|Qt.AlignVCenter)
+            self.ui.tableWidget_tradelist.setItem(row,1, col1)
+        
+            tmp=jdata.get("market")
+            name=self.get_CoinName(tmp)
+            col2 =QTableWidgetItem(str(name))
+            col2.setTextAlignment(Qt.AlignCenter|Qt.AlignVCenter)
+            self.ui.tableWidget_tradelist.setItem(row,2, col2)
+        
+            tmp=jdata.get("side")
+            if tmp =='ask': 
+                col3 =QTableWidgetItem('매도')
+            else:
+                col3 =QTableWidgetItem('매수')
+            col3.setTextAlignment(Qt.AlignCenter|Qt.AlignVCenter)
+            self.ui.tableWidget_tradelist.setItem(row,3, col3)
+
+            tmp=jdata.get("ord_type")
+            if tmp =='limit': 
+                col4 =QTableWidgetItem('지정가')
+            else:
+                col4 =QTableWidgetItem('시장가')
+            
+            col4.setTextAlignment(Qt.AlignCenter|Qt.AlignVCenter)
+            self.ui.tableWidget_tradelist.setItem(row,4, col4)
+
+            tmp=jdata.get("price")
+            col5 =QTableWidgetItem(str(tmp))
+            col5.setTextAlignment(Qt.AlignCenter|Qt.AlignVCenter)
+            self.ui.tableWidget_tradelist.setItem(row,5, col5)
+
+            tmp=jdata.get("locked")
+            col6 =QTableWidgetItem(str(tmp))
+            col6.setTextAlignment(Qt.AlignCenter|Qt.AlignVCenter)
+            self.ui.tableWidget_tradelist.setItem(row,6, col6)
+
+            tmp=jdata.get("remaining_volume")
+            col7 =QTableWidgetItem(str(tmp))
+            col7.setTextAlignment(Qt.AlignCenter|Qt.AlignVCenter)
+            self.ui.tableWidget_tradelist.setItem(row,7, col7)
+
+        
+         
+        
+            
+        
 
     def settblEvent(self):
 
@@ -632,7 +701,7 @@ class MainWindow(QMainWindow):
 
         tmp=ast.literal_eval(str(b))
         jdata = json.loads(json.dumps(tmp))
-        logging.info(jdata)
+#        logging.info(jdata)
         '''
         'market': 'KRW-BTC',
         'trade_date_utc': '2023-05-27',
@@ -646,7 +715,7 @@ class MainWindow(QMainWindow):
         'sequential_id': 1685196528667000}]
         '''
         key=jdata.get("sequential_id")
-        logging.info(key)
+#        logging.info(key)
         matching_items= self.ui.tableWidget_tradesum.findItems(str(key), Qt.MatchExactly)
 
         if matching_items :
@@ -659,10 +728,10 @@ class MainWindow(QMainWindow):
         self.ui.tableWidget_tradesum.insertRow(0)
         #self.tradesum_row)
         tmp=jdata.get("trade_date_utc")
-        logging.info(tmp)
+ #       logging.info(tmp)
 
         tmp=jdata.get("trade_time_utc")
-        logging.info(tmp)
+  #      logging.info(tmp)
         col0 =QTableWidgetItem(str(tmp))
         col0.setTextAlignment(Qt.AlignRight|Qt.AlignVCenter)
         col0.setFlags(col0.flags()&~(Qt.ItemIsEditable))
@@ -760,13 +829,16 @@ class MainWindow(QMainWindow):
     def set_updateAllData(self):
         QTimer.singleShot(500, self.set_tblBalance)
         QTimer.singleShot(500, self.set_tbleData)
+        self.get_orderlist()
         #QTimer.singleShot(3000, self.set_tbleReszie)
 
     def set_tbleReszie(self):
         self.ui.tableWidget_status.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeToContents)
         self.ui.tableWidget_tradesum.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeToContents)
         self.ui.tableWidget_tot.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeToContents)
+        self.ui.tableWidget_tradelist.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeToContents)
         self.ui.treeWidget_coins.header().setSectionResizeMode(0,QHeaderView.ResizeToContents)
+        
 
     def set_tbleData(self):
         self.ui.tableWidget_status.setRowCount(len(self.coins))

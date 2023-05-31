@@ -261,7 +261,7 @@
        </font>
       </property>
       <property name="currentIndex">
-       <number>0</number>
+       <number>2</number>
       </property>
       <widget class="QWidget" name="tabWidgetPage1">
        <attribute name="title">
@@ -291,7 +291,7 @@
              </font>
             </property>
             <property name="currentIndex">
-             <number>0</number>
+             <number>2</number>
             </property>
             <widget class="QWidget" name="tab_3">
              <attribute name="title">
@@ -1218,74 +1218,47 @@
               </item>
               <item>
                <widget class="QTableWidget" name="tableWidget_tradelist">
+                <attribute name="verticalHeaderVisible">
+                 <bool>false</bool>
+                </attribute>
                 <column>
                  <property name="text">
-                  <string>구분</string>
+                  <string>ID</string>
                  </property>
-                 <property name="font">
-                  <font>
-                   <family>Arial Black</family>
-                   <pointsize>8</pointsize>
-                  </font>
-                 </property>
-                 <property name="textAlignment">
-                  <set>AlignCenter</set>
+                </column>
+                <column>
+                 <property name="text">
+                  <string>시간</string>
                  </property>
                 </column>
                 <column>
                  <property name="text">
                   <string>마켓명</string>
                  </property>
-                 <property name="font">
-                  <font>
-                   <family>Arial Black</family>
-                   <pointsize>8</pointsize>
-                  </font>
-                 </property>
-                 <property name="textAlignment">
-                  <set>AlignCenter</set>
+                </column>
+                <column>
+                 <property name="text">
+                  <string>구분</string>
                  </property>
                 </column>
                 <column>
                  <property name="text">
-                  <string>체결가격</string>
-                 </property>
-                 <property name="font">
-                  <font>
-                   <family>Arial Black</family>
-                   <pointsize>8</pointsize>
-                  </font>
-                 </property>
-                 <property name="textAlignment">
-                  <set>AlignCenter</set>
+                  <string>주문유형</string>
                  </property>
                 </column>
                 <column>
                  <property name="text">
-                  <string>채결수량</string>
-                 </property>
-                 <property name="font">
-                  <font>
-                   <family>Arial Black</family>
-                   <pointsize>8</pointsize>
-                  </font>
-                 </property>
-                 <property name="textAlignment">
-                  <set>AlignCenter</set>
+                  <string>가격</string>
                  </property>
                 </column>
                 <column>
                  <property name="text">
-                  <string>체결금액</string>
+                  <string>주문량</string>
                  </property>
-                 <property name="font">
-                  <font>
-                   <family>Arial Black</family>
-                   <pointsize>8</pointsize>
-                  </font>
-                 </property>
-                 <property name="textAlignment">
-                  <set>AlignCenter</set>
+                </column>
+                <column>
+                 <property name="text">
+                  <string>미체결량</string>
                  </property>
                 </column>
                </widget>
@@ -1308,6 +1281,9 @@
               <height>16777215</height>
              </size>
             </property>
+            <attribute name="horizontalHeaderVisible">
+             <bool>false</bool>
+            </attribute>
             <attribute name="verticalHeaderVisible">
              <bool>false</bool>
             </attribute>
@@ -1511,7 +1487,7 @@
        </attribute>
        <layout class="QVBoxLayout" name="verticalLayout_7">
         <item>
-         <widget class="QListWidget" name="listWidget">
+         <widget class="QListWidget" name="listWidget_autolist">
           <property name="minimumSize">
            <size>
             <width>0</width>

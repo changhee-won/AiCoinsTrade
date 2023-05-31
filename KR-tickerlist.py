@@ -82,5 +82,5 @@ res = requests.get(server_url + "/v1/orders",  headers=headerstr)
 
 print(res.json())
 
-items = pyupbit.get_items('KRW', '')
-print(items)
+
+

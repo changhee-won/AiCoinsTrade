@@ -18,6 +18,7 @@ class upbitApi:
         self.config.read(CFG_FILE, encoding='utf-8')
         self.access_key=self.config['KeyInfo']['access']
         self.secret_key=self.config['KeyInfo']['security']
+        self.server_url= server_url
         self.payload = {
         'access_key': self.access_key,
         'nonce': str(uuid.uuid4()),
@@ -85,7 +86,7 @@ class upbitApi:
         return ret
 
         # 주문 - 주문 리스트 조회
-    def GetOrders(self, uuids):
+    def GetOrders(self):
         res = requests.get(self.server_url + "/v1/orders", headers=self.headers)
         ret = res.json()
         return ret
