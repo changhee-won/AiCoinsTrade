@@ -327,14 +327,9 @@ class MainWindow(QMainWindow):
         self.ui.tableWidget_tradesum.setColumnWidth(5, 70)
         self.ui.tableWidget_tradesum.setColumnWidth(6, 100)
 
-        self.ui.treeWidget_coins.itemClicked.connect(lambda x:
-                self.onItemClicked(self.ui.treeWidget_coins,
-                self.ui.treeWidget_coins.currentItem(),
-               self.ui.treeWidget_coins.currentColumn(),
-               self.ui.tableWidget_status))
         logging.info("start upbit auto trade 2")
         self.ui.tabWidget.setCurrentIndex(0)
-        
+
         self.set_btnevt()
         self.ui.show()
         self.set_updateAllData()
@@ -387,7 +382,7 @@ class MainWindow(QMainWindow):
         self.ui.comboBox_aspbuyrate.setEditable(True)
         self.ui.comboBox_aspbuyrate.lineEdit().setAlignment(QtCore.Qt.AlignCenter)
         self.ui.comboBox_aspbuyrate.view().setVerticalScrollBarPolicy(Qt.ScrollBarAsNeeded)
-        
+
         for i in range(0, 201):
             if i%5 ==0:
                 if i <= 100:
@@ -459,40 +454,40 @@ class MainWindow(QMainWindow):
     def setcmbData(self):
         ratiolist=[10,20]
         self.ui.comboBox_pratio.add(ratiolist)
-        
+
     def get_orderlist(self):
         '''
-        {'uuid': '08bf4717-7255-4b64-8aa7-606ac8446827', 'side': 'ask', 
-        'ord_type': 'limit', 'price': '44292000', 'state': 'wait', 'market': 'KRW-BTC', 
-        'created_at': '2023-05-31T11:43:03+09:00', 'volume': '0.0017538', 'remaining_volume': '0.0017538', 'reserved_fee': '0', 
+        {'uuid': '08bf4717-7255-4b64-8aa7-606ac8446827', 'side': 'ask',
+        'ord_type': 'limit', 'price': '44292000', 'state': 'wait', 'market': 'KRW-BTC',
+        'created_at': '2023-05-31T11:43:03+09:00', 'volume': '0.0017538', 'remaining_volume': '0.0017538', 'reserved_fee': '0',
         'remaining_fee': '0', 'paid_fee': '0', 'locked': '0.0017538', 'executed_volume': '0', 'trades_count': 0}]
         '''
-        
+
         data= self.upbit.GetOrders()
         logging.info(data)
         for jdata in data:
             row = 0
-            
+
             self.ui.tableWidget_tradelist.insertRow(row)
-            
+
             tmp=jdata.get("uuid")
             col0 =QTableWidgetItem(str(tmp))
             col0.setTextAlignment(Qt.AlignCenter|Qt.AlignVCenter)
             self.ui.tableWidget_tradelist.setItem(row,0, col0)
-        
+
             tmp=jdata.get("created_at")
             col1 =QTableWidgetItem(str(tmp))
             col1.setTextAlignment(Qt.AlignCenter|Qt.AlignVCenter)
             self.ui.tableWidget_tradelist.setItem(row,1, col1)
-        
+
             tmp=jdata.get("market")
             name=self.get_CoinName(tmp)
             col2 =QTableWidgetItem(str(name))
             col2.setTextAlignment(Qt.AlignCenter|Qt.AlignVCenter)
             self.ui.tableWidget_tradelist.setItem(row,2, col2)
-        
+
             tmp=jdata.get("side")
-            if tmp =='ask': 
+            if tmp =='ask':
                 col3 =QTableWidgetItem('매도')
             else:
                 col3 =QTableWidgetItem('매수')
@@ -500,11 +495,11 @@ class MainWindow(QMainWindow):
             self.ui.tableWidget_tradelist.setItem(row,3, col3)
 
             tmp=jdata.get("ord_type")
-            if tmp =='limit': 
+            if tmp =='limit':
                 col4 =QTableWidgetItem('지정가')
             else:
                 col4 =QTableWidgetItem('시장가')
-            
+
             col4.setTextAlignment(Qt.AlignCenter|Qt.AlignVCenter)
             self.ui.tableWidget_tradelist.setItem(row,4, col4)
 
@@ -523,11 +518,11 @@ class MainWindow(QMainWindow):
             col7.setTextAlignment(Qt.AlignCenter|Qt.AlignVCenter)
             self.ui.tableWidget_tradelist.setItem(row,7, col7)
 
-        
-         
-        
-            
-        
+
+
+
+
+
 
     def settblEvent(self):
 
@@ -633,9 +628,9 @@ class MainWindow(QMainWindow):
         avg= it.get("avg_buy_price")
         bal= it.get("balance")
         if cname != "KRW" and avg !="0":
-            
+
             name=self.get_CoinName(cname)
-            
+
             row = self.ui.tableWidget_tot.rowCount()
             self.ui.tableWidget_tot.insertRow(row)
             col0 =QTableWidgetItem(name)
@@ -652,7 +647,7 @@ class MainWindow(QMainWindow):
             col3 =QTableWidgetItem(str(cur))
             col3.setTextAlignment(Qt.AlignRight|Qt.AlignVCenter)
             self.ui.tableWidget_tot.setItem(row,3, col3)
-            self.setTreeView(self.ui.treeWidget_autolist,f'{name} {cname}')
+            self.setTreeView(self.ui.treeWidget_autolist,f'{name} {curname}')
             try:
                 ratio=round((float(cur)/float(avg) *100.0)-100.0,2)
             except Exception as e:
@@ -839,9 +834,8 @@ class MainWindow(QMainWindow):
         self.ui.tableWidget_tradesum.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeToContents)
         self.ui.tableWidget_tot.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeToContents)
         self.ui.tableWidget_tradelist.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeToContents)
-        self.ui.treeWidget_coins.header().setSectionResizeMode(0,QHeaderView.ResizeToContents)
         self.ui.treeWidget_autolist.header().setSectionResizeMode(0,QHeaderView.ResizeToContents)
-        
+
 
     def set_tbleData(self):
         self.ui.tableWidget_status.setRowCount(len(self.coins))
@@ -901,7 +895,6 @@ class MainWindow(QMainWindow):
         citem.setFlags(citem.flags()&~(Qt.ItemIsEditable))
         citem.setFlags(citem.flags()|(Qt.ItemIsSelectable))
         self.ui.tableWidget_status.setItem(row,0, citem)
-        self.setTreeView(self.ui.treeWidget_coins,f'{strCname} {cname}')
         if ratio == 0:
             pitem.setForeground(Qt.black)
             ritem.setForeground(Qt.black)

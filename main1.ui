@@ -6,20 +6,20 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1162</width>
-    <height>775</height>
+    <width>1056</width>
+    <height>800</height>
    </rect>
   </property>
   <property name="minimumSize">
    <size>
     <width>200</width>
-    <height>30</height>
+    <height>800</height>
    </size>
   </property>
   <property name="maximumSize">
    <size>
     <width>1162</width>
-    <height>775</height>
+    <height>800</height>
    </size>
   </property>
   <property name="font">
@@ -35,35 +35,6 @@
    <layout class="QFormLayout" name="formLayout">
     <item row="0" column="0">
      <layout class="QHBoxLayout" name="horizontalLayout_4">
-      <item>
-       <widget class="QTreeWidget" name="treeWidget_coins">
-        <property name="minimumSize">
-         <size>
-          <width>200</width>
-          <height>0</height>
-         </size>
-        </property>
-        <property name="maximumSize">
-         <size>
-          <width>200</width>
-          <height>16777215</height>
-         </size>
-        </property>
-        <property name="font">
-         <font>
-          <family>Arial</family>
-          <pointsize>8</pointsize>
-          <weight>75</weight>
-          <bold>true</bold>
-         </font>
-        </property>
-        <column>
-         <property name="text">
-          <string notr="true">1</string>
-         </property>
-        </column>
-       </widget>
-      </item>
       <item>
        <widget class="QTableWidget" name="tableWidget_status">
         <property name="minimumSize">
@@ -244,13 +215,13 @@
      <widget class="QTabWidget" name="tabWidget">
       <property name="minimumSize">
        <size>
-        <width>500</width>
+        <width>600</width>
         <height>0</height>
        </size>
       </property>
       <property name="maximumSize">
        <size>
-        <width>500</width>
+        <width>600</width>
         <height>16777215</height>
        </size>
       </property>
@@ -261,7 +232,7 @@
        </font>
       </property>
       <property name="currentIndex">
-       <number>2</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="tabWidgetPage1">
        <attribute name="title">
@@ -274,13 +245,13 @@
            <widget class="QTabWidget" name="tabWidget_2">
             <property name="minimumSize">
              <size>
-              <width>150</width>
+              <width>600</width>
               <height>0</height>
              </size>
             </property>
             <property name="maximumSize">
              <size>
-              <width>500</width>
+              <width>600</width>
               <height>16777215</height>
              </size>
             </property>
@@ -291,7 +262,7 @@
              </font>
             </property>
             <property name="currentIndex">
-             <number>2</number>
+             <number>0</number>
             </property>
             <widget class="QWidget" name="tab_3">
              <attribute name="title">
@@ -1218,6 +1189,24 @@
               </item>
               <item>
                <widget class="QTableWidget" name="tableWidget_tradelist">
+                <property name="minimumSize">
+                 <size>
+                  <width>0</width>
+                  <height>0</height>
+                 </size>
+                </property>
+                <property name="maximumSize">
+                 <size>
+                  <width>16777215</width>
+                  <height>16777215</height>
+                 </size>
+                </property>
+                <property name="font">
+                 <font>
+                  <family>Arial</family>
+                  <pointsize>8</pointsize>
+                 </font>
+                </property>
                 <attribute name="verticalHeaderVisible">
                  <bool>false</bool>
                 </attribute>
@@ -1233,7 +1222,7 @@
                 </column>
                 <column>
                  <property name="text">
-                  <string>마켓명</string>
+                  <string>마켓</string>
                  </property>
                 </column>
                 <column>
@@ -1271,17 +1260,26 @@
            <widget class="QTableWidget" name="tableWidget_tot">
             <property name="minimumSize">
              <size>
-              <width>400</width>
+              <width>0</width>
               <height>200</height>
              </size>
             </property>
             <property name="maximumSize">
              <size>
-              <width>500</width>
+              <width>16777215</width>
               <height>16777215</height>
              </size>
             </property>
+            <property name="font">
+             <font>
+              <family>Arial</family>
+              <pointsize>8</pointsize>
+             </font>
+            </property>
             <attribute name="horizontalHeaderVisible">
+             <bool>true</bool>
+            </attribute>
+            <attribute name="horizontalHeaderStretchLastSection">
              <bool>false</bool>
             </attribute>
             <attribute name="verticalHeaderVisible">
@@ -2164,7 +2162,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1162</width>
+     <width>1056</width>
      <height>22</height>
     </rect>
    </property>
