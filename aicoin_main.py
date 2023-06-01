@@ -414,6 +414,21 @@ class MainWindow(QMainWindow):
         for item in fitems:
             tblwidget.selectRow(item.row())
 
+    def findTableItemShow(self,key,tbl,favmode=True,init=False):
+        if favmode== False:
+            for kk in range(tbl.rowCount()):
+                tbl.setRowHidden(kk,favmode)
+            return
+        else:
+            if init== True:
+                for kk in range(tbl.rowCount()):
+                    tbl.setRowHidden(kk,favmode)
+
+        fitems = tbl.findItems(key,Qt.MatchExactly)
+        for it in fitems:
+            logging.info(f'{key} {it.row()}')
+            tbl.setRowHidden(it.row(),False)
+
     def onItemClicked(self, tree,it, col,tblwidget):
         if col == -1:
             return
@@ -582,15 +597,31 @@ class MainWindow(QMainWindow):
         if self.reflash_market:
             self.reflash_market.stop()
 
+    def market_list(self,obj):
+        if obj.objectName()=='radioButton_krw':
+                self.findTableItemShow(None,self.ui.tableWidget_status,False)
+        elif obj.objectName()=='radioButton_fav':
+            init = True
+            for it in self.upbit.get_favlist():
+                self.findTableItemShow(it,self.ui.tableWidget_status,True,init)
+                init = False
+
+    def set_autolist(self):
+            for it in self.upbit.get_autolist():
+                self.setTreeView(self.ui.treeWidget_autolist,it)
+
+
     def set_btnevt(self):
         self.ui.pushButton_start.clicked.connect(lambda x:self.btn_event(self.ui.pushButton_start))
         self.ui.pushButton_stop.clicked.connect(lambda x:self.btn_event(self.ui.pushButton_stop))
         self.ui.pushButton_close.clicked.connect(lambda x:self.btn_event(self.ui.pushButton_close))
         self.ui.pushButton_reflash.clicked.connect(lambda x:self.btn_event(self.ui.pushButton_reflash))
+        self.ui.radioButton_krw.clicked.connect(lambda x:self.market_list(self.ui.radioButton_krw))
+        self.ui.radioButton_fav.clicked.connect(lambda x:self.market_list(self.ui.radioButton_fav))
+        self.set_autolist()
 
         self.ui.statusBar().showMessage(self.date.toString(Qt.DefaultLocaleLongDate))
         self.ui.closeEvent = self.closeEvent
-
 
     def setTreeView(self,tree,it):
         itemTop1 = QTreeWidgetItem(tree)

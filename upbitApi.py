@@ -18,6 +18,8 @@ class upbitApi:
         self.config.read(CFG_FILE, encoding='utf-8')
         self.access_key=self.config['KeyInfo']['access']
         self.secret_key=self.config['KeyInfo']['security']
+        self.favlist=str(self.config['favlist']['markets']).split(",")
+        self.autolist=str(self.config['autolist']['markets']).split(",")
         self.server_url= server_url
         self.payload = {
         'access_key': self.access_key,
@@ -30,6 +32,18 @@ class upbitApi:
         self.headers = {"Authorization": self.authorize_token}
 
         self.upbit_connect()
+
+    def get_favlist(self):
+        return self.favlist
+
+    def set_favelist(self,favlist):
+        self.favelist=favlist
+
+    def get_autolist(self):
+        return self.autolist
+
+    def set_autolist(self,autolist):
+        self.autolist=autlist
 
     def upbit_connect(self):
         upbit = pyupbit.Upbit(self.access_key, self.secret_key)
@@ -134,12 +148,12 @@ class upbitApi:
     def get_current_price(self,ticker):
         """현재가 조회"""
         return pyupbit.get_orderbook(tickers=ticker)[0]["orderbook_units"][0]["ask_price"]
-    
+
     def get_ma20(self,ticker):
         """20일 이동 평균선 조회"""
         df = pyupbit.get_ohlcv(ticker, interval="day", count=20)
         ma20 = df['close'].rolling(window=20, min_periods=1).mean().iloc[-1]
-        
+
         return ma20
 
     def get_target_price(self,ticker, k):
@@ -149,7 +163,7 @@ class upbitApi:
         target_price = df.iloc[0]['close'] + (df.iloc[0]['high'] - df.iloc[0]['low']) * k
         logging.info(target_price)
         return target_price
-     
+
     def get_start_time(self,ticker):
         """시작 시간 조회"""
         df = pyupbit.get_ohlcv(ticker, interval="minute1", count=1)
@@ -158,10 +172,10 @@ class upbitApi:
 
     def sell_market_order(self,coin,price):
         pyupbit.sell_market_order(coin, price)
-        
+
     def buy_market_order(self,coin,price):
         pyupbit.buy_market_order(coin, price)
-        
+
 
     def GetCurrentInfo(self,min, coin="KRW-BTC"):
         i =0
@@ -232,10 +246,10 @@ class upbitApi:
         ret = json.loads(response.text)
 
         return ret
-    
+
     # 시세 캔들 조회 - min 캔들
     def GetCandlesMinutes(self, market, count,tm):
-        
+
         url = f'https://api.upbit.com/v1/candles/minutes/{tm}'
         querystring = {"market":market,"count":str(count)}
         response = requests.request("GET", url, params=querystring)
