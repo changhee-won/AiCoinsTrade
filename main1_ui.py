@@ -237,6 +237,10 @@ class Ui_MainWindow(object):
 
         self.horizontalLayout_7 = QHBoxLayout()
         self.horizontalLayout_7.setObjectName(u"horizontalLayout_7")
+        self.horizontalSpacer_6 = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
+
+        self.horizontalLayout_7.addItem(self.horizontalSpacer_6)
+
         self.pushButton_init = QPushButton(self.tab_3)
         self.pushButton_init.setObjectName(u"pushButton_init")
         self.pushButton_init.setMinimumSize(QSize(150, 30))
@@ -250,6 +254,10 @@ class Ui_MainWindow(object):
         self.pushButton_buy.setMaximumSize(QSize(100, 30))
 
         self.horizontalLayout_7.addWidget(self.pushButton_buy)
+
+        self.horizontalSpacer_7 = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
+
+        self.horizontalLayout_7.addItem(self.horizontalSpacer_7)
 
 
         self.verticalLayout_2.addLayout(self.horizontalLayout_7)
@@ -416,6 +424,10 @@ class Ui_MainWindow(object):
 
         self.horizontalLayout_19 = QHBoxLayout()
         self.horizontalLayout_19.setObjectName(u"horizontalLayout_19")
+        self.horizontalSpacer_8 = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
+
+        self.horizontalLayout_19.addItem(self.horizontalSpacer_8)
+
         self.pushButton_sellinit = QPushButton(self.tab_5)
         self.pushButton_sellinit.setObjectName(u"pushButton_sellinit")
         self.pushButton_sellinit.setMinimumSize(QSize(150, 30))
@@ -429,6 +441,10 @@ class Ui_MainWindow(object):
         self.pushButton_sell.setMaximumSize(QSize(150, 30))
 
         self.horizontalLayout_19.addWidget(self.pushButton_sell)
+
+        self.horizontalSpacer_9 = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
+
+        self.horizontalLayout_19.addItem(self.horizontalSpacer_9)
 
 
         self.verticalLayout_3.addLayout(self.horizontalLayout_19)
@@ -515,7 +531,7 @@ class Ui_MainWindow(object):
         self.tableWidget_tot.setMinimumSize(QSize(0, 200))
         self.tableWidget_tot.setMaximumSize(QSize(16777215, 16777215))
         self.tableWidget_tot.setFont(font)
-        self.tableWidget_tot.horizontalHeader().setVisible(False)
+        self.tableWidget_tot.horizontalHeader().setVisible(True)
         self.tableWidget_tot.horizontalHeader().setStretchLastSection(False)
         self.tableWidget_tot.verticalHeader().setVisible(False)
 
@@ -592,7 +608,7 @@ class Ui_MainWindow(object):
         self.groupBox.setObjectName(u"groupBox")
         self.groupBox.setMinimumSize(QSize(0, 150))
         self.groupBox.setMaximumSize(QSize(16777215, 150))
-        self.groupBox.setAlignment(Qt.AlignCenter)
+        self.groupBox.setAlignment(Qt.AlignLeading|Qt.AlignLeft|Qt.AlignVCenter)
         self.verticalLayout_8 = QVBoxLayout(self.groupBox)
         self.verticalLayout_8.setObjectName(u"verticalLayout_8")
         self.horizontalLayout_12 = QHBoxLayout()
@@ -675,7 +691,7 @@ class Ui_MainWindow(object):
         self.groupBox_2.setObjectName(u"groupBox_2")
         self.groupBox_2.setMinimumSize(QSize(0, 150))
         self.groupBox_2.setMaximumSize(QSize(16777215, 150))
-        self.groupBox_2.setAlignment(Qt.AlignCenter)
+        self.groupBox_2.setAlignment(Qt.AlignLeading|Qt.AlignLeft|Qt.AlignVCenter)
         self.verticalLayout_9 = QVBoxLayout(self.groupBox_2)
         self.verticalLayout_9.setObjectName(u"verticalLayout_9")
         self.horizontalLayout_24 = QHBoxLayout()
@@ -764,8 +780,8 @@ class Ui_MainWindow(object):
         self.horizontalLayout_21.setObjectName(u"horizontalLayout_21")
         self.label_ma = QLabel(self.groupBox_3)
         self.label_ma.setObjectName(u"label_ma")
-        self.label_ma.setMinimumSize(QSize(15, 30))
-        self.label_ma.setMaximumSize(QSize(60, 30))
+        self.label_ma.setMinimumSize(QSize(80, 30))
+        self.label_ma.setMaximumSize(QSize(80, 30))
 
         self.horizontalLayout_21.addWidget(self.label_ma)
 
@@ -813,8 +829,8 @@ class Ui_MainWindow(object):
 
         self.label_startdate = QLabel(self.groupBox_3)
         self.label_startdate.setObjectName(u"label_startdate")
-        self.label_startdate.setMinimumSize(QSize(95, 30))
-        self.label_startdate.setMaximumSize(QSize(95, 30))
+        self.label_startdate.setMinimumSize(QSize(50, 30))
+        self.label_startdate.setMaximumSize(QSize(50, 30))
 
         self.horizontalLayout_20.addWidget(self.label_startdate)
 
@@ -841,8 +857,8 @@ class Ui_MainWindow(object):
 
         self.label_enddate = QLabel(self.groupBox_3)
         self.label_enddate.setObjectName(u"label_enddate")
-        self.label_enddate.setMinimumSize(QSize(95, 30))
-        self.label_enddate.setMaximumSize(QSize(95, 30))
+        self.label_enddate.setMinimumSize(QSize(50, 30))
+        self.label_enddate.setMaximumSize(QSize(50, 30))
 
         self.horizontalLayout_13.addWidget(self.label_enddate)
 
@@ -940,7 +956,7 @@ class Ui_MainWindow(object):
         self.retranslateUi(MainWindow)
 
         self.tabWidget.setCurrentIndex(0)
-        self.tabWidget_2.setCurrentIndex(1)
+        self.tabWidget_2.setCurrentIndex(0)
         self.comboBox_abuyrate.setCurrentIndex(-1)
 
 

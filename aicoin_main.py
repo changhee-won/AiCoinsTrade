@@ -259,7 +259,7 @@ class MainWindow(QMainWindow):
         self.currentAll=self.upbit.GetCurrentAll()
         self.pjson_data = json.loads(json.dumps(self.currentAll))
         self.date = QDate.currentDate()
-        logging.info("start upbit auto trade 1")
+        logging.info("start upbit auto trade")
         self.ui.tableWidget_status.setStyleSheet(tblstyle)
         self.ui.tableWidget_tot.setStyleSheet(tblstyle)
         self.ui.tableWidget_tradesum.setStyleSheet(tblstyle)
@@ -330,7 +330,7 @@ class MainWindow(QMainWindow):
         self.ui.tableWidget_tradesum.setColumnWidth(5, 70)
         self.ui.tableWidget_tradesum.setColumnWidth(6, 100)
 
-        logging.info("start upbit auto trade 2")
+
         self.ui.tabWidget.setCurrentIndex(0)
 
         self.set_btnevt()
@@ -543,11 +543,16 @@ class MainWindow(QMainWindow):
 
 
     def tbl_doubleClicked(self,tbl):
+        currow=self.ui.tableWidget_status.currentRow()
+        fav = self.ui.tableWidget_status.item(currow,0).text()
         if tbl.objectName()=='tableWidget_status':
             if self.ui.radioButton_fav.isChecked():
-                logging.info('TBD')
-            else:
-                logging.info('TBD')
+                self.upbit.autolist=fav
+            elif  self.ui.radioButton_krw.isChecked():
+                self.upbit.favlist=fav
+                self.market_list(self.ui.radioButton_fav)
+               
+                
 
     def tbl_clicked(self,tbl):
         if tbl.objectName()=='tableWidget_status':
@@ -624,7 +629,7 @@ class MainWindow(QMainWindow):
                 self.findTableItemShow(None,self.ui.tableWidget_status,False)
         elif obj.objectName()=='radioButton_fav':
             init = True
-            for it in self.upbit.get_favlist():
+            for it in self.upbit.favlist:
                 self.findTableItemShow(it,self.ui.tableWidget_status,True,init)
                 init = False
 

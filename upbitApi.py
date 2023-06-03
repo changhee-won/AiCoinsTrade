@@ -5,6 +5,7 @@ import os
 import uuid
 import jwt
 import json
+import ast
 from urllib.parse import unquote, quote, quote_plus, urlencode
 
 from common import *
@@ -18,8 +19,8 @@ class upbitApi:
         self.config.read(CFG_FILE, encoding='utf-8')
         self.access_key=self.config['KeyInfo']['access']
         self.secret_key=self.config['KeyInfo']['security']
-        self.favlist=str(self.config['favlist']['markets']).split(",")
-        self.autolist=str(self.config['autolist']['markets']).split(",")
+        self._favlist=ast.literal_eval(self.config['favlist']['markets'])
+        self._autolist=ast.literal_eval(self.config['autolist']['markets'])
         self.server_url= server_url
         self.payload = {
         'access_key': self.access_key,
@@ -30,20 +31,53 @@ class upbitApi:
         self.jwt_token = jwt.encode(self.payload, self.secret_key)
         self.authorize_token = 'Bearer {}'.format(self.jwt_token)
         self.headers = {"Authorization": self.authorize_token}
-
         self.upbit_connect()
 
-    def get_favlist(self):
-        return self.favlist
+    @property
+    def favlist(self):
+        
+        return self._favlist
 
-    def set_favelist(self,favlist):
-        self.favelist=favlist
+    @favlist.setter
+    def favlist(self,value):
+        
+        self.adddel_favlist(value)
+        self.config['favlist']['markets']=self._favlist
+        with open(CFG_FILE, 'w', encoding='utf-8') as configfile:
+            self.config.write(configfile)
 
+    @property
+    def autolist(stself):
+        return self._autolist
+
+    
+    @autolist.setter
+    def autolist(self,value):
+        self.config['favlist']['markets']=str(self._favlist)
+        with open(CFG_FILE, 'w', encoding='utf-8') as configfile:
+            self.config.write(configfile)            
+
+
+    def adddel_favlist(self,fav):
+        for it in self._favlist:
+            if it == fav:
+                self._favlist.remove(fav)
+                return  self._favlist
+
+        self._favlist.append(fav)
+        return self._favlist
+
+    def del_favlist(self,fav):
+        for it in self._favlist:
+            if it == fav:
+                self._favlist.remove(fav)
+        return self._favlist    
+    
     def get_autolist(self):
-        return self.autolist
+        return self._autolist
 
     def set_autolist(self,autolist):
-        self.autolist=autlist
+        self._autolist=autolist
 
     def upbit_connect(self):
         upbit = pyupbit.Upbit(self.access_key, self.secret_key)

@@ -129,7 +129,7 @@
              </font>
             </property>
             <property name="currentIndex">
-             <number>1</number>
+             <number>0</number>
             </property>
             <widget class="QWidget" name="tab_3">
              <attribute name="title">
@@ -537,6 +537,19 @@
               <item>
                <layout class="QHBoxLayout" name="horizontalLayout_7">
                 <item>
+                 <spacer name="horizontalSpacer_6">
+                  <property name="orientation">
+                   <enum>Qt::Horizontal</enum>
+                  </property>
+                  <property name="sizeHint" stdset="0">
+                   <size>
+                    <width>40</width>
+                    <height>20</height>
+                   </size>
+                  </property>
+                 </spacer>
+                </item>
+                <item>
                  <widget class="QPushButton" name="pushButton_init">
                   <property name="minimumSize">
                    <size>
@@ -573,6 +586,19 @@
                    <string>주문</string>
                   </property>
                  </widget>
+                </item>
+                <item>
+                 <spacer name="horizontalSpacer_7">
+                  <property name="orientation">
+                   <enum>Qt::Horizontal</enum>
+                  </property>
+                  <property name="sizeHint" stdset="0">
+                   <size>
+                    <width>40</width>
+                    <height>20</height>
+                   </size>
+                  </property>
+                 </spacer>
                 </item>
                </layout>
               </item>
@@ -984,6 +1010,19 @@
               <item>
                <layout class="QHBoxLayout" name="horizontalLayout_19">
                 <item>
+                 <spacer name="horizontalSpacer_8">
+                  <property name="orientation">
+                   <enum>Qt::Horizontal</enum>
+                  </property>
+                  <property name="sizeHint" stdset="0">
+                   <size>
+                    <width>40</width>
+                    <height>20</height>
+                   </size>
+                  </property>
+                 </spacer>
+                </item>
+                <item>
                  <widget class="QPushButton" name="pushButton_sellinit">
                   <property name="minimumSize">
                    <size>
@@ -1020,6 +1059,19 @@
                    <string>주문</string>
                   </property>
                  </widget>
+                </item>
+                <item>
+                 <spacer name="horizontalSpacer_9">
+                  <property name="orientation">
+                   <enum>Qt::Horizontal</enum>
+                  </property>
+                  <property name="sizeHint" stdset="0">
+                   <size>
+                    <width>40</width>
+                    <height>20</height>
+                   </size>
+                  </property>
+                 </spacer>
                 </item>
                </layout>
               </item>
@@ -1162,7 +1214,7 @@
              </font>
             </property>
             <attribute name="horizontalHeaderVisible">
-             <bool>false</bool>
+             <bool>true</bool>
             </attribute>
             <attribute name="horizontalHeaderStretchLastSection">
              <bool>false</bool>
@@ -1396,7 +1448,7 @@
            <string>매도 목표</string>
           </property>
           <property name="alignment">
-           <set>Qt::AlignCenter</set>
+           <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_8">
            <item>
@@ -1589,7 +1641,7 @@
            <string>매수 목표</string>
           </property>
           <property name="alignment">
-           <set>Qt::AlignCenter</set>
+           <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_9">
            <item>
@@ -1791,13 +1843,13 @@
               <widget class="QLabel" name="label_ma">
                <property name="minimumSize">
                 <size>
-                 <width>15</width>
+                 <width>80</width>
                  <height>30</height>
                 </size>
                </property>
                <property name="maximumSize">
                 <size>
-                 <width>60</width>
+                 <width>80</width>
                  <height>30</height>
                 </size>
                </property>
@@ -1916,13 +1968,13 @@
               <widget class="QLabel" name="label_startdate">
                <property name="minimumSize">
                 <size>
-                 <width>95</width>
+                 <width>50</width>
                  <height>30</height>
                 </size>
                </property>
                <property name="maximumSize">
                 <size>
-                 <width>95</width>
+                 <width>50</width>
                  <height>30</height>
                 </size>
                </property>
@@ -1984,13 +2036,13 @@
               <widget class="QLabel" name="label_enddate">
                <property name="minimumSize">
                 <size>
-                 <width>95</width>
+                 <width>50</width>
                  <height>30</height>
                 </size>
                </property>
                <property name="maximumSize">
                 <size>
-                 <width>95</width>
+                 <width>50</width>
                  <height>30</height>
                 </size>
                </property>
