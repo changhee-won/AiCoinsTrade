@@ -302,7 +302,10 @@ class MainWindow(QMainWindow):
         self.ui.pushButton_start.setStyleSheet(btnstylestr)
         self.ui.pushButton_stop.setStyleSheet(btnstylestr)
         self.ui.pushButton_reflash.setStyleSheet(btnstylestr)
-
+        self.ui.pushButton_buy.setStyleSheet(btnstylestr1)
+        self.ui.pushButton_init.setStyleSheet(btnstylestr1)
+        self.ui.pushButton_sellinit.setStyleSheet(btnstylestr1)
+        self.ui.pushButton_sell.setStyleSheet(btnstylestr1)
 
 
 
@@ -331,6 +334,7 @@ class MainWindow(QMainWindow):
         self.ui.tabWidget.setCurrentIndex(0)
 
         self.set_btnevt()
+        self.set_tblevt()
         self.ui.show()
         self.set_updateAllData()
         self.start_watchTimer()
@@ -538,10 +542,28 @@ class MainWindow(QMainWindow):
 
 
 
+    def tbl_doubleClicked(self,tbl):
+        if tbl.objectName()=='tableWidget_status':
+            if self.ui.radioButton_fav.isChecked():
+                logging.info('TBD')
+            else:
+                logging.info('TBD')
 
-    def settblEvent(self):
+    def tbl_clicked(self,tbl):
+        if tbl.objectName()=='tableWidget_status':
+            self.ui.tableWidget_tradesum.setRowCount(0)
+            currow=self.ui.tableWidget_status.currentRow()
+            tmp = self.ui.tableWidget_status.item(currow,0).text()
+            
+            coin=str(tmp).split(' ')[1]
+            logging.info(f'key= {tmp} coin = {coin} data= {currow}')
+            self.start_TradeStatus(coin)
 
-        self.ui.tableWidget_coins.clicked.connect(lambda x: self.tblselectRow( self.ui.tableWidget_coins, self.ui.tableWidget_coins.currentRow()))
+    def set_tblevt(self):
+        self.ui.tableWidget_status.doubleClicked.connect(lambda x: self.tbl_doubleClicked(self.ui.tableWidget_status))
+        self.ui.tableWidget_status.clicked.connect(lambda x: self.tbl_clicked(self.ui.tableWidget_status))
+
+        #self.ui.tableWidget_coins.clicked.connect(lambda x: self.tblselectRow( self.ui.tableWidget_coins, self.ui.tableWidget_coins.currentRow()))
 
 
 
@@ -606,10 +628,23 @@ class MainWindow(QMainWindow):
                 self.findTableItemShow(it,self.ui.tableWidget_status,True,init)
                 init = False
 
-    def set_autolist(self):
-            for it in self.upbit.get_autolist():
-                self.setTreeView(self.ui.treeWidget_autolist,it)
+    def add_favlist(self,obj):
+        logging.info('TBD')
 
+    def remove_favlist(self,obj):
+        logging.info('TBD')
+
+    def set_autolist(self):
+        for it in self.upbit.get_autolist():
+            self.setTreeView(self.ui.treeWidget_autolist,it)
+
+    def add_autolist(self):
+        for it in self.upbit.get_autolist():
+            self.setTreeView(self.ui.treeWidget_autolist,it)
+
+    def remove_autolist(self):
+        for it in self.upbit.get_autolist():
+            self.setTreeView(self.ui.treeWidget_autolist,it)
 
     def set_btnevt(self):
         self.ui.pushButton_start.clicked.connect(lambda x:self.btn_event(self.ui.pushButton_start))

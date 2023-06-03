@@ -129,7 +129,7 @@
              </font>
             </property>
             <property name="currentIndex">
-             <number>0</number>
+             <number>1</number>
             </property>
             <widget class="QWidget" name="tab_3">
              <attribute name="title">
@@ -984,7 +984,7 @@
               <item>
                <layout class="QHBoxLayout" name="horizontalLayout_19">
                 <item>
-                 <widget class="QPushButton" name="pushButton_3">
+                 <widget class="QPushButton" name="pushButton_sellinit">
                   <property name="minimumSize">
                    <size>
                     <width>150</width>
@@ -1003,7 +1003,7 @@
                  </widget>
                 </item>
                 <item>
-                 <widget class="QPushButton" name="pushButton_4">
+                 <widget class="QPushButton" name="pushButton_sell">
                   <property name="minimumSize">
                    <size>
                     <width>150</width>
@@ -1162,7 +1162,7 @@
              </font>
             </property>
             <attribute name="horizontalHeaderVisible">
-             <bool>true</bool>
+             <bool>false</bool>
             </attribute>
             <attribute name="horizontalHeaderStretchLastSection">
              <bool>false</bool>
