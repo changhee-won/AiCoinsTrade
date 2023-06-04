@@ -289,6 +289,7 @@ class MainWindow(QMainWindow):
         self.ui.label_24.setStyleSheet(labelstylestr)
         self.ui.label_12.setStyleSheet(labelstylestr)
         self.ui.label_20.setStyleSheet(labelstylestr)
+        self.ui.label_market.setStyleSheet(labelstylestr)
 
 
 
@@ -306,6 +307,8 @@ class MainWindow(QMainWindow):
         self.ui.pushButton_init.setStyleSheet(btnstylestr1)
         self.ui.pushButton_sellinit.setStyleSheet(btnstylestr1)
         self.ui.pushButton_sell.setStyleSheet(btnstylestr1)
+        self.ui.pushButton_add.setStyleSheet(btnstylestr1)
+        self.ui.pushButton_remove.setStyleSheet(btnstylestr1)
 
 
 
@@ -559,6 +562,7 @@ class MainWindow(QMainWindow):
             self.ui.tableWidget_tradesum.setRowCount(0)
             currow=self.ui.tableWidget_status.currentRow()
             tmp = self.ui.tableWidget_status.item(currow,0).text()
+            self.ui.label_market.setText(tmp)
             
             coin=str(tmp).split(' ')[1]
             logging.info(f'key= {tmp} coin = {coin} data= {currow}')
@@ -981,7 +985,9 @@ class MainWindow(QMainWindow):
             ritem.setForeground(Qt.red)
             vitem.setForeground(Qt.red)
             citem.setForeground(Qt.red)
-
+        if row ==0:    
+            self.ui.tableWidget_status.selectRow(row)
+            self.ui.label_market.setText(f'{strCname} {cname}')
 
     def __init__(self):
         super(MainWindow, self).__init__()
