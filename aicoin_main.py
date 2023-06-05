@@ -303,11 +303,11 @@ class MainWindow(QMainWindow):
         self.ui.pushButton_start.setStyleSheet(btnstylestr)
         self.ui.pushButton_stop.setStyleSheet(btnstylestr)
         self.ui.pushButton_reflash.setStyleSheet(btnstylestr)
-        self.ui.pushButton_buy.setStyleSheet(btnstylestr1)
+        
         self.ui.pushButton_init.setStyleSheet(btnstylestr1)
         self.ui.pushButton_sellinit.setStyleSheet(btnstylestr1)
         self.ui.pushButton_sell.setStyleSheet(btnstylestr1)
-        self.ui.pushButton_add.setStyleSheet(btnstylestr1)
+        self.ui.pushButton_buy.setStyleSheet(btnstylestr1)
 
 
 
@@ -556,9 +556,7 @@ class MainWindow(QMainWindow):
                 self.upbit.favlist=fav
                 self.market_list(self.ui.radioButton_fav)
         elif tbl.objectName()=='treeWidget_autolist':        
-                 
             it=self.ui.treeWidget_autolist.currentItem()
-            
             val = it.text(0)
             logging.info(val)
             self.upbit.autolist=str(val)
@@ -587,6 +585,8 @@ class MainWindow(QMainWindow):
         self.ui.tableWidget_status.clicked.connect(lambda x: self.tbl_clicked(self.ui.tableWidget_status))
         self.ui.treeWidget_autolist.clicked.connect(lambda x: self.tbl_clicked(self.ui.treeWidget_autolist))
         self.ui.treeWidget_autolist.doubleClicked.connect(lambda x: self.tbl_doubleClicked(self.ui.treeWidget_autolist))
+        self.ui.tabWidget.setCurrentIndex(0)
+        self.ui.tabWidget_2.setCurrentIndex(0)
 
         #self.ui.tableWidget_coins.clicked.connect(lambda x: self.tblselectRow( self.ui.tableWidget_coins, self.ui.tableWidget_coins.currentRow()))
 
@@ -632,8 +632,6 @@ class MainWindow(QMainWindow):
             logging.info('TBD')
         elif obj.objectName()=="pushButton_sellimit":
             logging.info('TBD')
-        elif obj.objectName()=="pushButton_add":
-            logging.info('TBD')            
         
         else:
             logging.info('no action')
@@ -690,7 +688,7 @@ class MainWindow(QMainWindow):
         self.ui.pushButton_stop.clicked.connect(lambda x:self.btn_event(self.ui.pushButton_stop))
         self.ui.pushButton_close.clicked.connect(lambda x:self.btn_event(self.ui.pushButton_close))
         self.ui.pushButton_reflash.clicked.connect(lambda x:self.btn_event(self.ui.pushButton_reflash))
-        self.ui.pushButton_add.clicked.connect(lambda x:self.btn_event(self.ui.pushButton_add))
+
         
         
         self.ui.radioButton_krw.clicked.connect(lambda x:self.market_list(self.ui.radioButton_krw))
