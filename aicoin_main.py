@@ -308,7 +308,7 @@ class MainWindow(QMainWindow):
         self.ui.pushButton_sellinit.setStyleSheet(btnstylestr1)
         self.ui.pushButton_sell.setStyleSheet(btnstylestr1)
         self.ui.pushButton_add.setStyleSheet(btnstylestr1)
-        self.ui.pushButton_remove.setStyleSheet(btnstylestr1)
+
 
 
 
@@ -546,14 +546,23 @@ class MainWindow(QMainWindow):
 
 
     def tbl_doubleClicked(self,tbl):
-        currow=self.ui.tableWidget_status.currentRow()
-        fav = self.ui.tableWidget_status.item(currow,0).text()
         if tbl.objectName()=='tableWidget_status':
+            currow=self.ui.tableWidget_status.currentRow()
+            fav = self.ui.tableWidget_status.item(currow,0).text()
             if self.ui.radioButton_fav.isChecked():
                 self.upbit.autolist=fav
+                self.reload_autolist()
             elif  self.ui.radioButton_krw.isChecked():
                 self.upbit.favlist=fav
                 self.market_list(self.ui.radioButton_fav)
+        elif tbl.objectName()=='treeWidget_autolist':        
+                 
+            it=self.ui.treeWidget_autolist.currentItem()
+            
+            val = it.text(0)
+            logging.info(val)
+            self.upbit.autolist=str(val)
+            self.reload_autolist()
                
                 
 
@@ -567,10 +576,17 @@ class MainWindow(QMainWindow):
             coin=str(tmp).split(' ')[1]
             logging.info(f'key= {tmp} coin = {coin} data= {currow}')
             self.start_TradeStatus(coin)
+            self.ui.pushButton_add.setText(">>")
+        elif tbl.objectName()=='treeWidget_autolist':    
+            self.ui.pushButton_add.setText("<<")
+            
+             
 
     def set_tblevt(self):
         self.ui.tableWidget_status.doubleClicked.connect(lambda x: self.tbl_doubleClicked(self.ui.tableWidget_status))
         self.ui.tableWidget_status.clicked.connect(lambda x: self.tbl_clicked(self.ui.tableWidget_status))
+        self.ui.treeWidget_autolist.clicked.connect(lambda x: self.tbl_clicked(self.ui.treeWidget_autolist))
+        self.ui.treeWidget_autolist.doubleClicked.connect(lambda x: self.tbl_doubleClicked(self.ui.treeWidget_autolist))
 
         #self.ui.tableWidget_coins.clicked.connect(lambda x: self.tblselectRow( self.ui.tableWidget_coins, self.ui.tableWidget_coins.currentRow()))
 
@@ -616,6 +632,9 @@ class MainWindow(QMainWindow):
             logging.info('TBD')
         elif obj.objectName()=="pushButton_sellimit":
             logging.info('TBD')
+        elif obj.objectName()=="pushButton_add":
+            logging.info('TBD')            
+        
         else:
             logging.info('no action')
         QApplication.restoreOverrideCursor()
@@ -651,15 +670,29 @@ class MainWindow(QMainWindow):
         for it in self.upbit.get_autolist():
             self.setTreeView(self.ui.treeWidget_autolist,it)
 
-    def remove_autolist(self):
-        for it in self.upbit.get_autolist():
+    def reload_autolist(self):
+        self.clearQTreeWidget(self.ui.treeWidget_autolist )
+        for it in self.upbit.autolist:
             self.setTreeView(self.ui.treeWidget_autolist,it)
+            
+    def clearQTreeWidget(self,tree):
+        iterator = QTreeWidgetItemIterator(tree, QTreeWidgetItemIterator.All)
+        while iterator.value():
+            iterator.value().takeChildren()
+            iterator += 1
+        i = tree.topLevelItemCount()
+        while i > -1:
+            tree.takeTopLevelItem(i)
+            i -= 1
 
     def set_btnevt(self):
         self.ui.pushButton_start.clicked.connect(lambda x:self.btn_event(self.ui.pushButton_start))
         self.ui.pushButton_stop.clicked.connect(lambda x:self.btn_event(self.ui.pushButton_stop))
         self.ui.pushButton_close.clicked.connect(lambda x:self.btn_event(self.ui.pushButton_close))
         self.ui.pushButton_reflash.clicked.connect(lambda x:self.btn_event(self.ui.pushButton_reflash))
+        self.ui.pushButton_add.clicked.connect(lambda x:self.btn_event(self.ui.pushButton_add))
+        
+        
         self.ui.radioButton_krw.clicked.connect(lambda x:self.market_list(self.ui.radioButton_krw))
         self.ui.radioButton_fav.clicked.connect(lambda x:self.market_list(self.ui.radioButton_fav))
         self.set_autolist()

@@ -20,6 +20,7 @@ class upbitApi:
         self.access_key=self.config['KeyInfo']['access']
         self.secret_key=self.config['KeyInfo']['security']
         self._favlist=ast.literal_eval(self.config['favlist']['markets'])
+        self._autoact=ast.literal_eval(self.config['autoact']['markets'])
         self._autolist=ast.literal_eval(self.config['autolist']['markets'])
         self.server_url= server_url
         self.payload = {
@@ -47,16 +48,45 @@ class upbitApi:
             self.config.write(configfile)
 
     @property
+    def autoact(self):
+        
+        return self._autoact
+
+    @autoact.setter
+    def autoact(self,value):
+        
+        self.adddel_autoact(value)
+        self.config['autoact']['markets']=self._autoact
+        with open(CFG_FILE, 'w', encoding='utf-8') as configfile:
+            self.config.write(configfile)
+
+    def adddel_autoact(self,val):
+        for it in self._autoact:
+            if it == val:
+                self._autoact.remove(val)
+                return  self._autoact
+        return self._autoact
+
+    @property
     def autolist(stself):
         return self._autolist
 
     
     @autolist.setter
-    def autolist(self,value):
-        self.config['favlist']['markets']=str(self._favlist)
+    def autolist(self,val):
+        self.adddel_autolist(val)
+        self.config['autolist']['markets']=str(self._autolist)
         with open(CFG_FILE, 'w', encoding='utf-8') as configfile:
             self.config.write(configfile)            
 
+    def adddel_autolist(self,val):
+        for it in self._autolist:
+            if it == val:
+                self._autolist.remove(val)
+                return  self._autolist
+
+        self._autolist.append(val)
+        
 
     def adddel_favlist(self,fav):
         for it in self._favlist:
@@ -66,6 +96,21 @@ class upbitApi:
 
         self._favlist.append(fav)
         return self._favlist
+
+    def adddel_favlist(self,val):
+        for it in self._autoact:
+            if it == val:
+                return  self._autoact
+
+        self._autoact.append(val)
+        return self._autoact
+
+    def del_autoact(self,val):
+        for it in self._autoact:
+            if it == val:
+                self._autoact.remove(val)
+        return self._autoact    
+
 
     def del_favlist(self,fav):
         for it in self._favlist:

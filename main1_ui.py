@@ -597,17 +597,10 @@ class Ui_MainWindow(object):
         self.verticalLayout_7.setObjectName(u"verticalLayout_7")
         self.pushButton_add = QPushButton(self.tab)
         self.pushButton_add.setObjectName(u"pushButton_add")
-        self.pushButton_add.setMinimumSize(QSize(20, 85))
-        self.pushButton_add.setMaximumSize(QSize(20, 85))
+        self.pushButton_add.setMinimumSize(QSize(20, 180))
+        self.pushButton_add.setMaximumSize(QSize(20, 180))
 
         self.verticalLayout_7.addWidget(self.pushButton_add)
-
-        self.pushButton_remove = QPushButton(self.tab)
-        self.pushButton_remove.setObjectName(u"pushButton_remove")
-        self.pushButton_remove.setMinimumSize(QSize(20, 85))
-        self.pushButton_remove.setMaximumSize(QSize(20, 85))
-
-        self.verticalLayout_7.addWidget(self.pushButton_remove)
 
 
         self.horizontalLayout_3.addLayout(self.verticalLayout_7)
@@ -1078,8 +1071,7 @@ class Ui_MainWindow(object):
         ___qtablewidgetitem19 = self.tableWidget_tradesum.horizontalHeaderItem(6)
         ___qtablewidgetitem19.setText(QCoreApplication.translate("MainWindow", u"ID", None));
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tabWidgetPage2), QCoreApplication.translate("MainWindow", u"\ub9e4\ub9e4\ud604\ud669", None))
-        self.pushButton_add.setText(QCoreApplication.translate("MainWindow", u"+", None))
-        self.pushButton_remove.setText(QCoreApplication.translate("MainWindow", u"-", None))
+        self.pushButton_add.setText(QCoreApplication.translate("MainWindow", u">>", None))
         self.groupBox.setTitle(QCoreApplication.translate("MainWindow", u"\ub9e4\ub3c4 \ubaa9\ud45c", None))
         self.label_15.setText(QCoreApplication.translate("MainWindow", u"\ube44\uc728", None))
         self.label_14.setText(QCoreApplication.translate("MainWindow", u"\uac00\uaca9", None))
