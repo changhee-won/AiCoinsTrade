@@ -417,7 +417,7 @@
                  </widget>
                 </item>
                 <item>
-                 <widget class="QDoubleSpinBox" name="doubleSpinBox_amt">
+                 <widget class="QDoubleSpinBox" name="doubleSpinBox_Abuy">
                   <property name="minimumSize">
                    <size>
                     <width>200</width>
@@ -439,68 +439,24 @@
                   <property name="alignment">
                    <set>Qt::AlignCenter</set>
                   </property>
+                  <property name="maximum">
+                   <double>9999999999.989999771118164</double>
+                  </property>
                  </widget>
                 </item>
                 <item>
-                 <widget class="QLabel" name="label_3">
+                 <widget class="QComboBox" name="comboBox_buyAratio">
                   <property name="minimumSize">
                    <size>
-                    <width>40</width>
+                    <width>60</width>
                     <height>30</height>
                    </size>
                   </property>
                   <property name="maximumSize">
                    <size>
-                    <width>40</width>
+                    <width>60</width>
                     <height>30</height>
                    </size>
-                  </property>
-                  <property name="font">
-                   <font>
-                    <family>Arial</family>
-                    <pointsize>8</pointsize>
-                   </font>
-                  </property>
-                  <property name="text">
-                   <string>KRW</string>
-                  </property>
-                  <property name="alignment">
-                   <set>Qt::AlignJustify|Qt::AlignVCenter</set>
-                  </property>
-                 </widget>
-                </item>
-                <item>
-                 <widget class="QComboBox" name="comboBox_buyratio_1">
-                  <property name="minimumSize">
-                   <size>
-                    <width>50</width>
-                    <height>30</height>
-                   </size>
-                  </property>
-                  <property name="maximumSize">
-                   <size>
-                    <width>50</width>
-                    <height>30</height>
-                   </size>
-                  </property>
-                 </widget>
-                </item>
-                <item>
-                 <widget class="QLabel" name="label_2">
-                  <property name="minimumSize">
-                   <size>
-                    <width>20</width>
-                    <height>30</height>
-                   </size>
-                  </property>
-                  <property name="maximumSize">
-                   <size>
-                    <width>20</width>
-                    <height>30</height>
-                   </size>
-                  </property>
-                  <property name="text">
-                   <string>%</string>
                   </property>
                  </widget>
                 </item>
@@ -534,7 +490,7 @@
                  </widget>
                 </item>
                 <item>
-                 <widget class="QDoubleSpinBox" name="doubleSpinBox">
+                 <widget class="QDoubleSpinBox" name="doubleSpinBox_Pbuy">
                   <property name="minimumSize">
                    <size>
                     <width>200</width>
@@ -556,47 +512,22 @@
                   <property name="alignment">
                    <set>Qt::AlignCenter</set>
                   </property>
+                  <property name="maximum">
+                   <double>9999999999.989999771118164</double>
+                  </property>
                  </widget>
                 </item>
                 <item>
-                 <widget class="QLabel" name="label_6">
+                 <widget class="QComboBox" name="comboBox_buyPratio">
                   <property name="minimumSize">
                    <size>
-                    <width>40</width>
+                    <width>60</width>
                     <height>30</height>
                    </size>
                   </property>
                   <property name="maximumSize">
                    <size>
-                    <width>40</width>
-                    <height>30</height>
-                   </size>
-                  </property>
-                  <property name="font">
-                   <font>
-                    <family>Arial</family>
-                    <pointsize>8</pointsize>
-                   </font>
-                  </property>
-                  <property name="text">
-                   <string>KRW</string>
-                  </property>
-                  <property name="alignment">
-                   <set>Qt::AlignJustify|Qt::AlignVCenter</set>
-                  </property>
-                 </widget>
-                </item>
-                <item>
-                 <widget class="QComboBox" name="comboBox_buyratio">
-                  <property name="minimumSize">
-                   <size>
-                    <width>50</width>
-                    <height>30</height>
-                   </size>
-                  </property>
-                  <property name="maximumSize">
-                   <size>
-                    <width>50</width>
+                    <width>60</width>
                     <height>30</height>
                    </size>
                   </property>
@@ -614,34 +545,6 @@
                   </property>
                  </widget>
                 </item>
-                <item>
-                 <widget class="QLabel" name="label_11">
-                  <property name="minimumSize">
-                   <size>
-                    <width>20</width>
-                    <height>30</height>
-                   </size>
-                  </property>
-                  <property name="maximumSize">
-                   <size>
-                    <width>20</width>
-                    <height>30</height>
-                   </size>
-                  </property>
-                  <property name="font">
-                   <font>
-                    <family>Arial Black</family>
-                    <pointsize>8</pointsize>
-                   </font>
-                  </property>
-                  <property name="text">
-                   <string>%</string>
-                  </property>
-                  <property name="alignment">
-                   <set>Qt::AlignJustify|Qt::AlignVCenter</set>
-                  </property>
-                 </widget>
-                </item>
                </layout>
               </item>
               <item>
@@ -653,13 +556,13 @@
                  <widget class="QLabel" name="label_9">
                   <property name="minimumSize">
                    <size>
-                    <width>95</width>
+                    <width>80</width>
                     <height>30</height>
                    </size>
                   </property>
                   <property name="maximumSize">
                    <size>
-                    <width>95</width>
+                    <width>80</width>
                     <height>30</height>
                    </size>
                   </property>
@@ -672,7 +575,7 @@
                  </widget>
                 </item>
                 <item>
-                 <widget class="QDoubleSpinBox" name="doubleSpinBox_tprice">
+                 <widget class="QDoubleSpinBox" name="doubleSpinBox_totbuy">
                   <property name="minimumSize">
                    <size>
                     <width>200</width>
@@ -694,19 +597,22 @@
                   <property name="alignment">
                    <set>Qt::AlignCenter</set>
                   </property>
+                  <property name="maximum">
+                   <double>9999999999.989999771118164</double>
+                  </property>
                  </widget>
                 </item>
                 <item>
                  <widget class="QLabel" name="label_10">
                   <property name="minimumSize">
                    <size>
-                    <width>170</width>
+                    <width>60</width>
                     <height>30</height>
                    </size>
                   </property>
                   <property name="maximumSize">
                    <size>
-                    <width>170</width>
+                    <width>60</width>
                     <height>30</height>
                    </size>
                   </property>
@@ -717,10 +623,10 @@
                    </font>
                   </property>
                   <property name="text">
-                   <string>  KRW</string>
+                   <string/>
                   </property>
                   <property name="alignment">
-                   <set>Qt::AlignJustify|Qt::AlignVCenter</set>
+                   <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
                   </property>
                  </widget>
                 </item>
@@ -943,33 +849,8 @@
                   <property name="alignment">
                    <set>Qt::AlignCenter</set>
                   </property>
-                 </widget>
-                </item>
-                <item>
-                 <widget class="QLabel" name="label_26">
-                  <property name="minimumSize">
-                   <size>
-                    <width>40</width>
-                    <height>30</height>
-                   </size>
-                  </property>
-                  <property name="maximumSize">
-                   <size>
-                    <width>40</width>
-                    <height>30</height>
-                   </size>
-                  </property>
-                  <property name="font">
-                   <font>
-                    <family>Arial</family>
-                    <pointsize>8</pointsize>
-                   </font>
-                  </property>
-                  <property name="text">
-                   <string>KRW</string>
-                  </property>
-                  <property name="alignment">
-                   <set>Qt::AlignJustify|Qt::AlignVCenter</set>
+                  <property name="maximum">
+                   <double>9999999999.989999771118164</double>
                   </property>
                  </widget>
                 </item>
@@ -977,34 +858,15 @@
                  <widget class="QComboBox" name="comboBox_sellratio_1">
                   <property name="minimumSize">
                    <size>
-                    <width>50</width>
+                    <width>60</width>
                     <height>30</height>
                    </size>
                   </property>
                   <property name="maximumSize">
                    <size>
-                    <width>50</width>
+                    <width>60</width>
                     <height>30</height>
                    </size>
-                  </property>
-                 </widget>
-                </item>
-                <item>
-                 <widget class="QLabel" name="label">
-                  <property name="minimumSize">
-                   <size>
-                    <width>20</width>
-                    <height>30</height>
-                   </size>
-                  </property>
-                  <property name="maximumSize">
-                   <size>
-                    <width>20</width>
-                    <height>30</height>
-                   </size>
-                  </property>
-                  <property name="text">
-                   <string>%</string>
                   </property>
                  </widget>
                 </item>
@@ -1060,33 +922,8 @@
                   <property name="alignment">
                    <set>Qt::AlignCenter</set>
                   </property>
-                 </widget>
-                </item>
-                <item>
-                 <widget class="QLabel" name="label_24">
-                  <property name="minimumSize">
-                   <size>
-                    <width>40</width>
-                    <height>30</height>
-                   </size>
-                  </property>
-                  <property name="maximumSize">
-                   <size>
-                    <width>40</width>
-                    <height>30</height>
-                   </size>
-                  </property>
-                  <property name="font">
-                   <font>
-                    <family>Arial</family>
-                    <pointsize>8</pointsize>
-                   </font>
-                  </property>
-                  <property name="text">
-                   <string>KRW</string>
-                  </property>
-                  <property name="alignment">
-                   <set>Qt::AlignJustify|Qt::AlignVCenter</set>
+                  <property name="maximum">
+                   <double>9999999999.989999771118164</double>
                   </property>
                  </widget>
                 </item>
@@ -1094,13 +931,13 @@
                  <widget class="QComboBox" name="comboBox_sellratio">
                   <property name="minimumSize">
                    <size>
-                    <width>50</width>
+                    <width>60</width>
                     <height>30</height>
                    </size>
                   </property>
                   <property name="maximumSize">
                    <size>
-                    <width>50</width>
+                    <width>60</width>
                     <height>30</height>
                    </size>
                   </property>
@@ -1115,34 +952,6 @@
                   </property>
                  </widget>
                 </item>
-                <item>
-                 <widget class="QLabel" name="label_12">
-                  <property name="minimumSize">
-                   <size>
-                    <width>20</width>
-                    <height>30</height>
-                   </size>
-                  </property>
-                  <property name="maximumSize">
-                   <size>
-                    <width>20</width>
-                    <height>30</height>
-                   </size>
-                  </property>
-                  <property name="font">
-                   <font>
-                    <family>Arial Black</family>
-                    <pointsize>8</pointsize>
-                   </font>
-                  </property>
-                  <property name="text">
-                   <string>%</string>
-                  </property>
-                  <property name="alignment">
-                   <set>Qt::AlignJustify|Qt::AlignVCenter</set>
-                  </property>
-                 </widget>
-                </item>
                </layout>
               </item>
               <item>
@@ -1154,13 +963,13 @@
                  <widget class="QLabel" name="label_19">
                   <property name="minimumSize">
                    <size>
-                    <width>95</width>
+                    <width>80</width>
                     <height>30</height>
                    </size>
                   </property>
                   <property name="maximumSize">
                    <size>
-                    <width>95</width>
+                    <width>80</width>
                     <height>30</height>
                    </size>
                   </property>
@@ -1198,19 +1007,22 @@
                   <property name="alignment">
                    <set>Qt::AlignCenter</set>
                   </property>
+                  <property name="maximum">
+                   <double>9999999999.989999771118164</double>
+                  </property>
                  </widget>
                 </item>
                 <item>
                  <widget class="QLabel" name="label_20">
                   <property name="minimumSize">
                    <size>
-                    <width>170</width>
+                    <width>60</width>
                     <height>30</height>
                    </size>
                   </property>
                   <property name="maximumSize">
                    <size>
-                    <width>170</width>
+                    <width>60</width>
                     <height>30</height>
                    </size>
                   </property>
@@ -1221,7 +1033,7 @@
                    </font>
                   </property>
                   <property name="text">
-                   <string>  KRW</string>
+                   <string/>
                   </property>
                   <property name="alignment">
                    <set>Qt::AlignJustify|Qt::AlignVCenter</set>

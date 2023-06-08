@@ -2,6 +2,7 @@ import os
 import jwt
 import uuid
 from urllib.parse import urlencode
+from decimal import Decimal
 
 import json
 from common import *
@@ -278,16 +279,10 @@ class MainWindow(QMainWindow):
         self.ui.label_4.setStyleSheet(labelstylestr)
         self.ui.label_7.setStyleSheet(labelstylestr)
         self.ui.label_9.setStyleSheet(labelstylestr)
-        self.ui.label_3.setStyleSheet(labelstylestr)
-        self.ui.label_6.setStyleSheet(labelstylestr)
         self.ui.label_10.setStyleSheet(labelstylestr)
-        self.ui.label_11.setStyleSheet(labelstylestr)
         self.ui.label_19.setStyleSheet(labelstylestr)
         self.ui.label_25.setStyleSheet(labelstylestr)
         self.ui.label_23.setStyleSheet(labelstylestr)
-        self.ui.label_26.setStyleSheet(labelstylestr)
-        self.ui.label_24.setStyleSheet(labelstylestr)
-        self.ui.label_12.setStyleSheet(labelstylestr)
         self.ui.label_20.setStyleSheet(labelstylestr)
         self.ui.label_market.setStyleSheet(labelstylestr)
         self.ui.label_buy.setStyleSheet(labelstylestr)
@@ -349,15 +344,15 @@ class MainWindow(QMainWindow):
 
 
 
-        self.ui.comboBox_buyratio.setStyleSheet(cmbstyle)
-        self.ui.comboBox_buyratio.setEditable(True)
-        self.ui.comboBox_buyratio.lineEdit().setAlignment(QtCore.Qt.AlignCenter)
-        self.ui.comboBox_buyratio.view().setVerticalScrollBarPolicy(Qt.ScrollBarAsNeeded)
+        self.ui.comboBox_buyPratio.setStyleSheet(cmbstyle)
+        self.ui.comboBox_buyPratio.setEditable(True)
+        self.ui.comboBox_buyPratio.lineEdit().setAlignment(QtCore.Qt.AlignCenter)
+        self.ui.comboBox_buyPratio.view().setVerticalScrollBarPolicy(Qt.ScrollBarAsNeeded)
 
-        self.ui.comboBox_buyratio_1.setStyleSheet(cmbstyle)
-        self.ui.comboBox_buyratio_1.setEditable(True)
-        self.ui.comboBox_buyratio_1.lineEdit().setAlignment(QtCore.Qt.AlignCenter)
-        self.ui.comboBox_buyratio_1.view().setVerticalScrollBarPolicy(Qt.ScrollBarAsNeeded)
+        self.ui.comboBox_buyAratio.setStyleSheet(cmbstyle)
+        self.ui.comboBox_buyAratio.setEditable(True)
+        self.ui.comboBox_buyAratio.lineEdit().setAlignment(QtCore.Qt.AlignCenter)
+        self.ui.comboBox_buyAratio.view().setVerticalScrollBarPolicy(Qt.ScrollBarAsNeeded)
 
 
         self.ui.comboBox_sellratio.setStyleSheet(cmbstyle)
@@ -401,21 +396,21 @@ class MainWindow(QMainWindow):
                     val = (i-100) *-1
 
                 if val < 105 and val >0:
-                    self.ui.comboBox_buyratio_1.addItem(str(val))
-                    self.ui.comboBox_sellratio_1.addItem(str(val))
+                    self.ui.comboBox_buyAratio.addItem(f'{val} %',val)
+                    self.ui.comboBox_sellratio_1.addItem(f'{val} %',val)
                 elif val <= 105:
-                    self.ui.comboBox_buyratio.addItem(str(val))
-                    self.ui.comboBox_abuyrate.addItem(str(val))
+                    self.ui.comboBox_buyPratio.addItem(f'{val} %',val)
+                    self.ui.comboBox_abuyrate.addItem(f'{val} %',val)
 
                 if val >= -5:
-                    self.ui.comboBox_sellratio.addItem(str(val))
-                    self.ui.comboBox_asellrate.addItem(str(val))
+                    self.ui.comboBox_sellratio.addItem(f'{val} %',val)
+                    self.ui.comboBox_asellrate.addItem(f'{val} %',val)
 
 
 
                 if val >=0:
-                    self.ui.comboBox_spsellrate.addItem(str(val))
-                    self.ui.comboBox_aspbuyrate.addItem(str(val))
+                    self.ui.comboBox_spsellrate.addItem(f'{val} %',val)
+                    self.ui.comboBox_aspbuyrate.addItem(f'{val} %',val)
 
     def findTableItmes(self,key,tblwidget):
         fitems = tblwidget.findItems(key,Qt.MatchExactly)
@@ -566,6 +561,14 @@ class MainWindow(QMainWindow):
             self.reload_autolist()
 
 
+    def set_ValueChanged(self,obj):
+        if obj.objectName()=='doubleSpinBox_Abuy':
+            logging.info('TBD')
+        elif obj.objectName()=='doubleSpinBox_Pbuy':
+            logging.info('TBD')
+        elif obj.objectName()=='doubleSpinBox_totbuy':
+            logging.info('TBD')
+
 
     def tbl_clicked(self,tbl):
         if tbl.objectName()=='tableWidget_status':
@@ -579,6 +582,16 @@ class MainWindow(QMainWindow):
             if self.ui.tabWidget_main.currentIndex()==1:
                 self.start_TradeStatus(coin)
             self.ui.label_buy.setText(tmp)
+            tmp = self.ui.tableWidget_status.item(currow,1).text()
+            vtmp=tmp.split(' ')[0].replace(',','')
+            val=Decimal(vtmp)
+            logging.info(f'amount {val}')
+            self.ui.doubleSpinBox_Abuy.setValue(val)
+            tmp = self.ui.tableWidget_status.item(currow,2).text()
+            val=Decimal(tmp)
+            logging.info(f'price {val}')
+            self.ui.doubleSpinBox_Pbuy.setValue(val)
+
         elif tbl.objectName()=='tableWidget_tot':
 
             currow=self.ui.tableWidget_tot.currentRow()
@@ -586,8 +599,8 @@ class MainWindow(QMainWindow):
             self.ui.label_sell.setText(tmp)
 
 
-    def tabSelected(self,tab,index):
-        if tab.objectName()=="tabWidget_main":
+    def tabSelected(self,obj,index):
+        if obj.objectName()=="tabWidget_main":
             if index==1:
                 currow=self.ui.tableWidget_status.currentRow()
                 tmp = self.ui.tableWidget_status.item(currow,0).text()
@@ -595,6 +608,11 @@ class MainWindow(QMainWindow):
                 self.start_TradeStatus(coin)
 
 
+    def setRatio(self,obj):
+        if obj.objectName()=="comboBox_buyPratio":
+            ratio=obj.currentText()
+        elif obj.objectName()=="comboBox_buyAratio":
+            ratio=obj.currentText()
 
     def set_tblevt(self):
         self.ui.tableWidget_status.doubleClicked.connect(lambda x: self.tbl_doubleClicked(self.ui.tableWidget_status))
@@ -605,7 +623,19 @@ class MainWindow(QMainWindow):
         self.ui.tabWidget_main.currentChanged.connect(lambda x: self.tabSelected(self.ui.tabWidget_main, self.ui.tabWidget_main.currentIndex()))
         self.ui.tabWidget_main.setCurrentIndex(0)
         self.ui.tabWidget_sub.setCurrentIndex(0)
+        self.ui.comboBox_buyPratio.currentIndexChanged.connect(lambda x : self.setRatio(self.ui.comboBox_buyPratio))
+        self.ui.comboBox_buyAratio.currentIndexChanged.connect(lambda x : self.setRatio(self.ui.comboBox_buyAratio))
 
+
+        self.ui.doubleSpinBox_Abuy.valueChanged.connect(lambda x: self.set_ValueChanged(self.ui.doubleSpinBox_Abuy))
+        self.ui.doubleSpinBox_Pbuy.valueChanged.connect(lambda x: self.set_ValueChanged(self.ui.doubleSpinBox_Pbuy))
+        self.ui.doubleSpinBox_totbuy.valueChanged.connect(lambda x: self.set_ValueChanged(self.ui.doubleSpinBox_totbuy))
+        self.ui.doubleSpinBox_Abuy.setSuffix(' KRW')
+  #      self.ui.doubleSpinBox_Abuy.setDecimals(8)
+        self.ui.doubleSpinBox_Pbuy.setSuffix(' KRW')
+ #       self.ui.doubleSpinBox_Pbuy.setDecimals(8)
+        self.ui.doubleSpinBox_totbuy.setSuffix(' KRW')
+#        self.ui.doubleSpinBox_totbuy.setDecimals(8)
         #self.ui.tableWidget_coins.clicked.connect(lambda x: self.tblselectRow( self.ui.tableWidget_coins, self.ui.tableWidget_coins.currentRow()))
 
 
@@ -1015,7 +1045,7 @@ class MainWindow(QMainWindow):
         pitem.setFlags(pitem.flags()|(Qt.ItemIsSelectable))
         self.ui.tableWidget_status.setItem(row,2, pitem)
 
-        vitem =QTableWidgetItem(str(f'{amtvol}백만'))
+        vitem =QTableWidgetItem(str(f'{amtvol} 백만'))
         vitem.setTextAlignment(Qt.AlignRight|Qt.AlignVCenter)
         vitem.setFlags(vitem.flags()&~(Qt.ItemIsEditable))
         vitem.setFlags(vitem.flags()|(Qt.ItemIsSelectable))
