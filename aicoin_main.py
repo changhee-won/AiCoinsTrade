@@ -756,6 +756,11 @@ class MainWindow(QMainWindow):
         itemTop1.setFlags(itemTop1.flags() | Qt.ItemIsUserCheckable)
         itemTop1.setForeground(0,Qt.darkRed)
         itemTop1.setCheckState(0, Qt.Unchecked)
+        if tree.objectName()=='treeWidget_autolist':
+            for val in self.upbit.autoact:
+                if it == val:
+                    itemTop1.setCheckState(0, Qt.Checked)
+                    break
 
     def get_CoinName(self, coin):
         strCname=""

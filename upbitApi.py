@@ -36,12 +36,12 @@ class upbitApi:
 
     @property
     def favlist(self):
-        
+
         return self._favlist
 
     @favlist.setter
     def favlist(self,value):
-        
+
         self.adddel_favlist(value)
         self.config['favlist']['markets']=self._favlist
         with open(CFG_FILE, 'w', encoding='utf-8') as configfile:
@@ -49,12 +49,12 @@ class upbitApi:
 
     @property
     def autoact(self):
-        
+
         return self._autoact
 
     @autoact.setter
     def autoact(self,value):
-        
+
         self.adddel_autoact(value)
         self.config['autoact']['markets']=self._autoact
         with open(CFG_FILE, 'w', encoding='utf-8') as configfile:
@@ -71,13 +71,13 @@ class upbitApi:
     def autolist(stself):
         return self._autolist
 
-    
+
     @autolist.setter
     def autolist(self,val):
         self.adddel_autolist(val)
         self.config['autolist']['markets']=str(self._autolist)
         with open(CFG_FILE, 'w', encoding='utf-8') as configfile:
-            self.config.write(configfile)            
+            self.config.write(configfile)
 
     def adddel_autolist(self,val):
         for it in self._autolist:
@@ -86,7 +86,7 @@ class upbitApi:
                 return  self._autolist
 
         self._autolist.append(val)
-        
+
 
     def adddel_favlist(self,fav):
         for it in self._favlist:
@@ -109,15 +109,15 @@ class upbitApi:
         for it in self._autoact:
             if it == val:
                 self._autoact.remove(val)
-        return self._autoact    
+        return self._autoact
 
 
     def del_favlist(self,fav):
         for it in self._favlist:
             if it == fav:
                 self._favlist.remove(fav)
-        return self._favlist    
-    
+        return self._favlist
+
     def get_autolist(self):
         return self._autolist
 
@@ -263,7 +263,7 @@ class upbitApi:
         mprice=0
         dprice=0
         mintval= f'minute{min}'
-        while(i<2):
+        while(i<3):
             try:
                 dinfo = pyupbit.get_ohlcv(ticker=coin, interval='day', count=2, to=None, period=0)
                 vol = dinfo['value'].values[1]
@@ -272,8 +272,9 @@ class upbitApi:
                 mprice= minfo['close'].values[0]
                 break
             except Exception as e:
-                logging.info('예외가 발생했습니다. %s' %(coin))
-                time.sleep(0.01)
+                if i ==2:
+                    logging.info(f'예외가 발생했습니다. {coin} {e}')
+                time.sleep(0.1)
                 i +=1
                 continue
         try:

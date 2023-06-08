@@ -1621,6 +1621,12 @@
                <property name="alignment">
                 <set>Qt::AlignCenter</set>
                </property>
+               <property name="decimals">
+                <number>8</number>
+               </property>
+               <property name="maximum">
+                <double>9999999999.989999771118164</double>
+               </property>
               </widget>
              </item>
              <item>
@@ -1706,6 +1712,12 @@
                </property>
                <property name="alignment">
                 <set>Qt::AlignCenter</set>
+               </property>
+               <property name="decimals">
+                <number>8</number>
+               </property>
+               <property name="maximum">
+                <double>9999999999.989999771118164</double>
                </property>
               </widget>
              </item>
@@ -1814,6 +1826,12 @@
                <property name="alignment">
                 <set>Qt::AlignCenter</set>
                </property>
+               <property name="decimals">
+                <number>8</number>
+               </property>
+               <property name="maximum">
+                <double>9999999999.989999771118164</double>
+               </property>
               </widget>
              </item>
              <item>
@@ -1900,6 +1918,12 @@
                <property name="alignment">
                 <set>Qt::AlignCenter</set>
                </property>
+               <property name="decimals">
+                <number>8</number>
+               </property>
+               <property name="maximum">
+                <double>9999999999.989999771118164</double>
+               </property>
               </widget>
              </item>
              <item>
@@ -1969,19 +1993,6 @@
            <item>
             <layout class="QHBoxLayout" name="horizontalLayout_21">
              <item>
-              <spacer name="horizontalSpacer_5">
-               <property name="orientation">
-                <enum>Qt::Horizontal</enum>
-               </property>
-               <property name="sizeHint" stdset="0">
-                <size>
-                 <width>40</width>
-                 <height>20</height>
-                </size>
-               </property>
-              </spacer>
-             </item>
-             <item>
               <widget class="QLabel" name="label_ma">
                <property name="minimumSize">
                 <size>
@@ -2026,10 +2037,10 @@
               </widget>
              </item>
              <item>
-              <widget class="QRadioButton" name="radioButton_mam">
+              <widget class="QLabel" name="label">
                <property name="minimumSize">
                 <size>
-                 <width>50</width>
+                 <width>30</width>
                  <height>30</height>
                 </size>
                </property>
@@ -2040,63 +2051,55 @@
                 </size>
                </property>
                <property name="text">
-                <string>월</string>
+                <string/>
                </property>
               </widget>
              </item>
              <item>
-              <widget class="QRadioButton" name="radioButton_maw">
+              <widget class="QComboBox" name="comboBox">
                <property name="minimumSize">
                 <size>
-                 <width>50</width>
+                 <width>140</width>
                  <height>30</height>
                 </size>
                </property>
                <property name="maximumSize">
                 <size>
-                 <width>30</width>
+                 <width>140</width>
                  <height>30</height>
                 </size>
                </property>
-               <property name="text">
-                <string>주</string>
-               </property>
+               <item>
+                <property name="text">
+                 <string>Month</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>Weeks</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>Days</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>Hours</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>Minutes</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>Seconds</string>
+                </property>
+               </item>
               </widget>
-             </item>
-             <item>
-              <widget class="QRadioButton" name="radioButton_mad">
-               <property name="minimumSize">
-                <size>
-                 <width>50</width>
-                 <height>30</height>
-                </size>
-               </property>
-               <property name="maximumSize">
-                <size>
-                 <width>30</width>
-                 <height>30</height>
-                </size>
-               </property>
-               <property name="text">
-                <string>일</string>
-               </property>
-               <property name="checked">
-                <bool>true</bool>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <spacer name="horizontalSpacer_10">
-               <property name="orientation">
-                <enum>Qt::Horizontal</enum>
-               </property>
-               <property name="sizeHint" stdset="0">
-                <size>
-                 <width>40</width>
-                 <height>20</height>
-                </size>
-               </property>
-              </spacer>
              </item>
             </layout>
            </item>
@@ -2106,13 +2109,13 @@
               <widget class="QLabel" name="label_startdate">
                <property name="minimumSize">
                 <size>
-                 <width>150</width>
+                 <width>80</width>
                  <height>30</height>
                 </size>
                </property>
                <property name="maximumSize">
                 <size>
-                 <width>150</width>
+                 <width>80</width>
                  <height>30</height>
                 </size>
                </property>
@@ -2189,19 +2192,6 @@
                 <set>Qt::AlignCenter</set>
                </property>
               </widget>
-             </item>
-             <item>
-              <spacer name="horizontalSpacer_3">
-               <property name="orientation">
-                <enum>Qt::Horizontal</enum>
-               </property>
-               <property name="sizeHint" stdset="0">
-                <size>
-                 <width>40</width>
-                 <height>20</height>
-                </size>
-               </property>
-              </spacer>
              </item>
             </layout>
            </item>
