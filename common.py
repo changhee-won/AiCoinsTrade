@@ -39,6 +39,16 @@ tblstyle='''
           font-family: Arial;
           font-size:8px; }
  '''
+tblstyle_A='''
+ QHeaderView::section {
+          spacing: 10px;
+          background-color:darkred;
+          color: white;
+          margin: 1px;
+          text-align: right;
+          font-family: Arial;
+          font-size:8px; }
+ '''
 
 cmbstyle='''
 ComboBox::drop-down {
@@ -71,7 +81,7 @@ btnstylestr1 = '''
         font-weight: bold;
         border-color: beige;
         color: yellow;
-        background-color: blue; }
+        background-color: darkgreen; }
  QPushButton:pressed {
      border-style: inset;
      background-color: red;

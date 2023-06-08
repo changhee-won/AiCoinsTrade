@@ -261,7 +261,7 @@ class MainWindow(QMainWindow):
         self.date = QDate.currentDate()
         logging.info("start upbit auto trade")
         self.ui.tableWidget_status.setStyleSheet(tblstyle)
-        self.ui.tableWidget_tot.setStyleSheet(tblstyle)
+        self.ui.tableWidget_tot.setStyleSheet(tblstyle_A)
         self.ui.tableWidget_tradesum.setStyleSheet(tblstyle)
         self.ui.tableWidget_tradelist.setStyleSheet(tblstyle)
         self.ui.label_13.setStyleSheet(labelstylestr)
@@ -290,6 +290,8 @@ class MainWindow(QMainWindow):
         self.ui.label_12.setStyleSheet(labelstylestr)
         self.ui.label_20.setStyleSheet(labelstylestr)
         self.ui.label_market.setStyleSheet(labelstylestr)
+        self.ui.label_buy.setStyleSheet(labelstylestr)
+        self.ui.label_sell.setStyleSheet(labelstylestr)
 
 
 
@@ -303,7 +305,7 @@ class MainWindow(QMainWindow):
         self.ui.pushButton_start.setStyleSheet(btnstylestr)
         self.ui.pushButton_stop.setStyleSheet(btnstylestr)
         self.ui.pushButton_reflash.setStyleSheet(btnstylestr)
-        
+
         self.ui.pushButton_init.setStyleSheet(btnstylestr1)
         self.ui.pushButton_sellinit.setStyleSheet(btnstylestr1)
         self.ui.pushButton_sell.setStyleSheet(btnstylestr1)
@@ -334,7 +336,8 @@ class MainWindow(QMainWindow):
         self.ui.tableWidget_tradesum.setColumnWidth(6, 100)
 
 
-        self.ui.tabWidget.setCurrentIndex(0)
+        self.ui.tabWidget_main.setCurrentIndex(0)
+        self.ui.tabWidget_sub.setCurrentIndex(0)
 
         self.set_btnevt()
         self.set_tblevt()
@@ -555,14 +558,14 @@ class MainWindow(QMainWindow):
             elif  self.ui.radioButton_krw.isChecked():
                 self.upbit.favlist=fav
                 self.market_list(self.ui.radioButton_fav)
-        elif tbl.objectName()=='treeWidget_autolist':        
+        elif tbl.objectName()=='treeWidget_autolist':
             it=self.ui.treeWidget_autolist.currentItem()
             val = it.text(0)
             logging.info(val)
             self.upbit.autolist=str(val)
             self.reload_autolist()
-               
-                
+
+
 
     def tbl_clicked(self,tbl):
         if tbl.objectName()=='tableWidget_status':
@@ -570,23 +573,38 @@ class MainWindow(QMainWindow):
             currow=self.ui.tableWidget_status.currentRow()
             tmp = self.ui.tableWidget_status.item(currow,0).text()
             self.ui.label_market.setText(tmp)
-            
+
             coin=str(tmp).split(' ')[1]
             logging.info(f'key= {tmp} coin = {coin} data= {currow}')
-            self.start_TradeStatus(coin)
-            self.ui.pushButton_add.setText(">>")
-        elif tbl.objectName()=='treeWidget_autolist':    
-            self.ui.pushButton_add.setText("<<")
-            
-             
+            if self.ui.tabWidget_main.currentIndex()==1:
+                self.start_TradeStatus(coin)
+            self.ui.label_buy.setText(tmp)
+        elif tbl.objectName()=='tableWidget_tot':
+
+            currow=self.ui.tableWidget_tot.currentRow()
+            tmp = self.ui.tableWidget_tot.item(currow,0).text()
+            self.ui.label_sell.setText(tmp)
+
+
+    def tabSelected(self,tab,index):
+        if tab.objectName()=="tabWidget_main":
+            if index==1:
+                currow=self.ui.tableWidget_status.currentRow()
+                tmp = self.ui.tableWidget_status.item(currow,0).text()
+                coin=str(tmp).split(' ')[1]
+                self.start_TradeStatus(coin)
+
+
 
     def set_tblevt(self):
         self.ui.tableWidget_status.doubleClicked.connect(lambda x: self.tbl_doubleClicked(self.ui.tableWidget_status))
         self.ui.tableWidget_status.clicked.connect(lambda x: self.tbl_clicked(self.ui.tableWidget_status))
+        self.ui.tableWidget_tot.clicked.connect(lambda x: self.tbl_clicked(self.ui.tableWidget_tot))
         self.ui.treeWidget_autolist.clicked.connect(lambda x: self.tbl_clicked(self.ui.treeWidget_autolist))
         self.ui.treeWidget_autolist.doubleClicked.connect(lambda x: self.tbl_doubleClicked(self.ui.treeWidget_autolist))
-        self.ui.tabWidget.setCurrentIndex(0)
-        self.ui.tabWidget_2.setCurrentIndex(0)
+        self.ui.tabWidget_main.currentChanged.connect(lambda x: self.tabSelected(self.ui.tabWidget_main, self.ui.tabWidget_main.currentIndex()))
+        self.ui.tabWidget_main.setCurrentIndex(0)
+        self.ui.tabWidget_sub.setCurrentIndex(0)
 
         #self.ui.tableWidget_coins.clicked.connect(lambda x: self.tblselectRow( self.ui.tableWidget_coins, self.ui.tableWidget_coins.currentRow()))
 
@@ -632,7 +650,7 @@ class MainWindow(QMainWindow):
             logging.info('TBD')
         elif obj.objectName()=="pushButton_sellimit":
             logging.info('TBD')
-        
+
         else:
             logging.info('no action')
         QApplication.restoreOverrideCursor()
@@ -672,7 +690,7 @@ class MainWindow(QMainWindow):
         self.clearQTreeWidget(self.ui.treeWidget_autolist )
         for it in self.upbit.autolist:
             self.setTreeView(self.ui.treeWidget_autolist,it)
-            
+
     def clearQTreeWidget(self,tree):
         iterator = QTreeWidgetItemIterator(tree, QTreeWidgetItemIterator.All)
         while iterator.value():
@@ -689,8 +707,8 @@ class MainWindow(QMainWindow):
         self.ui.pushButton_close.clicked.connect(lambda x:self.btn_event(self.ui.pushButton_close))
         self.ui.pushButton_reflash.clicked.connect(lambda x:self.btn_event(self.ui.pushButton_reflash))
 
-        
-        
+
+
         self.ui.radioButton_krw.clicked.connect(lambda x:self.market_list(self.ui.radioButton_krw))
         self.ui.radioButton_fav.clicked.connect(lambda x:self.market_list(self.ui.radioButton_fav))
         self.set_autolist()
@@ -739,21 +757,32 @@ class MainWindow(QMainWindow):
 
             row = self.ui.tableWidget_tot.rowCount()
             self.ui.tableWidget_tot.insertRow(row)
-            col0 =QTableWidgetItem(name)
-            col0.setTextAlignment(Qt.AlignCenter|Qt.AlignVCenter)
+            col0 =QTableWidgetItem(f'{name} {cname}')
+            col0.setTextAlignment(Qt.AlignLeft|Qt.AlignVCenter)
+            col0.setFlags(col0.flags()&~(Qt.ItemIsEditable))
+            col0.setFlags(col0.flags()|(Qt.ItemIsSelectable))
             self.ui.tableWidget_tot.setItem(row,0, col0)
             col1 =QTableWidgetItem(avg)
-            col1.setTextAlignment(Qt.AlignCenter|Qt.AlignVCenter)
+            col1.setTextAlignment(Qt.AlignRight|Qt.AlignVCenter)
+            col1.setFlags(col1.flags()&~(Qt.ItemIsEditable))
+            col1.setFlags(col1.flags()|(Qt.ItemIsSelectable))
+
             self.ui.tableWidget_tot.setItem(row,1, col1)
             col2 =QTableWidgetItem(bal)
             col2.setTextAlignment(Qt.AlignRight|Qt.AlignVCenter)
+            col2.setFlags(col1.flags()&~(Qt.ItemIsEditable))
+            col2.setFlags(col1.flags()|(Qt.ItemIsSelectable))
+
             self.ui.tableWidget_tot.setItem(row,2, col2)
             curname="KRW-"+cname
             cur=self.upbit.GetCurrent(curname)
             col3 =QTableWidgetItem(str(cur))
             col3.setTextAlignment(Qt.AlignRight|Qt.AlignVCenter)
+            col3.setFlags(col1.flags()&~(Qt.ItemIsEditable))
+            col3.setFlags(col1.flags()|(Qt.ItemIsSelectable))
+
             self.ui.tableWidget_tot.setItem(row,3, col3)
-            self.setTreeView(self.ui.treeWidget_autolist,f'{name} {curname}')
+            #self.setTreeView(self.ui.treeWidget_autolist,f'{name} {curname}')
             try:
                 ratio=round((float(cur)/float(avg) *100.0)-100.0,2)
             except Exception as e:
@@ -762,6 +791,9 @@ class MainWindow(QMainWindow):
                 pass
             col4 =QTableWidgetItem(str(ratio))
             col4.setTextAlignment(Qt.AlignRight|Qt.AlignVCenter)
+            col4.setFlags(col1.flags()&~(Qt.ItemIsEditable))
+            col4.setFlags(col1.flags()|(Qt.ItemIsSelectable))
+
             if ratio == 0:
                 col4.setForeground(Qt.black)
             elif ratio < 0:
@@ -787,7 +819,7 @@ class MainWindow(QMainWindow):
         self.watch_Timer.start()
         self.date = QDate.currentDate()
         self.ui.statusBar().showMessage(self.date.toString(Qt.DefaultLocaleLongDate))
-        self.start_TradeStatus("KRW-BTC")
+#        self.start_TradeStatus("KRW-BTC")
 
 
     def start_TradeStatus(self,coin):
@@ -1016,7 +1048,7 @@ class MainWindow(QMainWindow):
             ritem.setForeground(Qt.red)
             vitem.setForeground(Qt.red)
             citem.setForeground(Qt.red)
-        if row ==0:    
+        if row ==0:
             self.ui.tableWidget_status.selectRow(row)
             self.ui.label_market.setText(f'{strCname} {cname}')
 
