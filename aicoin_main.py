@@ -598,6 +598,12 @@ class MainWindow(QMainWindow):
             tmp = self.ui.tableWidget_tot.item(currow,0).text()
             self.ui.label_sell.setText(tmp)
 
+            tmp = self.ui.tableWidget_tot.item(currow,2).text()
+            val=Decimal(tmp)
+            self.ui.doubleSpinBox_sellamt.setValue(val)
+            tmp = self.ui.tableWidget_tot.item(currow,3).text()
+            val=Decimal(tmp)
+            self.ui.doubleSpinBox_sellprice.setValue(val)
 
     def tabSelected(self,obj,index):
         if obj.objectName()=="tabWidget_main":
@@ -630,14 +636,11 @@ class MainWindow(QMainWindow):
         self.ui.doubleSpinBox_Abuy.valueChanged.connect(lambda x: self.set_ValueChanged(self.ui.doubleSpinBox_Abuy))
         self.ui.doubleSpinBox_Pbuy.valueChanged.connect(lambda x: self.set_ValueChanged(self.ui.doubleSpinBox_Pbuy))
         self.ui.doubleSpinBox_totbuy.valueChanged.connect(lambda x: self.set_ValueChanged(self.ui.doubleSpinBox_totbuy))
-        self.ui.doubleSpinBox_Abuy.setSuffix(' KRW')
-  #      self.ui.doubleSpinBox_Abuy.setDecimals(8)
         self.ui.doubleSpinBox_Pbuy.setSuffix(' KRW')
- #       self.ui.doubleSpinBox_Pbuy.setDecimals(8)
         self.ui.doubleSpinBox_totbuy.setSuffix(' KRW')
-#        self.ui.doubleSpinBox_totbuy.setDecimals(8)
-        #self.ui.tableWidget_coins.clicked.connect(lambda x: self.tblselectRow( self.ui.tableWidget_coins, self.ui.tableWidget_coins.currentRow()))
 
+        self.ui.doubleSpinBox_sellprice.setSuffix(' KRW')
+        self.ui.doubleSpinBox_selltot.setSuffix(' KRW')
 
 
     def btn_event(self,obj):

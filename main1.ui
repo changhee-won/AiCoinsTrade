@@ -439,6 +439,9 @@
                   <property name="alignment">
                    <set>Qt::AlignCenter</set>
                   </property>
+                  <property name="decimals">
+                   <number>8</number>
+                  </property>
                   <property name="maximum">
                    <double>9999999999.989999771118164</double>
                   </property>
@@ -511,6 +514,9 @@
                   </property>
                   <property name="alignment">
                    <set>Qt::AlignCenter</set>
+                  </property>
+                  <property name="decimals">
+                   <number>8</number>
                   </property>
                   <property name="maximum">
                    <double>9999999999.989999771118164</double>
@@ -596,6 +602,9 @@
                   </property>
                   <property name="alignment">
                    <set>Qt::AlignCenter</set>
+                  </property>
+                  <property name="decimals">
+                   <number>8</number>
                   </property>
                   <property name="maximum">
                    <double>9999999999.989999771118164</double>
@@ -849,6 +858,9 @@
                   <property name="alignment">
                    <set>Qt::AlignCenter</set>
                   </property>
+                  <property name="decimals">
+                   <number>8</number>
+                  </property>
                   <property name="maximum">
                    <double>9999999999.989999771118164</double>
                   </property>
@@ -921,6 +933,9 @@
                   </property>
                   <property name="alignment">
                    <set>Qt::AlignCenter</set>
+                  </property>
+                  <property name="decimals">
+                   <number>8</number>
                   </property>
                   <property name="maximum">
                    <double>9999999999.989999771118164</double>
@@ -1006,6 +1021,9 @@
                   </property>
                   <property name="alignment">
                    <set>Qt::AlignCenter</set>
+                  </property>
+                  <property name="decimals">
+                   <number>8</number>
                   </property>
                   <property name="maximum">
                    <double>9999999999.989999771118164</double>
