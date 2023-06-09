@@ -1,15 +1,16 @@
 import os
-from PySide2 import QtCore, QtGui
+from PySide6 import QtCore, QtGui
 import platform
 from multiprocessing import Process, freeze_support
 import sys,traceback
-from PySide2.QtUiTools import QUiLoader
+from PySide6.QtUiTools import QUiLoader
 import logging
-from PySide2.QtSql import QSqlDatabase, QSqlQuery, QSqlRecord, QSqlTableModel
-from PySide2 import QtWidgets
-from PySide2.QtCore import Qt,QFile, QIODevice,QStringListModel \
+from PySide6.QtSql import QSqlDatabase, QSqlQuery, QSqlRecord, QSqlTableModel
+from PySide6 import QtWidgets
+from PySide6.QtCore import Qt,QFile, QIODevice,QStringListModel \
 ,QDateTime,QTimer,QThread ,QProcess,Signal,Slot,QDate
-from PySide2.QtWidgets import *
+from PySide6.QtWidgets import *
+from PySide6.QtCharts import *
 import json
 import configparser
 import argparse
@@ -28,6 +29,7 @@ logging.basicConfig(format='%(asctime)s,%(msecs)d %(levelname)-8s [%(filename)s:
 #os.environ['UPBIT_OPEN_API_SECRET_KEY'] = 'FmYDmMJxIukg7m1Hm0PIZNWd5mM8GILleB2WhxWx'
 #access_key = os.environ['UPBIT_OPEN_API_ACCESS_KEY']
 #secret_key = os.environ['UPBIT_OPEN_API_SECRET_KEY']
+os.environ["PYSIDE_DESIGNER_PLUGINS"]="."
 
 tblstyle='''
  QHeaderView::section {

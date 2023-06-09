@@ -12,7 +12,42 @@ import pandas as pd
 import requests
 
 import numpy as np
+from PySide6.QtGui import QPainter, QPen
 
+class PieChart(QMainWindow):
+
+    def __init__(self):
+        super().__init__()
+        logging.info('PieChart init')
+
+    def Draw(self,jdata=None):
+        self.series = QPieSeries()
+        self.chart = QChart()
+        try:
+            self.pjson_data = json.loads(json.dumps(jdata))
+        except Exception as e:
+            logging.info(' 예외가 발생했습니다.')
+            return
+        self.series.append('Jane', 1)
+        self.series.append('Joe', 2)
+        self.series.append('Andy', 3)
+        self.series.append('Barbara', 4)
+        self.series.append('Axel', 5)
+
+        self.slice = self.series.slices()[1]
+        self.slice.setExploded()
+        self.slice.setLabelVisible()
+        self.slice.setPen(QPen(Qt.darkGreen, 2))
+        self.slice.setBrush(Qt.green)
+
+        self.chart.addSeries(self.series)
+        self.chart.setTitle('Simple piechart example')
+        self.chart.legend().hide()
+
+        self._chart_view = QChartView(self.chart)
+        self._chart_view.setRenderHint(QPainter.Antialiasing)
+
+        self.setCentralWidget(self._chart_view)
 
 class autoTradproc(QThread):
     poped = Signal(str)
@@ -241,7 +276,7 @@ class LoginDlg(QDialog):
     def showDlg(self):
         self.setStyle()
         self.ui.show()
-        return self.ui.exec_()
+        return self.ui.exec()
 
 class MainWindow(QMainWindow):
 
@@ -263,6 +298,7 @@ class MainWindow(QMainWindow):
         logging.info("start upbit auto trade")
         self.ui.tableWidget_status.setStyleSheet(tblstyle)
         self.ui.tableWidget_tot.setStyleSheet(tblstyle_A)
+        self.ui.tableWidget_balance.setStyleSheet(tblstyle_A)
         self.ui.tableWidget_tradesum.setStyleSheet(tblstyle)
         self.ui.tableWidget_tradelist.setStyleSheet(tblstyle)
         self.ui.label_13.setStyleSheet(labelstylestr)
@@ -293,6 +329,7 @@ class MainWindow(QMainWindow):
 
         self.ui.tableWidget_status.setSelectionBehavior(QAbstractItemView.SelectRows)
         self.ui.tableWidget_tot.setSelectionBehavior(QAbstractItemView.SelectRows)
+        self.ui.tableWidget_balance.setSelectionBehavior(QAbstractItemView.SelectRows)
         self.ui.tableWidget_tradesum.setSelectionBehavior(QAbstractItemView.SelectRows)
         self.ui.tableWidget_tradelist.setSelectionBehavior(QAbstractItemView.SelectRows)
 
@@ -355,16 +392,16 @@ class MainWindow(QMainWindow):
         self.ui.comboBox_buyAratio.view().setVerticalScrollBarPolicy(Qt.ScrollBarAsNeeded)
 
 
-        self.ui.comboBox_sellratio.setStyleSheet(cmbstyle)
-        self.ui.comboBox_sellratio.setEditable(True)
-        self.ui.comboBox_sellratio.lineEdit().setAlignment(QtCore.Qt.AlignCenter)
-        self.ui.comboBox_sellratio.view().setVerticalScrollBarPolicy(Qt.ScrollBarAsNeeded)
+        self.ui.comboBox_sellAratio.setStyleSheet(cmbstyle)
+        self.ui.comboBox_sellAratio.setEditable(True)
+        self.ui.comboBox_sellAratio.lineEdit().setAlignment(QtCore.Qt.AlignCenter)
+        self.ui.comboBox_sellAratio.view().setVerticalScrollBarPolicy(Qt.ScrollBarAsNeeded)
 
 
-        self.ui.comboBox_sellratio_1.setStyleSheet(cmbstyle)
-        self.ui.comboBox_sellratio_1.setEditable(True)
-        self.ui.comboBox_sellratio_1.lineEdit().setAlignment(QtCore.Qt.AlignCenter)
-        self.ui.comboBox_sellratio_1.view().setVerticalScrollBarPolicy(Qt.ScrollBarAsNeeded)
+        self.ui.comboBox_sellPratio.setStyleSheet(cmbstyle)
+        self.ui.comboBox_sellPratio.setEditable(True)
+        self.ui.comboBox_sellPratio.lineEdit().setAlignment(QtCore.Qt.AlignCenter)
+        self.ui.comboBox_sellPratio.view().setVerticalScrollBarPolicy(Qt.ScrollBarAsNeeded)
 
 
 
@@ -397,13 +434,13 @@ class MainWindow(QMainWindow):
 
                 if val < 105 and val >0:
                     self.ui.comboBox_buyAratio.addItem(f'{val} %',val)
-                    self.ui.comboBox_sellratio_1.addItem(f'{val} %',val)
+                    self.ui.comboBox_sellPratio.addItem(f'{val} %',val)
                 elif val <= 105:
                     self.ui.comboBox_buyPratio.addItem(f'{val} %',val)
                     self.ui.comboBox_abuyrate.addItem(f'{val} %',val)
 
                 if val >= -5:
-                    self.ui.comboBox_sellratio.addItem(f'{val} %',val)
+                    self.ui.comboBox_sellAratio.addItem(f'{val} %',val)
                     self.ui.comboBox_asellrate.addItem(f'{val} %',val)
 
 
@@ -560,6 +597,11 @@ class MainWindow(QMainWindow):
             self.upbit.autolist=str(val)
             self.reload_autolist()
 
+    def set_ComboValue(self,obj):
+        if obj.objectName()=='comboBox_sellPratio':
+            logging.info('TBD')
+        elif obj.objectName()=='comboBox_sellAratio':
+            logging.info('TBD')
 
     def set_ValueChanged(self,obj):
         if obj.objectName()=='doubleSpinBox_Abuy':
@@ -621,6 +663,7 @@ class MainWindow(QMainWindow):
             ratio=obj.currentText()
 
     def set_tblevt(self):
+        self.Chart = PieChart()
         self.ui.tableWidget_status.doubleClicked.connect(lambda x: self.tbl_doubleClicked(self.ui.tableWidget_status))
         self.ui.tableWidget_status.clicked.connect(lambda x: self.tbl_clicked(self.ui.tableWidget_status))
         self.ui.tableWidget_tot.clicked.connect(lambda x: self.tbl_clicked(self.ui.tableWidget_tot))
@@ -641,6 +684,8 @@ class MainWindow(QMainWindow):
 
         self.ui.doubleSpinBox_sellprice.setSuffix(' KRW')
         self.ui.doubleSpinBox_selltot.setSuffix(' KRW')
+        self.ui.verticalLayout_chart.addWidget(self.Chart)
+        self.Chart.Draw()
 
 
     def btn_event(self,obj):
@@ -746,7 +791,8 @@ class MainWindow(QMainWindow):
         self.ui.radioButton_fav.clicked.connect(lambda x:self.market_list(self.ui.radioButton_fav))
         self.set_autolist()
 
-        self.ui.statusBar().showMessage(self.date.toString(Qt.DefaultLocaleLongDate))
+        #self.ui.statusBar().showMessage(self.date.toString(Qt.DefaultLocaleLongDate))
+        self.ui.statusBar().showMessage(self.date.toString(Qt.ISODateWithMs))
         self.ui.closeEvent = self.closeEvent
 
     def setTreeView(self,tree,it):
@@ -795,32 +841,55 @@ class MainWindow(QMainWindow):
 
             row = self.ui.tableWidget_tot.rowCount()
             self.ui.tableWidget_tot.insertRow(row)
+            self.ui.tableWidget_balance.insertRow(row)
             col0 =QTableWidgetItem(f'{name} {cname}')
             col0.setTextAlignment(Qt.AlignLeft|Qt.AlignVCenter)
             col0.setFlags(col0.flags()&~(Qt.ItemIsEditable))
             col0.setFlags(col0.flags()|(Qt.ItemIsSelectable))
+            tcol0 =QTableWidgetItem(f'{name} {cname}')
+            tcol0.setTextAlignment(Qt.AlignLeft|Qt.AlignVCenter)
+            tcol0.setFlags(col0.flags()&~(Qt.ItemIsEditable))
+            tcol0.setFlags(col0.flags()|(Qt.ItemIsSelectable))
             self.ui.tableWidget_tot.setItem(row,0, col0)
+            self.ui.tableWidget_balance.setItem(row,0, tcol0)
+
             col1 =QTableWidgetItem(avg)
             col1.setTextAlignment(Qt.AlignRight|Qt.AlignVCenter)
             col1.setFlags(col1.flags()&~(Qt.ItemIsEditable))
             col1.setFlags(col1.flags()|(Qt.ItemIsSelectable))
+            tcol1 =QTableWidgetItem(avg)
+            tcol1.setTextAlignment(Qt.AlignRight|Qt.AlignVCenter)
+            tcol1.setFlags(col1.flags()&~(Qt.ItemIsEditable))
+            tcol1.setFlags(col1.flags()|(Qt.ItemIsSelectable))
 
             self.ui.tableWidget_tot.setItem(row,1, col1)
+            self.ui.tableWidget_balance.setItem(row,1, tcol1)
+
             col2 =QTableWidgetItem(bal)
             col2.setTextAlignment(Qt.AlignRight|Qt.AlignVCenter)
             col2.setFlags(col1.flags()&~(Qt.ItemIsEditable))
             col2.setFlags(col1.flags()|(Qt.ItemIsSelectable))
+            tcol2 =QTableWidgetItem(bal)
+            tcol2.setTextAlignment(Qt.AlignRight|Qt.AlignVCenter)
+            tcol2.setFlags(col1.flags()&~(Qt.ItemIsEditable))
+            tcol2.setFlags(col1.flags()|(Qt.ItemIsSelectable))
 
             self.ui.tableWidget_tot.setItem(row,2, col2)
+            self.ui.tableWidget_balance.setItem(row,2, tcol2)
+
             curname="KRW-"+cname
             cur=self.upbit.GetCurrent(curname)
             col3 =QTableWidgetItem(str(cur))
             col3.setTextAlignment(Qt.AlignRight|Qt.AlignVCenter)
             col3.setFlags(col1.flags()&~(Qt.ItemIsEditable))
             col3.setFlags(col1.flags()|(Qt.ItemIsSelectable))
+            tcol3 =QTableWidgetItem(str(cur))
+            tcol3.setTextAlignment(Qt.AlignRight|Qt.AlignVCenter)
+            tcol3.setFlags(col1.flags()&~(Qt.ItemIsEditable))
+            tcol3.setFlags(col1.flags()|(Qt.ItemIsSelectable))
 
             self.ui.tableWidget_tot.setItem(row,3, col3)
-            #self.setTreeView(self.ui.treeWidget_autolist,f'{name} {curname}')
+            self.ui.tableWidget_balance.setItem(row,3, tcol3)
             try:
                 ratio=round((float(cur)/float(avg) *100.0)-100.0,2)
             except Exception as e:
@@ -831,6 +900,10 @@ class MainWindow(QMainWindow):
             col4.setTextAlignment(Qt.AlignRight|Qt.AlignVCenter)
             col4.setFlags(col1.flags()&~(Qt.ItemIsEditable))
             col4.setFlags(col1.flags()|(Qt.ItemIsSelectable))
+            tcol4 =QTableWidgetItem(str(ratio))
+            tcol4.setTextAlignment(Qt.AlignRight|Qt.AlignVCenter)
+            tcol4.setFlags(col1.flags()&~(Qt.ItemIsEditable))
+            tcol4.setFlags(col1.flags()|(Qt.ItemIsSelectable))
 
             if ratio == 0:
                 col4.setForeground(Qt.black)
@@ -839,9 +912,11 @@ class MainWindow(QMainWindow):
             else:
                 col4.setForeground(Qt.red)
             self.ui.tableWidget_tot.setItem(row,4, col4)
+            self.ui.tableWidget_balance.setItem(row,4, tcol4)
 
     def set_tblBalance(self):
         self.ui.tableWidget_tot.setRowCount(0)
+        self.ui.tableWidget_balance.setRowCount(0)
         balance = self.upbit.Getbalances()
         if self.reflash_balance:
             self.reflash_balance.stop()
@@ -856,7 +931,8 @@ class MainWindow(QMainWindow):
         self.watch_Timer.poped.connect(self.setwatch)
         self.watch_Timer.start()
         self.date = QDate.currentDate()
-        self.ui.statusBar().showMessage(self.date.toString(Qt.DefaultLocaleLongDate))
+        #self.ui.statusBar().showMessage(self.date.toString(Qt.DefaultLocaleLongDate))
+        self.ui.statusBar().showMessage(self.date.toString(Qt.ISODateWithMs))
 #        self.start_TradeStatus("KRW-BTC")
 
 
@@ -997,7 +1073,8 @@ class MainWindow(QMainWindow):
     def setwatch(self,data):
 
         self.date = QDate.currentDate()
-        self.ui.statusBar().showMessage(self.date.toString(Qt.DefaultLocaleLongDate) + " " + data)
+        #self.ui.statusBar().showMessage(self.date.toString(Qt.DefaultLocaleLongDate) + " " + data)
+        self.ui.statusBar().showMessage(self.date.toString(Qt.ISODateWithMs) + " " + data)
         #logging.info(self.coins)
     def set_updateAllData(self):
         QTimer.singleShot(500, self.set_tblBalance)
@@ -1123,10 +1200,10 @@ class MainWindow(QMainWindow):
 
 def main():
      logging.info("start upbit auto trade")
-     if hasattr(QtCore.Qt, 'AA_EnableHighDpiScaling'):
-         QApplication.setAttribute(QtCore.Qt.AA_EnableHighDpiScaling, True)
-     if hasattr(QtCore.Qt, 'AA_UseHighDpiPixmaps'):
-         QApplication.setAttribute(QtCore.Qt.AA_UseHighDpiPixmaps, True)
+#     if hasattr(QtCore.Qt, 'AA_EnableHighDpiScaling'):
+#         QApplication.setAttribute(QtCore.Qt.AA_EnableHighDpiScaling, True)
+#     if hasattr(QtCore.Qt, 'AA_UseHighDpiPixmaps'):
+#         QApplication.setAttribute(QtCore.Qt.AA_UseHighDpiPixmaps, True)
      QtCore.QCoreApplication.setAttribute(QtCore.Qt.AA_ShareOpenGLContexts)
      app = QApplication(sys.argv)
      logging.info(QStyleFactory.keys())
@@ -1136,7 +1213,7 @@ def main():
          app.setStyle("Fusion");
      app.setWindowIcon(QtGui.QIcon('./appico.svg'))
      ex = MainWindow()
-     sys.exit(app.exec_())
+     sys.exit(app.exec())
 
 if __name__ == "__main__":
     freeze_support()
