@@ -20,25 +20,40 @@ class PieChart(QMainWindow):
         super().__init__()
         logging.info('PieChart init')
 
-    def Draw(self,tbl):
+    def Draw(self,tbl,upbit):
         self.series = QPieSeries()
         self.chart = QChart()
+        self.upbit=upbit
+        tmp=self.upbit.budget[len(self.upbit.budget)-1].split(',')[1]
+        budget = Decimal(tmp)    
+        bal =Decimal(tbl.item(0,2).text())
         
+
+        self.series.append("손실", budget-bal)
+        self.slice = self.series.slices()[0]
+        self.slice.setExploded()
+        self.slice.setLabelVisible()
+        self.slice.setPen(QPen(Qt.darkRed, 2))
+        self.slice.setBrush(Qt.red)
+        
+      
         for row in range(tbl.rowCount()):
             col1 =tbl.item(row,0).text()
             col2 =Decimal(tbl.item(row,2).text())
             logging.info(f'Draw Chart {col1} {col2}')
             self.series.append(col1, col2)
         
-      
-        self.slice = self.series.slices()[0]
+        self.slice = self.series.slices()[1]
         self.slice.setExploded()
         self.slice.setLabelVisible()
         self.slice.setPen(QPen(Qt.darkGreen, 2))
-        self.slice.setBrush(Qt.green)
+        self.slice.setBrush(Qt.darkGreen)
 
         self.chart.addSeries(self.series)
-        self.chart.setTitle('보유자산 포트폴리오')
+        tmp = format(budget , ',')
+        self.chart.setTitle(f'투자액 {tmp} 원')
+        
+
         self.chart.legend().hide()
 
         self._chart_view = QChartView(self.chart)
@@ -656,7 +671,7 @@ class MainWindow(QMainWindow):
                 coin=str(tmp).split(' ')[1]
                 self.start_TradeStatus(coin)
             elif index==3:
-                self.Chart.Draw(self.ui.tableWidget_balance)
+                self.Chart.Draw(self.ui.tableWidget_balance,self.upbit)
     
                 
     def setRatio(self,obj):

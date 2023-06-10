@@ -21,6 +21,8 @@ from enum import Enum
 import time
 from datetime import datetime
 import configparser
+from babel.numbers import format_decimal
+
 CFG_FILE ="login.cfg"
 logger = logging.getLogger()
 logging.basicConfig(format='%(asctime)s,%(msecs)d %(levelname)-8s [%(filename)s:%(lineno)d] %(message)s',

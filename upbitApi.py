@@ -20,8 +20,9 @@ class upbitApi:
         self.access_key=self.config['KeyInfo']['access']
         self.secret_key=self.config['KeyInfo']['security']
         self._favlist=ast.literal_eval(self.config['favlist']['markets'])
-        self._autoact=ast.literal_eval(self.config['autoact']['markets'])
         self._autolist=ast.literal_eval(self.config['autolist']['markets'])
+        self._autoact=ast.literal_eval(self.config['autoact']['markets'])
+        self._budget=ast.literal_eval(self.config['start']['budget'])
         self.server_url= server_url
         self.payload = {
         'access_key': self.access_key,
@@ -33,6 +34,10 @@ class upbitApi:
         self.authorize_token = 'Bearer {}'.format(self.jwt_token)
         self.headers = {"Authorization": self.authorize_token}
         self.upbit_connect()
+
+    @property
+    def budget(self):
+        return self._budget
 
     @property
     def favlist(self):
