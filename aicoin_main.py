@@ -20,28 +20,25 @@ class PieChart(QMainWindow):
         super().__init__()
         logging.info('PieChart init')
 
-    def Draw(self,jdata=None):
+    def Draw(self,tbl):
         self.series = QPieSeries()
         self.chart = QChart()
-        try:
-            self.pjson_data = json.loads(json.dumps(jdata))
-        except Exception as e:
-            logging.info(' 예외가 발생했습니다.')
-            return
-        self.series.append('Jane', 1)
-        self.series.append('Joe', 2)
-        self.series.append('Andy', 3)
-        self.series.append('Barbara', 4)
-        self.series.append('Axel', 5)
-
-        self.slice = self.series.slices()[1]
+        
+        for row in range(tbl.rowCount()):
+            col1 =tbl.item(row,0).text()
+            col2 =Decimal(tbl.item(row,2).text())
+            logging.info(f'Draw Chart {col1} {col2}')
+            self.series.append(col1, col2)
+        
+      
+        self.slice = self.series.slices()[0]
         self.slice.setExploded()
         self.slice.setLabelVisible()
         self.slice.setPen(QPen(Qt.darkGreen, 2))
         self.slice.setBrush(Qt.green)
 
         self.chart.addSeries(self.series)
-        self.chart.setTitle('Simple piechart example')
+        self.chart.setTitle('보유자산 포트폴리오')
         self.chart.legend().hide()
 
         self._chart_view = QChartView(self.chart)
@@ -290,6 +287,7 @@ class MainWindow(QMainWindow):
         self.watch_Timer =None
         self.tradesum_row =0
         self.upbit= upbitApi()
+        self.balancedic   = {}
         self.coins=self.upbit.get_coins()
         self.balance=self.upbit.Getbalances()
         self.currentAll=self.upbit.GetCurrentAll()
@@ -649,19 +647,25 @@ class MainWindow(QMainWindow):
 
     def tabSelected(self,obj,index):
         if obj.objectName()=="tabWidget_main":
+            if self.mon_TradeStatus:
+                self.mon_TradeStatus.stop()
+
             if index==1:
                 currow=self.ui.tableWidget_status.currentRow()
                 tmp = self.ui.tableWidget_status.item(currow,0).text()
                 coin=str(tmp).split(' ')[1]
                 self.start_TradeStatus(coin)
-
-
+            elif index==3:
+                self.Chart.Draw(self.ui.tableWidget_balance)
+    
+                
     def setRatio(self,obj):
         if obj.objectName()=="comboBox_buyPratio":
             ratio=obj.currentText()
         elif obj.objectName()=="comboBox_buyAratio":
             ratio=obj.currentText()
 
+        
     def set_tblevt(self):
         self.Chart = PieChart()
         self.ui.tableWidget_status.doubleClicked.connect(lambda x: self.tbl_doubleClicked(self.ui.tableWidget_status))
@@ -670,6 +674,10 @@ class MainWindow(QMainWindow):
         self.ui.treeWidget_autolist.clicked.connect(lambda x: self.tbl_clicked(self.ui.treeWidget_autolist))
         self.ui.treeWidget_autolist.doubleClicked.connect(lambda x: self.tbl_doubleClicked(self.ui.treeWidget_autolist))
         self.ui.tabWidget_main.currentChanged.connect(lambda x: self.tabSelected(self.ui.tabWidget_main, self.ui.tabWidget_main.currentIndex()))
+        
+        
+        
+         
         self.ui.tabWidget_main.setCurrentIndex(0)
         self.ui.tabWidget_sub.setCurrentIndex(0)
         self.ui.comboBox_buyPratio.currentIndexChanged.connect(lambda x : self.setRatio(self.ui.comboBox_buyPratio))
@@ -685,7 +693,6 @@ class MainWindow(QMainWindow):
         self.ui.doubleSpinBox_sellprice.setSuffix(' KRW')
         self.ui.doubleSpinBox_selltot.setSuffix(' KRW')
         self.ui.verticalLayout_chart.addWidget(self.Chart)
-        self.Chart.Draw()
 
 
     def btn_event(self,obj):
@@ -835,7 +842,87 @@ class MainWindow(QMainWindow):
         cname = it.get("currency")
         avg= it.get("avg_buy_price")
         bal= it.get("balance")
-        if cname != "KRW" and avg !="0":
+        if cname == "KRW" and avg =="0":
+            name=self.get_CoinName(cname)
+
+            row = self.ui.tableWidget_tot.rowCount()
+            self.ui.tableWidget_tot.insertRow(row)
+            self.ui.tableWidget_balance.insertRow(row)
+            col0 =QTableWidgetItem('현금')
+            col0.setTextAlignment(Qt.AlignLeft|Qt.AlignVCenter)
+            col0.setFlags(col0.flags()&~(Qt.ItemIsEditable))
+            col0.setFlags(col0.flags()|(Qt.ItemIsSelectable))
+            tcol0 =QTableWidgetItem('현금')
+            tcol0.setTextAlignment(Qt.AlignLeft|Qt.AlignVCenter)
+            tcol0.setFlags(col0.flags()&~(Qt.ItemIsEditable))
+            tcol0.setFlags(col0.flags()|(Qt.ItemIsSelectable))
+            self.ui.tableWidget_tot.setItem(row,0, col0)
+            self.ui.tableWidget_balance.setItem(row,0, tcol0)
+
+            #col1 =QTableWidgetItem(avg)
+            #col1.setTextAlignment(Qt.AlignRight|Qt.AlignVCenter)
+            #col1.setFlags(col1.flags()&~(Qt.ItemIsEditable))
+            #col1.setFlags(col1.flags()|(Qt.ItemIsSelectable))
+            #tcol1 =QTableWidgetItem(avg)
+            #tcol1.setTextAlignment(Qt.AlignRight|Qt.AlignVCenter)
+            #tcol1.setFlags(col1.flags()&~(Qt.ItemIsEditable))
+            #tcol1.setFlags(col1.flags()|(Qt.ItemIsSelectable))
+            
+
+
+            #self.ui.tableWidget_tot.setItem(row,1, col1)
+            #self.ui.tableWidget_balance.setItem(row,1, tcol1)
+
+            col2 =QTableWidgetItem(bal)
+            col2.setTextAlignment(Qt.AlignRight|Qt.AlignVCenter)
+            col2.setFlags(col2.flags()&~(Qt.ItemIsEditable))
+            col2.setFlags(col2.flags()|(Qt.ItemIsSelectable))
+            tcol2 =QTableWidgetItem(bal)
+            tcol2.setTextAlignment(Qt.AlignRight|Qt.AlignVCenter)
+            tcol2.setFlags(col2.flags()&~(Qt.ItemIsEditable))
+            tcol2.setFlags(col2.flags()|(Qt.ItemIsSelectable))
+
+            self.ui.tableWidget_tot.setItem(row,2, col2)
+            self.ui.tableWidget_balance.setItem(row,2, tcol2)
+
+            #curname="KRW-"+cname
+            #cur=self.upbit.GetCurrent(curname)
+            #col3 =QTableWidgetItem(str(cur))
+            #col3.setTextAlignment(Qt.AlignRight|Qt.AlignVCenter)
+            #col3.setFlags(col1.flags()&~(Qt.ItemIsEditable))
+            #col3.setFlags(col1.flags()|(Qt.ItemIsSelectable))
+            #tcol3 =QTableWidgetItem(str(cur))
+            #tcol3.setTextAlignment(Qt.AlignRight|Qt.AlignVCenter)
+            #tcol3.setFlags(col1.flags()&~(Qt.ItemIsEditable))
+            #tcol3.setFlags(col1.flags()|(Qt.ItemIsSelectable))
+
+            #self.ui.tableWidget_tot.setItem(row,3, col3)
+            #self.ui.tableWidget_balance.setItem(row,3, tcol3)
+            #try:
+            #    ratio=round((float(cur)/float(avg) *100.0)-100.0,2)
+            #except Exception as e:
+            #    logging.info('예외가 발생했습니다. %s' %(cname))
+            #    ratio=0
+            #    pass
+            #col4 =QTableWidgetItem(str(ratio))
+            #col4.setTextAlignment(Qt.AlignRight|Qt.AlignVCenter)
+            #col4.setFlags(col1.flags()&~(Qt.ItemIsEditable))
+            #col4.setFlags(col1.flags()|(Qt.ItemIsSelectable))
+            #tcol4 =QTableWidgetItem(str(ratio))
+            #tcol4.setTextAlignment(Qt.AlignRight|Qt.AlignVCenter)
+            #tcol4.setFlags(col1.flags()&~(Qt.ItemIsEditable))
+            #tcol4.setFlags(col1.flags()|(Qt.ItemIsSelectable))
+
+            #if ratio == 0:
+            #    col4.setForeground(Qt.black)
+            #elif ratio < 0:
+            #    col4.setForeground(Qt.blue)
+            #else:
+            #    col4.setForeground(Qt.red)
+            #self.ui.tableWidget_tot.setItem(row,4, col4)
+            #self.ui.tableWidget_balance.setItem(row,4, tcol4)
+            
+        elif cname != "KRW" and avg !="0":
 
             name=self.get_CoinName(cname)
 
@@ -861,6 +948,8 @@ class MainWindow(QMainWindow):
             tcol1.setTextAlignment(Qt.AlignRight|Qt.AlignVCenter)
             tcol1.setFlags(col1.flags()&~(Qt.ItemIsEditable))
             tcol1.setFlags(col1.flags()|(Qt.ItemIsSelectable))
+            
+
 
             self.ui.tableWidget_tot.setItem(row,1, col1)
             self.ui.tableWidget_balance.setItem(row,1, tcol1)

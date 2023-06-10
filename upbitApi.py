@@ -43,7 +43,7 @@ class upbitApi:
     def favlist(self,value):
 
         self.adddel_favlist(value)
-        self.config['favlist']['markets']=self._favlist
+        self.config['favlist']['markets']=str(self._favlist)
         with open(CFG_FILE, 'w', encoding='utf-8') as configfile:
             self.config.write(configfile)
 
@@ -68,7 +68,7 @@ class upbitApi:
         return self._autoact
 
     @property
-    def autolist(stself):
+    def autolist(self):
         return self._autolist
 
 
