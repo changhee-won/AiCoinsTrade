@@ -27,14 +27,7 @@ class PieChart(QMainWindow):
         tmp=self.upbit.budget[len(self.upbit.budget)-1].split(',')[1]
         budget = Decimal(tmp)    
         bal =Decimal(tbl.item(0,2).text())
-        
-
-        self.series.append("손실", budget-bal)
-        self.slice = self.series.slices()[0]
-        self.slice.setExploded()
-        self.slice.setLabelVisible()
-        self.slice.setPen(QPen(Qt.darkRed, 2))
-        self.slice.setBrush(Qt.red)
+        ptmp= (bal/budget *100) -100
         
       
         for row in range(tbl.rowCount()):
@@ -43,15 +36,22 @@ class PieChart(QMainWindow):
             logging.info(f'Draw Chart {col1} {col2}')
             self.series.append(col1, col2)
         
-        self.slice = self.series.slices()[1]
+        self.slice = self.series.slices()[0]
         self.slice.setExploded()
         self.slice.setLabelVisible()
         self.slice.setPen(QPen(Qt.darkGreen, 2))
         self.slice.setBrush(Qt.darkGreen)
 
         self.chart.addSeries(self.series)
+        
+        pratio = "{:.2f}".format(ptmp)
         tmp = format(budget , ',')
-        self.chart.setTitle(f'투자액 {tmp} 원')
+        btmp = format(int(bal) , ',')
+        
+        if ptmp <0:
+            self.chart.setTitle(f'<span style="color:blue;">투자액: {tmp} 원  잔액: {btmp}<br>수익율:   {pratio} %</span>')
+        else:
+            self.chart.setTitle(f'<span style="color:red;">투자액: {tmp} 원 잔액: {btmp}<br>수익율:   {pratio} %</span>')
         
 
         self.chart.legend().hide()
