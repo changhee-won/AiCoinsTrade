@@ -3,6 +3,7 @@ import jwt
 import uuid
 from urllib.parse import urlencode
 from decimal import Decimal
+import random
 
 import json
 from common import *
@@ -25,15 +26,14 @@ class PieChart(QMainWindow):
         self.chart = QChart()
         self.upbit=upbit
         tmp=self.upbit.budget[len(self.upbit.budget)-1].split(',')[1]
-        budget = Decimal(tmp)    
-        bal =Decimal(tbl.item(0,2).text())
-        ptmp= (bal/budget *100) -100
+        budget = Decimal(tmp)   
+        bal=0 
         
       
         for row in range(tbl.rowCount()):
             col1 =tbl.item(row,0).text()
             col2 =Decimal(tbl.item(row,2).text())
-            col3=0
+            col3=1
             try:
                 col3 =Decimal(tbl.item(row,3).text())
             except:
@@ -44,16 +44,13 @@ class PieChart(QMainWindow):
             self.slice = self.series.slices()[row]
             self.slice.setExploded()
             self.slice.setLabelVisible()
-            if row ==0:
-                self.slice.setPen(QPen(Qt.darkGreen, row))
-                self.slice.setBrush(Qt.darkGreen)
-            elif row ==1:
-                self.slice.setPen(QPen(Qt.darkRed, row))
-                self.slice.setBrush(Qt.darkRed)
-            if row ==2:
-                self.slice.setPen(QPen(Qt.darkBlue, row))
-                self.slice.setBrush(Qt.darkBlue)
+            color=self.random_color_generator()
+            
+            self.slice.setPen(QPen(color, row))
+            self.slice.setBrush(color)
                 
+            bal += val
+        ptmp= (bal/budget *100) -100
 
         self.chart.addSeries(self.series)
         
@@ -74,6 +71,13 @@ class PieChart(QMainWindow):
 
         self.setCentralWidget(self._chart_view)
 
+ 
+    def random_color_generator(self):
+        r = random.randint(0, 255)
+        g = random.randint(0, 255)
+        b = random.randint(0, 255)
+        return QColor(r, g, b)
+ 
 class autoTradproc(QThread):
     poped = Signal(str)
     def __init__(self,coins,tm,ma_t1=20,ma_t2=60):

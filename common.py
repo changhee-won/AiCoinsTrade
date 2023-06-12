@@ -10,6 +10,7 @@ from PySide6 import QtWidgets
 from PySide6.QtCore import Qt,QFile, QIODevice,QStringListModel \
 ,QDateTime,QTimer,QThread ,QProcess,Signal,Slot,QDate
 from PySide6.QtGui import QScreen
+from PySide6.QtGui import *
 from PySide6.QtWidgets import *
 from PySide6.QtCharts import *
 import json
@@ -23,6 +24,7 @@ import time
 from datetime import datetime
 import configparser
 from babel.numbers import format_decimal
+
 
 CFG_FILE ="login.cfg"
 logger = logging.getLogger()
