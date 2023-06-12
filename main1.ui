@@ -178,6 +178,9 @@
         <pointsize>8</pointsize>
        </font>
       </property>
+      <property name="sortingEnabled">
+       <bool>true</bool>
+      </property>
       <attribute name="verticalHeaderVisible">
        <bool>false</bool>
       </attribute>
@@ -1166,6 +1169,9 @@
               <pointsize>8</pointsize>
              </font>
             </property>
+            <property name="sortingEnabled">
+             <bool>true</bool>
+            </property>
             <attribute name="horizontalHeaderVisible">
              <bool>true</bool>
             </attribute>
@@ -1304,6 +1310,9 @@
         </item>
         <item>
          <widget class="QTableWidget" name="tableWidget_tradesum">
+          <property name="sortingEnabled">
+           <bool>true</bool>
+          </property>
           <attribute name="verticalHeaderVisible">
            <bool>false</bool>
           </attribute>
@@ -1421,6 +1430,9 @@
          <layout class="QHBoxLayout" name="horizontalLayout_3">
           <item>
            <widget class="QTreeWidget" name="treeWidget_autolist">
+            <property name="sortingEnabled">
+             <bool>true</bool>
+            </property>
             <column>
              <property name="text">
               <string notr="true">1</string>
@@ -2092,6 +2104,9 @@
             <width>570</width>
             <height>150</height>
            </size>
+          </property>
+          <property name="sortingEnabled">
+           <bool>true</bool>
           </property>
           <attribute name="verticalHeaderVisible">
            <bool>false</bool>

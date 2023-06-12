@@ -26,10 +26,10 @@ class PieChart(QMainWindow):
         self.chart = QChart()
         self.upbit=upbit
         tmp=self.upbit.budget[len(self.upbit.budget)-1].split(',')[1]
-        budget = Decimal(tmp)   
-        bal=0 
-        
-      
+        budget = Decimal(tmp)
+        bal=0
+
+
         for row in range(tbl.rowCount()):
             col1 =tbl.item(row,0).text()
             col2 =Decimal(tbl.item(row,2).text())
@@ -45,24 +45,24 @@ class PieChart(QMainWindow):
             self.slice.setExploded()
             self.slice.setLabelVisible()
             color=self.random_color_generator()
-            
+
             self.slice.setPen(QPen(color, row))
             self.slice.setBrush(color)
-                
+
             bal += val
         ptmp= (bal/budget *100) -100
 
         self.chart.addSeries(self.series)
-        
+
         pratio = "{:.2f}".format(ptmp)
         tmp = format(budget , ',')
         btmp = format(int(bal) , ',')
-        
+
         if ptmp <0:
             self.chart.setTitle(f'<span style="color:blue;">투자액: {tmp} 원  잔액: {btmp}<br>수익율:   {pratio} %</span>')
         else:
             self.chart.setTitle(f'<span style="color:red;">투자액: {tmp} 원 잔액: {btmp}<br>수익율:   {pratio} %</span>')
-        
+
 
         self.chart.legend().hide()
 
@@ -71,13 +71,13 @@ class PieChart(QMainWindow):
 
         self.setCentralWidget(self._chart_view)
 
- 
+
     def random_color_generator(self):
         r = random.randint(0, 255)
         g = random.randint(0, 255)
         b = random.randint(0, 255)
         return QColor(r, g, b)
- 
+
 class autoTradproc(QThread):
     poped = Signal(str)
     def __init__(self,coins,tm,ma_t1=20,ma_t2=60):
@@ -267,7 +267,7 @@ class LoginDlg(QDialog):
         self.ui.lineEdit_sec.setEchoMode(QLineEdit.Password)
         self.ui.lineEdit_aes.setText(self.access_key)
         self.ui.lineEdit_sec.setText(self.security_key)
-        
+
         self.ui.setGeometry(0, 0, 800, 600)
         self.ui.show()
         center = QScreen.availableGeometry(QApplication.primaryScreen()).center()
@@ -338,8 +338,8 @@ class MainWindow(QMainWindow):
         self.ui.tableWidget_balance.setStyleSheet(tblstyle_A)
         self.ui.tableWidget_tradesum.setStyleSheet(tblstyle)
         self.ui.tableWidget_tradelist.setStyleSheet(tblstyle_A)
-        
-        
+
+
         self.ui.label_13.setStyleSheet(labelstylestr)
         self.ui.label_16.setStyleSheet(labelstylestr)
         self.ui.label_15.setStyleSheet(labelstylestr)
@@ -420,7 +420,7 @@ class MainWindow(QMainWindow):
         geo = self.ui.frameGeometry()
         geo.moveCenter(center)
         self.ui.move(geo.topLeft())
-        
+
         self.set_updateAllData()
         self.start_watchTimer()
         self.set_Combo()
@@ -706,8 +706,8 @@ class MainWindow(QMainWindow):
                 self.start_TradeStatus(coin)
             elif index==3:
                 self.Chart.Draw(self.ui.tableWidget_balance,self.upbit)
-    
-                
+
+
     def setRatio(self,obj):
         if obj.objectName()=="comboBox_buyPratio":
             ratio=obj.currentText()
@@ -716,14 +716,14 @@ class MainWindow(QMainWindow):
         elif obj.objectName()=="comboBox_buytype":
             if obj.currtnetText() =="지정가":
                 logging.info('TBD')
-            
+
             elif obj.currtnetText() =="시장가":
                 logging.info('TBD')
             elif obj.currtnetText() =="예약":
                 logging.info('TBD')
 
 
-        
+
     def set_tblevt(self):
         self.Chart = PieChart()
         self.ui.tableWidget_status.doubleClicked.connect(lambda x: self.tbl_doubleClicked(self.ui.tableWidget_status))
@@ -732,10 +732,10 @@ class MainWindow(QMainWindow):
         self.ui.treeWidget_autolist.clicked.connect(lambda x: self.tbl_clicked(self.ui.treeWidget_autolist))
         self.ui.treeWidget_autolist.doubleClicked.connect(lambda x: self.tbl_doubleClicked(self.ui.treeWidget_autolist))
         self.ui.tabWidget_main.currentChanged.connect(lambda x: self.tabSelected(self.ui.tabWidget_main, self.ui.tabWidget_main.currentIndex()))
-        
-        
-        
-         
+
+
+
+
         self.ui.tabWidget_main.setCurrentIndex(0)
         self.ui.tabWidget_sub.setCurrentIndex(0)
         self.ui.comboBox_buytype.currentIndexChanged.connect(lambda x : self.setRatio(self.ui.comboBox_buytype))
@@ -930,7 +930,7 @@ class MainWindow(QMainWindow):
             #tcol1.setTextAlignment(Qt.AlignRight|Qt.AlignVCenter)
             #tcol1.setFlags(col1.flags()&~(Qt.ItemIsEditable))
             #tcol1.setFlags(col1.flags()|(Qt.ItemIsSelectable))
-            
+
 
 
             #self.ui.tableWidget_tot.setItem(row,1, col1)
@@ -984,7 +984,7 @@ class MainWindow(QMainWindow):
             #    col4.setForeground(Qt.red)
             #self.ui.tableWidget_tot.setItem(row,4, col4)
             #self.ui.tableWidget_balance.setItem(row,4, tcol4)
-            
+
         elif cname != "KRW" and avg !="0":
 
             name=self.get_CoinName(cname)
@@ -1011,7 +1011,7 @@ class MainWindow(QMainWindow):
             tcol1.setTextAlignment(Qt.AlignRight|Qt.AlignVCenter)
             tcol1.setFlags(col1.flags()&~(Qt.ItemIsEditable))
             tcol1.setFlags(col1.flags()|(Qt.ItemIsSelectable))
-            
+
 
 
             self.ui.tableWidget_tot.setItem(row,1, col1)
@@ -1232,14 +1232,15 @@ class MainWindow(QMainWindow):
         QTimer.singleShot(500, self.set_tblBalance)
         QTimer.singleShot(500, self.set_tbleData)
         self.get_orderlist()
-        #QTimer.singleShot(3000, self.set_tbleReszie)
+        self.set_tbleReszie()
 
     def set_tbleReszie(self):
-        self.ui.tableWidget_status.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeToContents)
-        self.ui.tableWidget_tradesum.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeToContents)
-        self.ui.tableWidget_tot.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeToContents)
-        self.ui.tableWidget_tradelist.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeToContents)
-        self.ui.treeWidget_autolist.header().setSectionResizeMode(0,QHeaderView.ResizeToContents)
+        self.ui.tableWidget_status.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
+        self.ui.tableWidget_tradesum.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
+        self.ui.tableWidget_tot.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
+        self.ui.tableWidget_tradelist.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
+        self.ui.tableWidget_balance.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
+        self.ui.treeWidget_autolist.header().setSectionResizeMode(0,QHeaderView.Stretch)
 
 
     def set_tbleData(self):
