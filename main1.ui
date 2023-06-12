@@ -12,7 +12,7 @@
   </property>
   <property name="minimumSize">
    <size>
-    <width>850</width>
+    <width>1054</width>
     <height>800</height>
    </size>
   </property>
@@ -350,7 +350,7 @@
                  </widget>
                 </item>
                 <item>
-                 <widget class="QComboBox" name="comboBox_2">
+                 <widget class="QComboBox" name="comboBox_buytype">
                   <property name="minimumSize">
                    <size>
                     <width>60</width>
@@ -552,16 +552,16 @@
                  <number>6</number>
                 </property>
                 <item>
-                 <widget class="QLabel" name="label_9">
+                 <widget class="QLabel" name="label_totbuy">
                   <property name="minimumSize">
                    <size>
-                    <width>80</width>
+                    <width>380</width>
                     <height>30</height>
                    </size>
                   </property>
                   <property name="maximumSize">
                    <size>
-                    <width>80</width>
+                    <width>16777215</width>
                     <height>30</height>
                    </size>
                   </property>
@@ -570,37 +570,6 @@
                   </property>
                   <property name="alignment">
                    <set>Qt::AlignJustify|Qt::AlignVCenter</set>
-                  </property>
-                 </widget>
-                </item>
-                <item>
-                 <widget class="QDoubleSpinBox" name="doubleSpinBox_totbuy">
-                  <property name="minimumSize">
-                   <size>
-                    <width>200</width>
-                    <height>30</height>
-                   </size>
-                  </property>
-                  <property name="maximumSize">
-                   <size>
-                    <width>200</width>
-                    <height>30</height>
-                   </size>
-                  </property>
-                  <property name="font">
-                   <font>
-                    <family>Arial</family>
-                    <pointsize>8</pointsize>
-                   </font>
-                  </property>
-                  <property name="alignment">
-                   <set>Qt::AlignCenter</set>
-                  </property>
-                  <property name="decimals">
-                   <number>8</number>
-                  </property>
-                  <property name="maximum">
-                   <double>9999999999.989999771118164</double>
                   </property>
                  </widget>
                 </item>
@@ -961,7 +930,7 @@
                  <number>6</number>
                 </property>
                 <item>
-                 <widget class="QLabel" name="label_19">
+                 <widget class="QLabel" name="label_totsell">
                   <property name="minimumSize">
                    <size>
                     <width>80</width>
@@ -970,7 +939,7 @@
                   </property>
                   <property name="maximumSize">
                    <size>
-                    <width>80</width>
+                    <width>16777215</width>
                     <height>30</height>
                    </size>
                   </property>
@@ -982,37 +951,6 @@
                   </property>
                   <property name="alignment">
                    <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-                  </property>
-                 </widget>
-                </item>
-                <item>
-                 <widget class="QDoubleSpinBox" name="doubleSpinBox_selltot">
-                  <property name="minimumSize">
-                   <size>
-                    <width>200</width>
-                    <height>30</height>
-                   </size>
-                  </property>
-                  <property name="maximumSize">
-                   <size>
-                    <width>200</width>
-                    <height>30</height>
-                   </size>
-                  </property>
-                  <property name="font">
-                   <font>
-                    <family>Arial</family>
-                    <pointsize>8</pointsize>
-                   </font>
-                  </property>
-                  <property name="alignment">
-                   <set>Qt::AlignCenter</set>
-                  </property>
-                  <property name="decimals">
-                   <number>8</number>
-                  </property>
-                  <property name="maximum">
-                   <double>9999999999.989999771118164</double>
                   </property>
                  </widget>
                 </item>
@@ -1122,77 +1060,6 @@
              </attribute>
              <layout class="QVBoxLayout" name="verticalLayout_4">
               <item>
-               <layout class="QHBoxLayout" name="horizontalLayout_23">
-                <item>
-                 <spacer name="horizontalSpacer_13">
-                  <property name="orientation">
-                   <enum>Qt::Horizontal</enum>
-                  </property>
-                  <property name="sizeHint" stdset="0">
-                   <size>
-                    <width>40</width>
-                    <height>20</height>
-                   </size>
-                  </property>
-                 </spacer>
-                </item>
-                <item>
-                 <widget class="QRadioButton" name="radioButton_trade">
-                  <property name="minimumSize">
-                   <size>
-                    <width>60</width>
-                    <height>30</height>
-                   </size>
-                  </property>
-                  <property name="maximumSize">
-                   <size>
-                    <width>60</width>
-                    <height>30</height>
-                   </size>
-                  </property>
-                  <property name="text">
-                   <string>체결</string>
-                  </property>
-                  <property name="checked">
-                   <bool>true</bool>
-                  </property>
-                 </widget>
-                </item>
-                <item>
-                 <widget class="QRadioButton" name="radioButton_notrade">
-                  <property name="minimumSize">
-                   <size>
-                    <width>60</width>
-                    <height>30</height>
-                   </size>
-                  </property>
-                  <property name="maximumSize">
-                   <size>
-                    <width>60</width>
-                    <height>30</height>
-                   </size>
-                  </property>
-                  <property name="text">
-                   <string>미체결</string>
-                  </property>
-                 </widget>
-                </item>
-                <item>
-                 <spacer name="horizontalSpacer_14">
-                  <property name="orientation">
-                   <enum>Qt::Horizontal</enum>
-                  </property>
-                  <property name="sizeHint" stdset="0">
-                   <size>
-                    <width>40</width>
-                    <height>20</height>
-                   </size>
-                  </property>
-                 </spacer>
-                </item>
-               </layout>
-              </item>
-              <item>
                <widget class="QTableWidget" name="tableWidget_tradelist">
                 <property name="minimumSize">
                  <size>
@@ -1256,6 +1123,24 @@
                  </property>
                 </column>
                </widget>
+              </item>
+              <item>
+               <layout class="QHBoxLayout" name="horizontalLayout_23">
+                <item>
+                 <widget class="QPushButton" name="pushButton_update">
+                  <property name="text">
+                   <string>정정 </string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QPushButton" name="pushButton_cancel">
+                  <property name="text">
+                   <string>취소</string>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
               </item>
              </layout>
             </widget>

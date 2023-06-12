@@ -28,7 +28,7 @@ class Ui_MainWindow(object):
         if not MainWindow.objectName():
             MainWindow.setObjectName(u"MainWindow")
         MainWindow.resize(1054, 800)
-        MainWindow.setMinimumSize(QSize(850, 800))
+        MainWindow.setMinimumSize(QSize(1054, 800))
         MainWindow.setMaximumSize(QSize(1054, 800))
         font = QFont()
         font.setFamilies([u"Arial"])
@@ -161,15 +161,15 @@ class Ui_MainWindow(object):
 
         self.horizontalLayout_5.addWidget(self.label_buy)
 
-        self.comboBox_2 = QComboBox(self.tab_3)
-        self.comboBox_2.addItem("")
-        self.comboBox_2.addItem("")
-        self.comboBox_2.addItem("")
-        self.comboBox_2.setObjectName(u"comboBox_2")
-        self.comboBox_2.setMinimumSize(QSize(60, 30))
-        self.comboBox_2.setMaximumSize(QSize(60, 30))
+        self.comboBox_buytype = QComboBox(self.tab_3)
+        self.comboBox_buytype.addItem("")
+        self.comboBox_buytype.addItem("")
+        self.comboBox_buytype.addItem("")
+        self.comboBox_buytype.setObjectName(u"comboBox_buytype")
+        self.comboBox_buytype.setMinimumSize(QSize(60, 30))
+        self.comboBox_buytype.setMaximumSize(QSize(60, 30))
 
-        self.horizontalLayout_5.addWidget(self.comboBox_2)
+        self.horizontalLayout_5.addWidget(self.comboBox_buytype)
 
 
         self.verticalLayout_2.addLayout(self.horizontalLayout_5)
@@ -244,24 +244,13 @@ class Ui_MainWindow(object):
         self.horizontalLayout_10 = QHBoxLayout()
         self.horizontalLayout_10.setSpacing(6)
         self.horizontalLayout_10.setObjectName(u"horizontalLayout_10")
-        self.label_9 = QLabel(self.tab_3)
-        self.label_9.setObjectName(u"label_9")
-        self.label_9.setMinimumSize(QSize(80, 30))
-        self.label_9.setMaximumSize(QSize(80, 30))
-        self.label_9.setAlignment(Qt.AlignJustify|Qt.AlignVCenter)
+        self.label_totbuy = QLabel(self.tab_3)
+        self.label_totbuy.setObjectName(u"label_totbuy")
+        self.label_totbuy.setMinimumSize(QSize(380, 30))
+        self.label_totbuy.setMaximumSize(QSize(16777215, 30))
+        self.label_totbuy.setAlignment(Qt.AlignJustify|Qt.AlignVCenter)
 
-        self.horizontalLayout_10.addWidget(self.label_9)
-
-        self.doubleSpinBox_totbuy = QDoubleSpinBox(self.tab_3)
-        self.doubleSpinBox_totbuy.setObjectName(u"doubleSpinBox_totbuy")
-        self.doubleSpinBox_totbuy.setMinimumSize(QSize(200, 30))
-        self.doubleSpinBox_totbuy.setMaximumSize(QSize(200, 30))
-        self.doubleSpinBox_totbuy.setFont(font)
-        self.doubleSpinBox_totbuy.setAlignment(Qt.AlignCenter)
-        self.doubleSpinBox_totbuy.setDecimals(8)
-        self.doubleSpinBox_totbuy.setMaximum(9999999999.989999771118164)
-
-        self.horizontalLayout_10.addWidget(self.doubleSpinBox_totbuy)
+        self.horizontalLayout_10.addWidget(self.label_totbuy)
 
         self.label_10 = QLabel(self.tab_3)
         self.label_10.setObjectName(u"label_10")
@@ -409,25 +398,14 @@ class Ui_MainWindow(object):
         self.horizontalLayout_15 = QHBoxLayout()
         self.horizontalLayout_15.setSpacing(6)
         self.horizontalLayout_15.setObjectName(u"horizontalLayout_15")
-        self.label_19 = QLabel(self.tab_5)
-        self.label_19.setObjectName(u"label_19")
-        self.label_19.setMinimumSize(QSize(80, 30))
-        self.label_19.setMaximumSize(QSize(80, 30))
-        self.label_19.setTabletTracking(False)
-        self.label_19.setAlignment(Qt.AlignLeading|Qt.AlignLeft|Qt.AlignVCenter)
+        self.label_totsell = QLabel(self.tab_5)
+        self.label_totsell.setObjectName(u"label_totsell")
+        self.label_totsell.setMinimumSize(QSize(80, 30))
+        self.label_totsell.setMaximumSize(QSize(16777215, 30))
+        self.label_totsell.setTabletTracking(False)
+        self.label_totsell.setAlignment(Qt.AlignLeading|Qt.AlignLeft|Qt.AlignVCenter)
 
-        self.horizontalLayout_15.addWidget(self.label_19)
-
-        self.doubleSpinBox_selltot = QDoubleSpinBox(self.tab_5)
-        self.doubleSpinBox_selltot.setObjectName(u"doubleSpinBox_selltot")
-        self.doubleSpinBox_selltot.setMinimumSize(QSize(200, 30))
-        self.doubleSpinBox_selltot.setMaximumSize(QSize(200, 30))
-        self.doubleSpinBox_selltot.setFont(font)
-        self.doubleSpinBox_selltot.setAlignment(Qt.AlignCenter)
-        self.doubleSpinBox_selltot.setDecimals(8)
-        self.doubleSpinBox_selltot.setMaximum(9999999999.989999771118164)
-
-        self.horizontalLayout_15.addWidget(self.doubleSpinBox_selltot)
+        self.horizontalLayout_15.addWidget(self.label_totsell)
 
         self.label_20 = QLabel(self.tab_5)
         self.label_20.setObjectName(u"label_20")
@@ -473,34 +451,6 @@ class Ui_MainWindow(object):
         self.tab_4.setObjectName(u"tab_4")
         self.verticalLayout_4 = QVBoxLayout(self.tab_4)
         self.verticalLayout_4.setObjectName(u"verticalLayout_4")
-        self.horizontalLayout_23 = QHBoxLayout()
-        self.horizontalLayout_23.setObjectName(u"horizontalLayout_23")
-        self.horizontalSpacer_13 = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
-
-        self.horizontalLayout_23.addItem(self.horizontalSpacer_13)
-
-        self.radioButton_trade = QRadioButton(self.tab_4)
-        self.radioButton_trade.setObjectName(u"radioButton_trade")
-        self.radioButton_trade.setMinimumSize(QSize(60, 30))
-        self.radioButton_trade.setMaximumSize(QSize(60, 30))
-        self.radioButton_trade.setChecked(True)
-
-        self.horizontalLayout_23.addWidget(self.radioButton_trade)
-
-        self.radioButton_notrade = QRadioButton(self.tab_4)
-        self.radioButton_notrade.setObjectName(u"radioButton_notrade")
-        self.radioButton_notrade.setMinimumSize(QSize(60, 30))
-        self.radioButton_notrade.setMaximumSize(QSize(60, 30))
-
-        self.horizontalLayout_23.addWidget(self.radioButton_notrade)
-
-        self.horizontalSpacer_14 = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
-
-        self.horizontalLayout_23.addItem(self.horizontalSpacer_14)
-
-
-        self.verticalLayout_4.addLayout(self.horizontalLayout_23)
-
         self.tableWidget_tradelist = QTableWidget(self.tab_4)
         if (self.tableWidget_tradelist.columnCount() < 8):
             self.tableWidget_tradelist.setColumnCount(8)
@@ -527,6 +477,21 @@ class Ui_MainWindow(object):
         self.tableWidget_tradelist.verticalHeader().setVisible(False)
 
         self.verticalLayout_4.addWidget(self.tableWidget_tradelist)
+
+        self.horizontalLayout_23 = QHBoxLayout()
+        self.horizontalLayout_23.setObjectName(u"horizontalLayout_23")
+        self.pushButton_update = QPushButton(self.tab_4)
+        self.pushButton_update.setObjectName(u"pushButton_update")
+
+        self.horizontalLayout_23.addWidget(self.pushButton_update)
+
+        self.pushButton_cancel = QPushButton(self.tab_4)
+        self.pushButton_cancel.setObjectName(u"pushButton_cancel")
+
+        self.horizontalLayout_23.addWidget(self.pushButton_cancel)
+
+
+        self.verticalLayout_4.addLayout(self.horizontalLayout_23)
 
         self.tabWidget_sub.addTab(self.tab_4, "")
 
@@ -985,13 +950,13 @@ class Ui_MainWindow(object):
         ___qtablewidgetitem3.setText(QCoreApplication.translate("MainWindow", u"\ub4f1\ub77d\uc728", None));
         self.label_2.setText("")
         self.label_buy.setText("")
-        self.comboBox_2.setItemText(0, QCoreApplication.translate("MainWindow", u"\uc9c0\uc815\uac00", None))
-        self.comboBox_2.setItemText(1, QCoreApplication.translate("MainWindow", u"\uc2dc\uc7a5\uac00", None))
-        self.comboBox_2.setItemText(2, QCoreApplication.translate("MainWindow", u"\uc608\uc57d", None))
+        self.comboBox_buytype.setItemText(0, QCoreApplication.translate("MainWindow", u"\uc9c0\uc815\uac00", None))
+        self.comboBox_buytype.setItemText(1, QCoreApplication.translate("MainWindow", u"\uc2dc\uc7a5\uac00", None))
+        self.comboBox_buytype.setItemText(2, QCoreApplication.translate("MainWindow", u"\uc608\uc57d", None))
 
         self.label_4.setText(QCoreApplication.translate("MainWindow", u"\uc218\ub7c9", None))
         self.label_7.setText(QCoreApplication.translate("MainWindow", u"\uac00\uaca9", None))
-        self.label_9.setText(QCoreApplication.translate("MainWindow", u"  \ucd1d\uc561", None))
+        self.label_totbuy.setText(QCoreApplication.translate("MainWindow", u"  \ucd1d\uc561", None))
         self.label_10.setText("")
         self.pushButton_init.setText(QCoreApplication.translate("MainWindow", u"\ucd08\uae30\ud654", None))
         self.pushButton_buy.setText(QCoreApplication.translate("MainWindow", u"\uc8fc\ubb38", None))
@@ -1004,13 +969,11 @@ class Ui_MainWindow(object):
 
         self.label_25.setText(QCoreApplication.translate("MainWindow", u"\uc218\ub7c9", None))
         self.label_23.setText(QCoreApplication.translate("MainWindow", u"\uac00\uaca9", None))
-        self.label_19.setText(QCoreApplication.translate("MainWindow", u"  \ucd1d\uc561", None))
+        self.label_totsell.setText(QCoreApplication.translate("MainWindow", u"  \ucd1d\uc561", None))
         self.label_20.setText("")
         self.pushButton_sellinit.setText(QCoreApplication.translate("MainWindow", u"\ucd08\uae30\ud654", None))
         self.pushButton_sell.setText(QCoreApplication.translate("MainWindow", u"\uc8fc\ubb38", None))
         self.tabWidget_sub.setTabText(self.tabWidget_sub.indexOf(self.tab_5), QCoreApplication.translate("MainWindow", u"\ub9e4\ub3c4", None))
-        self.radioButton_trade.setText(QCoreApplication.translate("MainWindow", u"\uccb4\uacb0", None))
-        self.radioButton_notrade.setText(QCoreApplication.translate("MainWindow", u"\ubbf8\uccb4\uacb0", None))
         ___qtablewidgetitem4 = self.tableWidget_tradelist.horizontalHeaderItem(0)
         ___qtablewidgetitem4.setText(QCoreApplication.translate("MainWindow", u"ID", None));
         ___qtablewidgetitem5 = self.tableWidget_tradelist.horizontalHeaderItem(1)
@@ -1027,6 +990,8 @@ class Ui_MainWindow(object):
         ___qtablewidgetitem10.setText(QCoreApplication.translate("MainWindow", u"\uc8fc\ubb38\ub7c9", None));
         ___qtablewidgetitem11 = self.tableWidget_tradelist.horizontalHeaderItem(7)
         ___qtablewidgetitem11.setText(QCoreApplication.translate("MainWindow", u"\ubbf8\uccb4\uacb0\ub7c9", None));
+        self.pushButton_update.setText(QCoreApplication.translate("MainWindow", u"\uc815\uc815 ", None))
+        self.pushButton_cancel.setText(QCoreApplication.translate("MainWindow", u"\ucde8\uc18c", None))
         self.tabWidget_sub.setTabText(self.tabWidget_sub.indexOf(self.tab_4), QCoreApplication.translate("MainWindow", u"\uac70\ub798\ub0b4\uc5ed", None))
         ___qtablewidgetitem12 = self.tableWidget_tot.horizontalHeaderItem(0)
         ___qtablewidgetitem12.setText(QCoreApplication.translate("MainWindow", u"\ub9c8\ucf13", None));

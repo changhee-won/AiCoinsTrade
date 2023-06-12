@@ -9,6 +9,7 @@ from PySide6.QtSql import QSqlDatabase, QSqlQuery, QSqlRecord, QSqlTableModel
 from PySide6 import QtWidgets
 from PySide6.QtCore import Qt,QFile, QIODevice,QStringListModel \
 ,QDateTime,QTimer,QThread ,QProcess,Signal,Slot,QDate
+from PySide6.QtGui import QScreen
 from PySide6.QtWidgets import *
 from PySide6.QtCharts import *
 import json
@@ -32,7 +33,33 @@ logging.basicConfig(format='%(asctime)s,%(msecs)d %(levelname)-8s [%(filename)s:
 #access_key = os.environ['UPBIT_OPEN_API_ACCESS_KEY']
 #secret_key = os.environ['UPBIT_OPEN_API_SECRET_KEY']
 os.environ["PYSIDE_DESIGNER_PLUGINS"]="."
+tblstyle_M = """
+    QHeaderView::section {
+          spacing: 10px;
+          background-color:darkblue;
+          color: yellow;
+          margin: 1px;
+          text-align: right;
+          font-family: Arial;
+          font-size:8px; }
+    QTableWidget {
+        background-color: black; 
+        border-radius: 10px
+    }
 
+    QTableWidget::item {
+        color: white;                    
+        background-color: black;
+        margin-top: 5px;          
+        border-radius: 9px;
+        padding-left: 5px;
+    }
+
+    QTableWidget::item:selected {
+        background-color: yellow;
+        color: blue;
+    }
+"""
 tblstyle='''
  QHeaderView::section {
           spacing: 10px;
@@ -42,6 +69,23 @@ tblstyle='''
           text-align: right;
           font-family: Arial;
           font-size:8px; }
+             QTableWidget {
+        background-color: black; 
+        border-radius: 10px
+    }
+
+    QTableWidget::item {
+        color: white;                    
+        background-color: black;
+        margin-top: 5px;          
+        border-radius: 9px;
+        padding-left: 5px;
+    }
+
+    QTableWidget::item:selected {
+        background-color: yellow;
+        color: blue;
+    }
  '''
 tblstyle_A='''
  QHeaderView::section {
@@ -52,6 +96,9 @@ tblstyle_A='''
           text-align: right;
           font-family: Arial;
           font-size:8px; }
+          
+
+  
  '''
 
 cmbstyle='''

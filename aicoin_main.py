@@ -33,14 +33,27 @@ class PieChart(QMainWindow):
         for row in range(tbl.rowCount()):
             col1 =tbl.item(row,0).text()
             col2 =Decimal(tbl.item(row,2).text())
-            logging.info(f'Draw Chart {col1} {col2}')
-            self.series.append(col1, col2)
-        
-        self.slice = self.series.slices()[0]
-        self.slice.setExploded()
-        self.slice.setLabelVisible()
-        self.slice.setPen(QPen(Qt.darkGreen, 2))
-        self.slice.setBrush(Qt.darkGreen)
+            col3=0
+            try:
+                col3 =Decimal(tbl.item(row,3).text())
+            except:
+                pass
+            val= Decimal(col3) * Decimal(col2)
+            logging.info(f'Draw Chart C1: = {col1} C2:=  {col2} C3:= {col3}  V:= {val}')
+            self.series.append(col1, val)
+            self.slice = self.series.slices()[row]
+            self.slice.setExploded()
+            self.slice.setLabelVisible()
+            if row ==0:
+                self.slice.setPen(QPen(Qt.darkGreen, row))
+                self.slice.setBrush(Qt.darkGreen)
+            elif row ==1:
+                self.slice.setPen(QPen(Qt.darkRed, row))
+                self.slice.setBrush(Qt.darkRed)
+            if row ==2:
+                self.slice.setPen(QPen(Qt.darkBlue, row))
+                self.slice.setBrush(Qt.darkBlue)
+                
 
         self.chart.addSeries(self.series)
         
@@ -250,7 +263,14 @@ class LoginDlg(QDialog):
         self.ui.lineEdit_sec.setEchoMode(QLineEdit.Password)
         self.ui.lineEdit_aes.setText(self.access_key)
         self.ui.lineEdit_sec.setText(self.security_key)
+        
+        self.ui.setGeometry(0, 0, 800, 600)
         self.ui.show()
+        center = QScreen.availableGeometry(QApplication.primaryScreen()).center()
+        geo = self.ui.frameGeometry()
+        geo.moveCenter(center)
+        self.ui.move(geo.topLeft())
+
 
     def closeEvent(self,event):
         logging.info("close")
@@ -309,11 +329,13 @@ class MainWindow(QMainWindow):
         self.pjson_data = json.loads(json.dumps(self.currentAll))
         self.date = QDate.currentDate()
         logging.info("start upbit auto trade")
-        self.ui.tableWidget_status.setStyleSheet(tblstyle)
+        self.ui.tableWidget_status.setStyleSheet(tblstyle_M)
         self.ui.tableWidget_tot.setStyleSheet(tblstyle_A)
         self.ui.tableWidget_balance.setStyleSheet(tblstyle_A)
         self.ui.tableWidget_tradesum.setStyleSheet(tblstyle)
-        self.ui.tableWidget_tradelist.setStyleSheet(tblstyle)
+        self.ui.tableWidget_tradelist.setStyleSheet(tblstyle_A)
+        
+        
         self.ui.label_13.setStyleSheet(labelstylestr)
         self.ui.label_16.setStyleSheet(labelstylestr)
         self.ui.label_15.setStyleSheet(labelstylestr)
@@ -327,9 +349,9 @@ class MainWindow(QMainWindow):
         self.ui.label_ma.setStyleSheet(labelstylestr)
         self.ui.label_4.setStyleSheet(labelstylestr)
         self.ui.label_7.setStyleSheet(labelstylestr)
-        self.ui.label_9.setStyleSheet(labelstylestr)
-        self.ui.label_10.setStyleSheet(labelstylestr)
-        self.ui.label_19.setStyleSheet(labelstylestr)
+        self.ui.label_totbuy.setStyleSheet(labelstylestr)
+        self.ui.label_totsell.setStyleSheet(labelstylestr)
+        #self.ui.label_9.setStyleSheet(labelstylestr)
         self.ui.label_25.setStyleSheet(labelstylestr)
         self.ui.label_23.setStyleSheet(labelstylestr)
         self.ui.label_20.setStyleSheet(labelstylestr)
@@ -355,6 +377,8 @@ class MainWindow(QMainWindow):
         self.ui.pushButton_sellinit.setStyleSheet(btnstylestr1)
         self.ui.pushButton_sell.setStyleSheet(btnstylestr1)
         self.ui.pushButton_buy.setStyleSheet(btnstylestr1)
+        self.ui.pushButton_update.setStyleSheet(btnstylestr1)
+        self.ui.pushButton_cancel.setStyleSheet(btnstylestr1)
 
 
 
@@ -386,7 +410,13 @@ class MainWindow(QMainWindow):
 
         self.set_btnevt()
         self.set_tblevt()
+        self.ui.setGeometry(0, 0, 1054, 800)
         self.ui.show()
+        center = QScreen.availableGeometry(QApplication.primaryScreen()).center()
+        geo = self.ui.frameGeometry()
+        geo.moveCenter(center)
+        self.ui.move(geo.topLeft())
+        
         self.set_updateAllData()
         self.start_watchTimer()
         self.set_Combo()
@@ -679,6 +709,15 @@ class MainWindow(QMainWindow):
             ratio=obj.currentText()
         elif obj.objectName()=="comboBox_buyAratio":
             ratio=obj.currentText()
+        elif obj.objectName()=="comboBox_buytype":
+            if obj.currtnetText() =="지정가":
+                logging.info('TBD')
+            
+            elif obj.currtnetText() =="시장가":
+                logging.info('TBD')
+            elif obj.currtnetText() =="예약":
+                logging.info('TBD')
+
 
         
     def set_tblevt(self):
@@ -695,18 +734,19 @@ class MainWindow(QMainWindow):
          
         self.ui.tabWidget_main.setCurrentIndex(0)
         self.ui.tabWidget_sub.setCurrentIndex(0)
+        self.ui.comboBox_buytype.currentIndexChanged.connect(lambda x : self.setRatio(self.ui.comboBox_buytype))
         self.ui.comboBox_buyPratio.currentIndexChanged.connect(lambda x : self.setRatio(self.ui.comboBox_buyPratio))
         self.ui.comboBox_buyAratio.currentIndexChanged.connect(lambda x : self.setRatio(self.ui.comboBox_buyAratio))
 
 
         self.ui.doubleSpinBox_Abuy.valueChanged.connect(lambda x: self.set_ValueChanged(self.ui.doubleSpinBox_Abuy))
         self.ui.doubleSpinBox_Pbuy.valueChanged.connect(lambda x: self.set_ValueChanged(self.ui.doubleSpinBox_Pbuy))
-        self.ui.doubleSpinBox_totbuy.valueChanged.connect(lambda x: self.set_ValueChanged(self.ui.doubleSpinBox_totbuy))
+
         self.ui.doubleSpinBox_Pbuy.setSuffix(' KRW')
-        self.ui.doubleSpinBox_totbuy.setSuffix(' KRW')
+
 
         self.ui.doubleSpinBox_sellprice.setSuffix(' KRW')
-        self.ui.doubleSpinBox_selltot.setSuffix(' KRW')
+
         self.ui.verticalLayout_chart.addWidget(self.Chart)
 
 
@@ -806,6 +846,8 @@ class MainWindow(QMainWindow):
         self.ui.pushButton_stop.clicked.connect(lambda x:self.btn_event(self.ui.pushButton_stop))
         self.ui.pushButton_close.clicked.connect(lambda x:self.btn_event(self.ui.pushButton_close))
         self.ui.pushButton_reflash.clicked.connect(lambda x:self.btn_event(self.ui.pushButton_reflash))
+        self.ui.pushButton_update.clicked.connect(lambda x:self.btn_event(self.ui.pushButton_update))
+        self.ui.pushButton_cancel.clicked.connect(lambda x:self.btn_event(self.ui.pushButton_cancel))
 
 
 
@@ -856,7 +898,9 @@ class MainWindow(QMainWindow):
         it=ast.literal_eval(tmp[1])
         cname = it.get("currency")
         avg= it.get("avg_buy_price")
-        bal= it.get("balance")
+        a= it.get("balance")
+        b= it.get("locked")
+        bal = Decimal(a) + Decimal(b)
         if cname == "KRW" and avg =="0":
             name=self.get_CoinName(cname)
 
@@ -888,11 +932,11 @@ class MainWindow(QMainWindow):
             #self.ui.tableWidget_tot.setItem(row,1, col1)
             #self.ui.tableWidget_balance.setItem(row,1, tcol1)
 
-            col2 =QTableWidgetItem(bal)
+            col2 =QTableWidgetItem(str(bal))
             col2.setTextAlignment(Qt.AlignRight|Qt.AlignVCenter)
             col2.setFlags(col2.flags()&~(Qt.ItemIsEditable))
             col2.setFlags(col2.flags()|(Qt.ItemIsSelectable))
-            tcol2 =QTableWidgetItem(bal)
+            tcol2 =QTableWidgetItem(str(bal))
             tcol2.setTextAlignment(Qt.AlignRight|Qt.AlignVCenter)
             tcol2.setFlags(col2.flags()&~(Qt.ItemIsEditable))
             tcol2.setFlags(col2.flags()|(Qt.ItemIsSelectable))
@@ -969,11 +1013,11 @@ class MainWindow(QMainWindow):
             self.ui.tableWidget_tot.setItem(row,1, col1)
             self.ui.tableWidget_balance.setItem(row,1, tcol1)
 
-            col2 =QTableWidgetItem(bal)
+            col2 =QTableWidgetItem(str(bal))
             col2.setTextAlignment(Qt.AlignRight|Qt.AlignVCenter)
             col2.setFlags(col1.flags()&~(Qt.ItemIsEditable))
             col2.setFlags(col1.flags()|(Qt.ItemIsSelectable))
-            tcol2 =QTableWidgetItem(bal)
+            tcol2 =QTableWidgetItem(str(bal))
             tcol2.setTextAlignment(Qt.AlignRight|Qt.AlignVCenter)
             tcol2.setFlags(col1.flags()&~(Qt.ItemIsEditable))
             tcol2.setFlags(col1.flags()|(Qt.ItemIsSelectable))
