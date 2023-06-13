@@ -710,13 +710,20 @@ class MainWindow(QMainWindow):
 
     def setRatio(self,obj):
         if obj.objectName()=="comboBox_buyPratio":
-            ratio=obj.currentText()
+            ratio=Decimal(obj.currentText().replace('%',''))
+            val = Decimal(self.ui.doubleSpinBox_Pbuy.value())
+            cal= val + (ratio * val)
+            self.ui.doubleSpinBox_Pbuy.setValue(cal)
+
         elif obj.objectName()=="comboBox_buyAratio":
-            ratio=obj.currentText()
+            ratio=Decimal(obj.currentText().replace('%',''))
+            val = Decimal(self.ui.doubleSpinBox_Abuy.value())
+            cal= val + (ratio * val)
+            self.ui.doubleSpinBox_Abuy.setValue(cal)
+
         elif obj.objectName()=="comboBox_buytype":
             if obj.currtnetText() =="지정가":
                 logging.info('TBD')
-
             elif obj.currtnetText() =="시장가":
                 logging.info('TBD')
             elif obj.currtnetText() =="예약":
