@@ -433,6 +433,10 @@ class MainWindow(QMainWindow):
         self.ui.comboBox_buyPratio.lineEdit().setAlignment(QtCore.Qt.AlignCenter)
         self.ui.comboBox_buyPratio.view().setVerticalScrollBarPolicy(Qt.ScrollBarAsNeeded)
 
+        self.ui.comboBox_buyAratio.setStyleSheet(cmbstyle)
+        self.ui.comboBox_buyAratio.setEditable(True)
+        self.ui.comboBox_buyAratio.lineEdit().setAlignment(QtCore.Qt.AlignCenter)
+        self.ui.comboBox_buyAratio.view().setVerticalScrollBarPolicy(Qt.ScrollBarAsNeeded)
 
 
         self.ui.comboBox_sellAratio.setStyleSheet(cmbstyle)
@@ -476,6 +480,7 @@ class MainWindow(QMainWindow):
                     val = (i-100) *-1
 
                 if val < 105 and val >0:
+                    self.ui.comboBox_buyAratio.addItem(f'{val} %',val)
                     self.ui.comboBox_sellPratio.addItem(f'{val} %',val)
                 elif val <= 105:
                     self.ui.comboBox_buyPratio.addItem(f'{val} %',val)
@@ -711,6 +716,11 @@ class MainWindow(QMainWindow):
             logging.info(f' Cal Price {val} ratio{ratio} {cal}')
             self.ui.doubleSpinBox_Pbuy.setValue(cal)
 
+        elif obj.objectName()=="comboBox_buyAratio":
+            ratio=Decimal(obj.currentText().replace('%',''))
+            val = Decimal(self.ui.doubleSpinBox_Abuy.value())
+            cal= val + (ratio * val)
+            self.ui.doubleSpinBox_Abuy.setValue(cal)
 
         elif obj.objectName()=="comboBox_buytype":
             if obj.currtnetText() =="지정가":
@@ -738,6 +748,7 @@ class MainWindow(QMainWindow):
         self.ui.tabWidget_sub.setCurrentIndex(0)
         self.ui.comboBox_buytype.currentIndexChanged.connect(lambda x : self.setRatio(self.ui.comboBox_buytype))
         self.ui.comboBox_buyPratio.currentIndexChanged.connect(lambda x : self.setRatio(self.ui.comboBox_buyPratio))
+        self.ui.comboBox_buyAratio.currentIndexChanged.connect(lambda x : self.setRatio(self.ui.comboBox_buyAratio))
 
 
         self.ui.doubleSpinBox_Abuy.valueChanged.connect(lambda x: self.set_ValueChanged(self.ui.doubleSpinBox_Abuy))
