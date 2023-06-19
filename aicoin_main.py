@@ -672,7 +672,11 @@ class MainWindow(QMainWindow):
                 self.start_TradeStatus(coin)
             self.ui.label_buy.setText(tmp)
             tmp = self.ui.tableWidget_status.item(currow,1).text()
-            vtmp=tmp.split(' ')[0].replace(',','')
+            vtmp=tmp
+            try:
+                vtmp=tmp.split(' ')[0].replace(',','')
+            except:
+                pass
             val=Decimal(vtmp)
             logging.info(f'amount {val}')
             self.ui.doubleSpinBox_Abuy.setValue(val)
@@ -1278,26 +1282,33 @@ class MainWindow(QMainWindow):
             cinfo=ast.literal_eval(tmp)
             cdata = json.loads(json.dumps(cinfo))
             tmp = cdata.get('volume')
-            amtvol=format(tmp,",")
+            #amtvol=format(tmp,",")
+            amtvol=tmp
             ratio = cdata.get('ratio')
         except Exception as e:
             logging.info('3. 예외가 발생했습니다. %s' %(cname))
             return
 
 
-        pitem =QTableWidgetItem(str(cur))
+        #pitem =QTableWidgetItem(str(cur))
+        pitem= QTableWidgetItem()
+        pitem.setData(Qt.DisplayRole, float(cur))
         pitem.setTextAlignment(Qt.AlignRight|Qt.AlignVCenter)
         pitem.setFlags(pitem.flags()&~(Qt.ItemIsEditable))
         pitem.setFlags(pitem.flags()|(Qt.ItemIsSelectable))
         self.ui.tableWidget_status.setItem(row,2, pitem)
 
-        vitem =QTableWidgetItem(str(f'{amtvol} 백만'))
+        #vitem =QTableWidgetItem(str(f'{amtvol} 백만'))
+        vitem= QTableWidgetItem()
+        vitem.setData(Qt.DisplayRole, float(amtvol))
         vitem.setTextAlignment(Qt.AlignRight|Qt.AlignVCenter)
         vitem.setFlags(vitem.flags()&~(Qt.ItemIsEditable))
         vitem.setFlags(vitem.flags()|(Qt.ItemIsSelectable))
         self.ui.tableWidget_status.setItem(row,1, vitem)
 
-        ritem =QTableWidgetItem(str(ratio))
+        #ritem =QTableWidgetItem(str(ratio))
+        ritem= QTableWidgetItem()
+        ritem.setData(Qt.DisplayRole, float(ratio))
         ritem.setTextAlignment(Qt.AlignRight|Qt.AlignVCenter)
         ritem.setFlags(ritem.flags()&~(Qt.ItemIsEditable))
         ritem.setFlags(ritem.flags()|(Qt.ItemIsSelectable))
