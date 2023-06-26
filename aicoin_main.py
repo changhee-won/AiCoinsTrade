@@ -32,9 +32,10 @@ class PieChart(QMainWindow):
 
         for row in range(tbl.rowCount()):
             col1 =tbl.item(row,0).text()
-            col2 =Decimal(tbl.item(row,2).text())
+            col2 =0
             col3=1
             try:
+                col2 =Decimal(tbl.item(row,2).text())
                 col3 =Decimal(tbl.item(row,3).text())
             except:
                 pass
@@ -923,30 +924,18 @@ class MainWindow(QMainWindow):
             row = self.ui.tableWidget_tot.rowCount()
             self.ui.tableWidget_tot.insertRow(row)
             self.ui.tableWidget_balance.insertRow(row)
-            col0 =QTableWidgetItem('현금')
+            col0 =QTableWidgetItem('잔액')
             col0.setTextAlignment(Qt.AlignLeft|Qt.AlignVCenter)
             col0.setFlags(col0.flags()&~(Qt.ItemIsEditable))
             col0.setFlags(col0.flags()|(Qt.ItemIsSelectable))
-            tcol0 =QTableWidgetItem('현금')
+            tcol0 =QTableWidgetItem('잔액')
             tcol0.setTextAlignment(Qt.AlignLeft|Qt.AlignVCenter)
             tcol0.setFlags(col0.flags()&~(Qt.ItemIsEditable))
             tcol0.setFlags(col0.flags()|(Qt.ItemIsSelectable))
             self.ui.tableWidget_tot.setItem(row,0, col0)
             self.ui.tableWidget_balance.setItem(row,0, tcol0)
 
-            #col1 =QTableWidgetItem(avg)
-            #col1.setTextAlignment(Qt.AlignRight|Qt.AlignVCenter)
-            #col1.setFlags(col1.flags()&~(Qt.ItemIsEditable))
-            #col1.setFlags(col1.flags()|(Qt.ItemIsSelectable))
-            #tcol1 =QTableWidgetItem(avg)
-            #tcol1.setTextAlignment(Qt.AlignRight|Qt.AlignVCenter)
-            #tcol1.setFlags(col1.flags()&~(Qt.ItemIsEditable))
-            #tcol1.setFlags(col1.flags()|(Qt.ItemIsSelectable))
 
-
-
-            #self.ui.tableWidget_tot.setItem(row,1, col1)
-            #self.ui.tableWidget_balance.setItem(row,1, tcol1)
 
             col2 =QTableWidgetItem(str(bal))
             col2.setTextAlignment(Qt.AlignRight|Qt.AlignVCenter)
@@ -957,45 +946,12 @@ class MainWindow(QMainWindow):
             tcol2.setFlags(col2.flags()&~(Qt.ItemIsEditable))
             tcol2.setFlags(col2.flags()|(Qt.ItemIsSelectable))
 
+            self.ui.tableWidget_tot.setItem(row,5, col2)
+            self.ui.tableWidget_balance.setItem(row,5, tcol2)
             self.ui.tableWidget_tot.setItem(row,2, col2)
             self.ui.tableWidget_balance.setItem(row,2, tcol2)
 
-            #curname="KRW-"+cname
-            #cur=self.upbit.GetCurrent(curname)
-            #col3 =QTableWidgetItem(str(cur))
-            #col3.setTextAlignment(Qt.AlignRight|Qt.AlignVCenter)
-            #col3.setFlags(col1.flags()&~(Qt.ItemIsEditable))
-            #col3.setFlags(col1.flags()|(Qt.ItemIsSelectable))
-            #tcol3 =QTableWidgetItem(str(cur))
-            #tcol3.setTextAlignment(Qt.AlignRight|Qt.AlignVCenter)
-            #tcol3.setFlags(col1.flags()&~(Qt.ItemIsEditable))
-            #tcol3.setFlags(col1.flags()|(Qt.ItemIsSelectable))
 
-            #self.ui.tableWidget_tot.setItem(row,3, col3)
-            #self.ui.tableWidget_balance.setItem(row,3, tcol3)
-            #try:
-            #    ratio=round((float(cur)/float(avg) *100.0)-100.0,2)
-            #except Exception as e:
-            #    logging.info('예외가 발생했습니다. %s' %(cname))
-            #    ratio=0
-            #    pass
-            #col4 =QTableWidgetItem(str(ratio))
-            #col4.setTextAlignment(Qt.AlignRight|Qt.AlignVCenter)
-            #col4.setFlags(col1.flags()&~(Qt.ItemIsEditable))
-            #col4.setFlags(col1.flags()|(Qt.ItemIsSelectable))
-            #tcol4 =QTableWidgetItem(str(ratio))
-            #tcol4.setTextAlignment(Qt.AlignRight|Qt.AlignVCenter)
-            #tcol4.setFlags(col1.flags()&~(Qt.ItemIsEditable))
-            #tcol4.setFlags(col1.flags()|(Qt.ItemIsSelectable))
-
-            #if ratio == 0:
-            #    col4.setForeground(Qt.black)
-            #elif ratio < 0:
-            #    col4.setForeground(Qt.blue)
-            #else:
-            #    col4.setForeground(Qt.red)
-            #self.ui.tableWidget_tot.setItem(row,4, col4)
-            #self.ui.tableWidget_balance.setItem(row,4, tcol4)
 
         elif cname != "KRW" and avg !="0":
 
@@ -1062,12 +1018,12 @@ class MainWindow(QMainWindow):
                 pass
             col4 =QTableWidgetItem(str(ratio))
             col4.setTextAlignment(Qt.AlignRight|Qt.AlignVCenter)
-            col4.setFlags(col1.flags()&~(Qt.ItemIsEditable))
-            col4.setFlags(col1.flags()|(Qt.ItemIsSelectable))
+            col4.setFlags(col4.flags()&~(Qt.ItemIsEditable))
+            col4.setFlags(col4.flags()|(Qt.ItemIsSelectable))
             tcol4 =QTableWidgetItem(str(ratio))
             tcol4.setTextAlignment(Qt.AlignRight|Qt.AlignVCenter)
-            tcol4.setFlags(col1.flags()&~(Qt.ItemIsEditable))
-            tcol4.setFlags(col1.flags()|(Qt.ItemIsSelectable))
+            tcol4.setFlags(col4.flags()&~(Qt.ItemIsEditable))
+            tcol4.setFlags(col4.flags()|(Qt.ItemIsSelectable))
 
             if ratio == 0:
                 col4.setForeground(Qt.black)
@@ -1078,6 +1034,27 @@ class MainWindow(QMainWindow):
             self.ui.tableWidget_tot.setItem(row,4, col4)
             self.ui.tableWidget_balance.setItem(row,4, tcol4)
 
+            tot=float(cur) *float(bal)
+            col5= QTableWidgetItem()
+            col5.setData(Qt.DisplayRole, float(tot))
+
+            col5.setTextAlignment(Qt.AlignRight|Qt.AlignVCenter)
+            col5.setFlags(col5.flags()&~(Qt.ItemIsEditable))
+            col5.setFlags(col5.flags()|(Qt.ItemIsSelectable))
+            tcol5 =QTableWidgetItem(str(ratio))
+            tcol5.setTextAlignment(Qt.AlignRight|Qt.AlignVCenter)
+            tcol5.setFlags(col5.flags()&~(Qt.ItemIsEditable))
+            tcol5.setFlags(col5.flags()|(Qt.ItemIsSelectable))
+
+            if ratio == 0:
+                col4.setForeground(Qt.black)
+            elif ratio < 0:
+                col4.setForeground(Qt.blue)
+            else:
+                col4.setForeground(Qt.red)
+            self.ui.tableWidget_tot.setItem(row,5, col5)
+            self.ui.tableWidget_balance.setItem(row,5, tcol5)
+
     def set_tblBalance(self):
         self.ui.tableWidget_tot.setRowCount(0)
         self.ui.tableWidget_balance.setRowCount(0)
@@ -1087,6 +1064,8 @@ class MainWindow(QMainWindow):
         self.reflash_balance= reflash_balanceproc(balance)
         self.reflash_balance.poped.connect(self.setbalance)
         self.reflash_balance.start()
+
+
 
     def start_watchTimer(self):
         if self.watch_Timer:
@@ -1244,6 +1223,30 @@ class MainWindow(QMainWindow):
         QTimer.singleShot(500, self.set_tblBalance)
         QTimer.singleShot(500, self.set_tbleData)
         self.get_orderlist()
+
+        QTimer.singleShot(3500, self.set_tblsort)
+
+    def set_tblsort(self):
+        self.ui.tableWidget_tot.sortItems(0, QtCore.Qt.AscendingOrder)
+        self.ui.tableWidget_balance.sortItems(0, QtCore.Qt.AscendingOrder)
+
+        row = self.ui.tableWidget_tot.rowCount()
+        self.ui.tableWidget_tot.insertRow(row)
+        self.ui.tableWidget_balance.insertRow(row)
+
+        col0 =QTableWidgetItem('합계')
+        col0.setTextAlignment(Qt.AlignLeft|Qt.AlignVCenter)
+        col0.setFlags(col0.flags()&~(Qt.ItemIsEditable))
+        col0.setFlags(col0.flags()|(Qt.ItemIsSelectable))
+
+        tcol0 =QTableWidgetItem('합계')
+        tcol0.setTextAlignment(Qt.AlignLeft|Qt.AlignVCenter)
+        tcol0.setFlags(col0.flags()&~(Qt.ItemIsEditable))
+        tcol0.setFlags(col0.flags()|(Qt.ItemIsSelectable))
+
+        self.ui.tableWidget_tot.setItem(row,0, tcol0)
+        self.ui.tableWidget_balance.setItem(row,0, col0)
+
         self.set_tbleReszie()
 
     def set_tbleReszie(self):

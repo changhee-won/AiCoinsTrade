@@ -1214,7 +1214,7 @@
             </column>
             <column>
              <property name="text">
-              <string>잔고</string>
+              <string>보유수량</string>
              </property>
              <property name="font">
               <font>
@@ -1252,6 +1252,11 @@
              </property>
              <property name="textAlignment">
               <set>AlignCenter</set>
+             </property>
+            </column>
+            <column>
+             <property name="text">
+              <string>평가액</string>
              </property>
             </column>
            </widget>
@@ -2096,13 +2101,13 @@
           <property name="minimumSize">
            <size>
             <width>570</width>
-            <height>150</height>
+            <height>200</height>
            </size>
           </property>
           <property name="maximumSize">
            <size>
             <width>570</width>
-            <height>150</height>
+            <height>300</height>
            </size>
           </property>
           <property name="sortingEnabled">
@@ -2123,7 +2128,7 @@
           </column>
           <column>
            <property name="text">
-            <string>잔고</string>
+            <string>보유수량</string>
            </property>
           </column>
           <column>
@@ -2134,6 +2139,11 @@
           <column>
            <property name="text">
             <string>수익율</string>
+           </property>
+          </column>
+          <column>
+           <property name="text">
+            <string>평가액</string>
            </property>
           </column>
          </widget>
