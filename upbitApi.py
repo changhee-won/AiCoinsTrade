@@ -158,9 +158,9 @@ class upbitApi:
          'query_hash_alg': 'SHA512',
          }
 
+        url = f'{self.sserver_url}/v1/orders/chance'
 
-        res = requests.get(self.server_url + "/v1/orders/chance",
-                        params=query, headers=self.headers)
+        res = requests.get(url,params=query, headers=self.headers)
 
         ret = res.json()
 
@@ -177,7 +177,8 @@ class upbitApi:
         m.update(query_string)
         query_hash = m.hexdigest()
 
-        res = requests.get(self.server_url + "/v1/order", params=query, headers=self.headers)
+        url = f'{self.server_url}/v1/orders'
+        res = requests.get(url, params=query, headers=self.headers)
 
         ret = res.json()
 
@@ -185,7 +186,8 @@ class upbitApi:
 
         # 주문 - 주문 리스트 조회
     def GetOrders(self):
-        res = requests.get(self.server_url + "/v1/orders", headers=self.headers)
+        url = f'{self.server_url}/v1/orders'
+        res = requests.get(url, headers=self.headers)
         ret = res.json()
         return ret
 
@@ -203,8 +205,9 @@ class upbitApi:
         m = hashlib.sha512()
         m.update(query_string)
         query_hash = m.hexdigest()
+        url = f'{self.server_url}/v1/orders'
 
-        res = requests.post(self.server_url + "/v1/orders", params=query, headers=self.headers)
+        res = requests.post(url , params=query, headers=self.headers)
         ret = res.json()
         return ret
 
@@ -221,7 +224,8 @@ class upbitApi:
         m = hashlib.sha512()
         m.update(query_string)
         query_hash = m.hexdigest()
-        res = requests.post(self.server_url + "/v1/orders", params=query, headers=self.headers)
+        url = f'{self.server_url}/v1/orders'
+        res = requests.post(url , params=query, headers=self.headers)
         ret = res.json()
         return ret
     # 이동 평균 값
@@ -322,7 +326,7 @@ class upbitApi:
 
     # 시세 캔들 조회 - 월(Months) 캔들
     def GetCandlesWeeks(self, market, count):
-        url = "https://api.upbit.com/v1/candles/months"
+        url = f'{self.server_url}/v1/candles/months'
 
         querystring = {"market": market, "count": count}
 
@@ -335,7 +339,7 @@ class upbitApi:
     # 시세 캔들 조회 - min 캔들
     def GetCandlesMinutes(self, market, count,tm):
 
-        url = f'https://api.upbit.com/v1/candles/minutes/{tm}'
+        url = f'{self.server_url}/v1/candles/minute/{tm}'
         querystring = {"market":market,"count":str(count)}
         response = requests.request("GET", url, params=querystring)
         ret = json.loads(response.text)
@@ -344,7 +348,7 @@ class upbitApi:
 
     # 시세 체결 조회 - 최근 체결 내역
     def GetTradesTicks(self,coin):
-        url = "https://api.upbit.com/v1/trades/ticks"
+        url = f'{self.server_url}/v1/trades/ticks'
 
         querystring = {"market": coin, "count": "1"}
 
@@ -356,7 +360,7 @@ class upbitApi:
 
     # 시세 Ticker 조회 - 현재가 정보
     def GetTicker(self, market):
-        url = "https://api.upbit.com/v1/ticker"
+        url = f'{self.server_url}/v1/ticker'
 
         querystring = {"markets": market}
 
@@ -368,7 +372,7 @@ class upbitApi:
 
     # 시세 호가 정보(Orderbook) 조회
     def GetOrderbook(self, market):
-        url = "https://api.upbit.com/v1/orderbook"
+        url = f'{self.server_url}/v1/orderbook'
 
         querystring = {"markets": market}
 
