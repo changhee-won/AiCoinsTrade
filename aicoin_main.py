@@ -1259,13 +1259,13 @@ class MainWindow(QMainWindow):
 
         col5= QTableWidgetItem()
         col5.setData(Qt.DisplayRole, tbal)
-        col5.setTextAlignment(Qt.AlignLeft|Qt.AlignVCenter)
+        col5.setTextAlignment(Qt.AlignRight|Qt.AlignVCenter)
         col5.setFlags(col5.flags()&~(Qt.ItemIsEditable))
         col5.setFlags(col5.flags()|(Qt.ItemIsSelectable))
 
         tcol5= QTableWidgetItem()
         tcol5.setData(Qt.DisplayRole, tbal)
-        tcol5.setTextAlignment(Qt.AlignLeft|Qt.AlignVCenter)
+        tcol5.setTextAlignment(Qt.AlignRight|Qt.AlignVCenter)
         tcol5.setFlags(tcol5.flags()&~(Qt.ItemIsEditable))
         tcol5.setFlags(tcol5.flags()|(Qt.ItemIsSelectable))
 
