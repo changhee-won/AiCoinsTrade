@@ -939,19 +939,22 @@ class MainWindow(QMainWindow):
 
 
 
-            col1 =QTableWidgetItem(str(bal))
+            col1= QTableWidgetItem()
+            col1.setData(Qt.DisplayRole, float(bal))
             col1.setTextAlignment(Qt.AlignRight|Qt.AlignVCenter)
             col1.setFlags(col1.flags()&~(Qt.ItemIsEditable))
             col1.setFlags(col1.flags()|(Qt.ItemIsSelectable))
-            tcol1 =QTableWidgetItem(str(bal))
+
+            tcol1= QTableWidgetItem()
+            tcol1.setData(Qt.DisplayRole, float(bal))
             tcol1.setTextAlignment(Qt.AlignRight|Qt.AlignVCenter)
             tcol1.setFlags(tcol1.flags()&~(Qt.ItemIsEditable))
             tcol1.setFlags(tcol1.flags()|(Qt.ItemIsSelectable))
 
             self.ui.tableWidget_tot.setItem(row,5, tcol1)
             self.ui.tableWidget_balance.setItem(row,5, col1)
-            #self.ui.tableWidget_tot.setItem(row,2, tcol1)
-            #self.ui.tableWidget_balance.setItem(row,2, col1)
+            self.ui.tableWidget_tot.setItem(row,2, tcol1)
+            self.ui.tableWidget_balance.setItem(row,2, col1)
 
 
 
@@ -1036,14 +1039,16 @@ class MainWindow(QMainWindow):
             self.ui.tableWidget_tot.setItem(row,4, col4)
             self.ui.tableWidget_balance.setItem(row,4, tcol4)
 
-            tot=float(cur) *float(bal)
+            tot=float(avg) *float(bal)
             col5= QTableWidgetItem()
             col5.setData(Qt.DisplayRole, float(tot))
 
             col5.setTextAlignment(Qt.AlignRight|Qt.AlignVCenter)
             col5.setFlags(col5.flags()&~(Qt.ItemIsEditable))
             col5.setFlags(col5.flags()|(Qt.ItemIsSelectable))
-            tcol5 =QTableWidgetItem(str(ratio))
+
+            tcol5= QTableWidgetItem()
+            tcol5.setData(Qt.DisplayRole, float(tot))
             tcol5.setTextAlignment(Qt.AlignRight|Qt.AlignVCenter)
             tcol5.setFlags(tcol5.flags()&~(Qt.ItemIsEditable))
             tcol5.setFlags(tcol5.flags()|(Qt.ItemIsSelectable))
@@ -1233,6 +1238,10 @@ class MainWindow(QMainWindow):
         self.ui.tableWidget_balance.sortItems(0, QtCore.Qt.AscendingOrder)
 
         row = self.ui.tableWidget_tot.rowCount()
+        tbal=0
+        for i  in range(row):
+            tbal+=float(self.ui.tableWidget_tot.item(i,5).text())
+
         self.ui.tableWidget_tot.insertRow(row)
         self.ui.tableWidget_balance.insertRow(row)
 
@@ -1245,10 +1254,23 @@ class MainWindow(QMainWindow):
         tcol0.setTextAlignment(Qt.AlignLeft|Qt.AlignVCenter)
         tcol0.setFlags(col0.flags()&~(Qt.ItemIsEditable))
         tcol0.setFlags(col0.flags()|(Qt.ItemIsSelectable))
-
         self.ui.tableWidget_tot.setItem(row,0, tcol0)
         self.ui.tableWidget_balance.setItem(row,0, col0)
 
+        col5= QTableWidgetItem()
+        col5.setData(Qt.DisplayRole, tbal)
+        col5.setTextAlignment(Qt.AlignLeft|Qt.AlignVCenter)
+        col5.setFlags(col5.flags()&~(Qt.ItemIsEditable))
+        col5.setFlags(col5.flags()|(Qt.ItemIsSelectable))
+
+        tcol5= QTableWidgetItem()
+        tcol5.setData(Qt.DisplayRole, tbal)
+        tcol5.setTextAlignment(Qt.AlignLeft|Qt.AlignVCenter)
+        tcol5.setFlags(tcol5.flags()&~(Qt.ItemIsEditable))
+        tcol5.setFlags(tcol5.flags()|(Qt.ItemIsSelectable))
+
+        self.ui.tableWidget_tot.setItem(row,5, tcol5)
+        self.ui.tableWidget_balance.setItem(row,5, col5)
         self.set_tbleReszie()
 
     def set_tbleReszie(self):
